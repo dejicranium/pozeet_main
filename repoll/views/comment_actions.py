@@ -211,7 +211,9 @@ def add_comment(request):
 
                 option = option.first()
                 if option.title == "Agree":
-                    opinion.update({"num_of_agrees" : (Option.num_of_agrees + 1)})
+                    opinion.update({"num_of_agrees" : (Opinion.num_of_agrees + 1)})
+                elif option.title== "Disagree":
+                    opinion.update({"num_of_disagrees": (Opinion.num_of_disagrees + 1)})
                 #save user's age in redis voters age storage
                 user_age = user.age
                 redis_store = OpinionVotersAgeStorage(opinion_id, REDIS_SERVER)
@@ -236,8 +238,13 @@ def add_comment(request):
                 request.dbsession.add(new_user_vote)
                 opinion.update({"num_of_votes" : (Opinion.num_of_votes + 1)})
                 opinion.update({"num_of_comments" : (Opinion.num_of_comments + 1)})
+                option.update({"num_of_votes" : (Option.num_of_votes + 1)})
 
-                option.update({"num_of_votes" : (Option.num_of_votes + 1)}) 
+                option = option.first()
+                if option.title == "Agree":
+                    opinion.update({"num_of_agrees": (Opinion.num_of_agrees + 1)})
+                elif option.title == "Disagree":
+                    opinion.update({"num_of_disagrees": (Opinion.num_of_disagrees + 1)}) 
                 user_age = user.age
                 redis_store = OpinionVotersAgeStorage(opinion_id, REDIS_SERVER)
                 redis_store.increment_age(str(user_age) + '::' + str(option_id))

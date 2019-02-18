@@ -74,7 +74,7 @@ def create_opinion(request):
             transaction.commit()
 
     new_option1= Option()
-    new_option1.title = "Agree"
+    new_option1.title = "Agree
     options.append(new_option1)
 
     new_option2 = Option()
