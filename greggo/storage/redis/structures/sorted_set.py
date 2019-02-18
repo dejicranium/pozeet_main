@@ -48,6 +48,5 @@ if __name__ == '__main__':
         print(tren.remove(i))
 
     tren = RedisSortedSet('tr_c')
-    print("starting")
     for i in range(0, 1000):
         print(tren.remove(i))
