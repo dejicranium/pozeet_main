@@ -7,13 +7,12 @@ class RedisSortedSet:
         self.redis = redis or REDIS_SERVER
 
 
-    def add(self, members):
-        if not isinstance(members, list):
-            members = [members]
+    def add(self, key, value):
+        #if not isinstance(members, list):
+            #members = [members]
             
-        self.redis.zadd(self.key, *members)
+        self.redis.zadd(self.key, key, value)
         
-        count = self.count()
         #if count < self.max:
         #    all_members = self.get_all()
        #     members_to_remove = all_members[self.max+1:]

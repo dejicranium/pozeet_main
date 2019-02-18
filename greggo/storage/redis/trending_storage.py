@@ -43,7 +43,7 @@ class TrendingPollsStorage(RedisSortedSet):
         hours_past = get_hours_difference(now, date_added)
         poll_score = get_rank_score(interactions, 2, hours_past, 1.5)
         #add to redis sorted sorted for trending polls
-        self.add([poll.id, poll_score])
+        self.add(str(poll.id), poll_score)
 
     def get_polls(self, start=None, end=None):
         return self.get_all(start, end)
@@ -74,7 +74,7 @@ class TrendingCommentsStorage(RedisSortedSet):
         hours_past = get_hours_difference(datetime.datetime.utcnow(), comment.date_added)
         comment_score = get_rank_score(interactions, criteria, hours_past, 1.5)
         
-        self.add([comment.id, comment_score])
+        self.add(str(comment.id), comment_score)
 
     def get_comments(self, start=None, end=None):
         return self.get_all(start, end)
@@ -102,7 +102,7 @@ class TrendingOpinionsStorage(RedisSortedSet):
         hours_past = get_hours_difference(hour_now, opinion.date_added)
         
         opinion_score = get_rank_score(interactions, criteria, hours_past, 1.5)
-        self.add([opinion.id, opinion_score])
+        self.add(str(opinion.id), opinion_score)
 
     def get_opinions(self, start=None, end=None):
         return self.get_all(start, end)
