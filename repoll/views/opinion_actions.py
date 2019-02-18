@@ -104,7 +104,7 @@ def create_opinion(request):
         }}
 
 #@view_config(route_name='agree_with_opinion', renderer)
-@view_config(route_name='opinion_metrics', renderer='../templates/show_opinion_metrics.jinja2', user_agent="mobile")
+@view_config(route_name='opinion_metrics', renderer='../templates/show_opinion_metrics.jinja2',)
 def get_opinion_metrics(request):
     opinion_id = request.matchdict.get('opinion_id', -1)
     #we need to get details abouthe poll like name and stuff

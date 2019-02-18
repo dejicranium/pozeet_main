@@ -261,7 +261,7 @@
 
         		<div class="comment-question quote" v-if="activity.poll" tab-index="0" @click.stop @click.exact="openPoll">
           			<div style="display:flex;">
-            			<img class="author-pic" :src="activity.poll.userPic" width="26" height="26" style="margin-right: 5px; border-radius:50%;">
+            			<img class="author-pic" :src="activity.poll.userPic" width="50" height="50" style="margin-right: 5px; border-radius:50%;">
             			<div style='display:flex; flex-direction: column'>
                 			<p class="author-name" style="font-weight:normal; color:teal;">Poll</p>
 	               			<p class="author-name" style="font-size:bold;">{{activity.poll.userName}}</p>
@@ -272,7 +272,7 @@
 
     	    	<div class="comment-question quote" v-else-if="activity.opinion" tab-index="0" @click.stop @click.exact="openOpinion">
 				    <div style="display:flex;">
-					    <img class="author-pic" :src="activity.opinion.userPic" width="26" height="26" style="margin-right: 5px; border-radius:50%;">
+					    <img class="author-pic" :src="activity.opinion.userPic" width="50" height="50" style="margin-right: 5px; border-radius:50%;">
 	            		<div style='display:flex; flex-direction: column'>
     	                	<p class="author-name" style="font-weight:normal; color:teal;">Opinion</p>
         	            	<p class="author-name" style="font-size:bold;">{{activity.opinion.userName}}</p>
@@ -334,7 +334,7 @@
             v-for="image in activity.contextImage"
             :image="image"
             :src="image.imgLink"
-            style="width:100%; max-height:200px; border-radius:5px;"
+            style="max-width:100%; max-height:200px; border-radius:5px;"
           >
         </div>
 

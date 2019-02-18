@@ -13,7 +13,6 @@ from ..utils.compile_util import (
                                 compile_opinion_details,
                                 compile_reply_details,
                                 )
-
 from greggo.storage.redis.trending_storage import TrendingCommentsStorage, TrendingPollsStorage
 from repoll.services.notification_service import *
 from repoll.services.activity_service import ActivityService
@@ -185,7 +184,7 @@ def add_comment(request):
                 new_user_vote.user_id = user.id
                 new_user_vote.opinion_id = opinion_id
 
-            #store the vote
+                #store the vote
                 request.dbsession.add(new_user_vote)
                 request.dbsession.flush()
 
@@ -204,13 +203,16 @@ def add_comment(request):
                 notification = NotificationService(request, user_id, sender_id, activity_type, source, _object)
                 notification.create_new_notification()
    
-            #increment necessary details
+                #increment necessary details
                 opinion.update({"num_of_votes" : (Opinion.num_of_votes + 1)})
                 opinion.update({"num_of_comments" : (Opinion.num_of_comments + 1)})
-
+                
                 option.update({"num_of_votes" : (Option.num_of_votes + 1)})            
-            
-            #save user's age in redis voters age storage
+
+                option = option.first()
+                if option.title == "Agree":
+                    opinion.update({"num_of_agrees" : (Option.num_of_agrees + 1)})
+                #save user's age in redis voters age storage
                 user_age = user.age
                 redis_store = OpinionVotersAgeStorage(opinion_id, REDIS_SERVER)
                 redis_store.increment_age(str(user_age) + '::' + str(option_id))

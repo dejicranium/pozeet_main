@@ -177,7 +177,7 @@
 	
 
 <script>
-	const siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+	const siteUrl = "";
 
 
 	import axios from 'axios';
@@ -424,8 +424,7 @@
 				var formData = new FormData(form);
 				
 				var request = new XMLHttpRequest();
-				request.open("POST", "" + '/xhr_login');
-				request.open("POST", siteUrl + 'xhr_login');
+				request.open("POST", siteUrl + '/xhr_login');
 				request.onreadystatechange = function(){
 					if (request.readyState == XMLHttpRequest.DONE){
 						if(request.status == 200){
