@@ -62,7 +62,6 @@ python-slugify==1.2.4
 pytz==2018.5
 PyYAML==3.13
 redis==2.10.6
--e git+https://github.com/dejicranium/pozeet_.git@c819c7862607a8adaee310b1d65a8aecb666d2d2#egg=repoll
 repoze.lru==0.7
 requests==2.21.0
 rsa==3.4.2
