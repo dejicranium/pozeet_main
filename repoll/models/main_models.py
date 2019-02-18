@@ -261,7 +261,8 @@ class Opinion(Base):
     num_of_likes = Column(Integer, default=0)
     num_of_shares = Column(Integer, default=0)
     date_added = Column(DateTime, default=datetime.datetime.utcnow)
-
+    num_of_agrees = Column(Integer, default=0)
+    num_of_disagrees = Column(Integer, default=0)
 
     @property
     def time_added(self):

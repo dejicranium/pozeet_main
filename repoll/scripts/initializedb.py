@@ -61,7 +61,7 @@ def main(argv=sys.argv):
             birth_date=26,
             birth_month="September",
             birth_year=1998,
-            username='cranium',
+            username='deji',
             slug='deji-atoyebi'
             )
 
