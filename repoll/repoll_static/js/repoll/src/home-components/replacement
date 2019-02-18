@@ -1,0 +1,35 @@
+          <div class="top-details">
+            <div class="author-details">
+              <div class="author-name">
+                <p class="name" @click="openUserProfile">{{activity.userName}}</p>
+                <p class="username">{{(activity.username)}}</p>
+                <p class="time-added">{{activity.timeAdded}}</p>
+              </div>
+            </div>
+
+            <!--<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
+							<p @click='followOrUnfollowUser' style='position:absolute; right: 0; margin-right:18px; color: teal;' v-if='!userIsFollowing'>Follow</p>
+            -->
+			<span class="follow-btn"></span>
+          </div>
+
+
+
+          .top-details {
+	display: flex;
+	align-items: center;
+
+}
+.author-details {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.author-name {
+  display: flex;
+  flex-direction: row;
+}
+.top-details .follow-btn {
+	align-self: flex-end;
+}

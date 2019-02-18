@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{title}}</title>
+	    <link rel="stylesheet" href="{{request.static_url('repoll:repoll_static/styles.css')}}"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
+
+
+<style>
+#t{
+    flex-basis:50%; 
+    display:flex; 
+    border-right:solid 0.5px lightgrey; 
+    background-color:whitesmoke; 
+    text-align:center;
+    align-items:center; 
+    justify-content:center;
+}
+
+.modal-container{
+    position:relative;
+
+}
+.modal-body{
+	position:relative;
+	width:95%;
+}
+.modal-body .grouped-buttons{
+	position:absolute;
+	right:0;
+    margin-right: 10px;
+    margin-top: 15px;
+	bottom:0;
+	box-sizing; border-box;
+}
+
+.form-control{
+	box-sizing:border-box;
+	height:40px;
+}
+#selected-tab{
+    flex-basis:50%; 
+    display:flex; 
+    border-right:solid 0.5px lightgrey; 
+    background-color:white; 
+    text-align:center;
+    align-items:center; 
+    justify-content:center;
+}
+</style>
+    </head>
+
+
+    <body>
+        <p id='user-id-signifier' style='display:none'>{{user.id}}</p>
+        <p id='user-slug-signifier' style='display:none'>{{user.slug}}</p>
+
+
+            <div id= "app">
+             <script src="{{request.static_url('repoll:js/main_build.js')}}"></script>
+             </div>
+
+
+
+    </body>
+
+
+
+</html>

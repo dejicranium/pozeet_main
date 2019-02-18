@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pozeet - Trending</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'/>
+	<link href='https://fonts.googleapis.com/css?family=Merriweather+Sans' rel='stylesheet'/>
+	<link href='https://fonts.googleapis.com/css?family=Libre+Franklin' rel='stylesheet'/>
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'/>
+	<link rel="stylesheet" href="{{request.static_url('repoll:repoll_static/styles.css')}}"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
+
+	<style>
+	
+
+ #t{
+    flex-basis:50%; 
+    display:flex; 
+    border-right:solid 0.5px lightgrey; 
+    background-color:whitesmoke; 
+    text-align:center;
+    align-items:center; 
+    justify-content:center;
+}
+.modal-body{
+	position:;
+	padding:10px;
+	width:95%;
+}
+.modal-body button{
+	position:absolute;
+	right:20px;
+	left:;
+	bottom:10px;
+	box-sizing; border-box;
+}
+
+.form-control{
+	box-sizing:border-box;
+	height:4s0px;
+}
+#selected-tab{
+    flex-basis:50%; 
+    display:flex; 
+    border-right:solid 0.5px lightgrey; 
+    background-color:white; 
+    text-align:center;
+    align-items:center; 
+    justify-content:center;
+}
+
+#container {
+	position: absolute;
+	top: 50px;
+}
+.body-container {
+	padding-top: 50px; 
+}
+	</style>
+</head>
+
+
+
+<body>
+	<div id="container">
+	<!--BEGINNING OF THE ACTUAL BODY -->
+		{%include 'not_home_navbar_template.jinja2' %}
+		<div class='body-container'>
+			<div style='width:20px; height:auto; margin:0 auto;'>
+			</div>
+
+			<script src='{{request.static_url("repoll:js/trending_build.js")}}}'></script>
+		</div>
+		<div id='snackbar'></div>
+
+	</div>
+
+</body>
+
+</html>

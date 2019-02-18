@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Profile - {{user.full_name}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather+Sans' rel='stylesheet'/>
+        <link rel="stylesheet" href="{{request.static_url('repoll:repoll_static/styles.css')}}"/>        
+        <style>
+            *{
+                padding: 0; 
+                margin: 0;
+                font-family: 'Merriweather Sans', sans-serif
+            }
+            body{
+                background-color: #F7F7F7;
+
+            }
+            .details-container{
+                margin-top: 0px;
+                display: flex; 
+                padding: 10px 10px 5px 10px;
+                text-align: center;
+                flex-direction: column;
+            	font-family: 'Merriweather Sans';
+            }
+
+            .details-container img{
+                border-radius: 50%;
+                text-align:center;
+                margin:auto;
+                border: white solid 5px;
+                position: relative;
+                
+            }
+
+            img:before{
+                  position: absolute;
+                  font:normal normal normal 14px/1 FontAwesome;
+                content: '\f030';
+                right: 40%;
+                color: #000;
+                bottom: 0;
+                height: 60px;
+                width: 60px;
+            background: teal;
+            z-index: 1;
+}
+            }
+            
+            .fullname{
+                font-weight: bold; 
+                font-size: 15px;
+            }
+
+            .username{
+                font-weight: bold;
+                color: darkgray; 
+                font-size:12px;
+            }
+            .bio{
+                color:black;
+                font-size:12px;
+            }
+
+			.follow-btn{
+				background-color: teal;
+				color: white;
+				border: solid 2px white;
+				width: 100px;
+				margin: auto;
+				margin-top: 5px;
+				padding: 7px;
+				border-radius: 20px;
+			}
+            .follow-details{
+                display: -webkit-flex;
+                display: flex;
+                flex-direction: row;
+            }
+            
+            .follow-details{
+                background-color: white;
+                margin-top: 2px;
+            }
+            .f-detail{
+                flex-basis: 49%;
+                text-align: center; 
+                vertical-align: middle;
+                padding: 10px;
+            
+            }
+
+            .f-detail:first-of-type{
+                border-right: 1px solid lightgrey;
+
+            }
+
+            
+            .f-detail p{
+                font-size: 13px;
+            }
+
+            .f-detail .figure{
+                font-size:18px;
+            }
+
+            .other-details{
+                background-color: white;
+
+                flex-wrap: wrap;
+                margin-top: 10px;
+                padding-top: 10px;
+                padding: 10px 16px 0px 16px;
+            }
+
+            .other-details .tab-header{
+                display: flex;
+                flex-direction: row;
+                box-shadow: 0 4px 2px -2px lightgray;
+                flex-wrap: wrap;
+            }
+
+            .other-details .tab{
+                width: auto; 
+                padding: 10px 10px 10px 5px;
+                font-size: 12px;
+                text-align: center;
+                cursor: pointer;
+                font-weight: 500;
+                min-width: 20px;
+            }
+
+            .other-details .tab-content{
+                background-color:white;
+                margin-top: 5px;
+            }
+
+
+            #poll{
+ 				 visibility: hidden;
+  				opacity: 0;
+  				transition: visibility 0s, opacity 0.5s linear;
+}
+
+
+
+
+
+
+
+
+
+
+		.feed-container{
+			box-sizing: border-box;
+
+		}
+		.feed-container .feed-card{
+            background-color: white;
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-bottom: 10px;
+            box-shadow: whitesmoke 1px;
+            border-radius: 2px;
+			box-sizing: border-box;
+
+			
+
+        }
+
+        .feed-container .feed-card .avatar {
+            height: auto;
+            width: auto;
+            margin-right: 10px;
+            float: left;
+
+        }
+		.feed-container .feed-card .poll .avatar {
+            height: auto;
+            width: 5%;
+            margin-right: 10px;
+            float: left;
+
+        }
+        .feed-container .feed-card .poll .avatar img{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }      
+		 .feed-container .feed-card .avatar img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+
+        .feed-container .feed-card .beside-avatar-box{
+            display:inline-block;
+			box-sizing: border-box;
+
+            width: 80%;
+        }
+
+        .feed-container .feed-card .poll .beside-avatar-box{
+            display:inline-block;
+			box-sizing: border-box;
+
+            width: 90%;
+        }
+		.feed-container .author-details{
+			box-sizing: border-box;
+			position:relative;
+		}
+
+        .feed-container .feed-card .beside-avatar-box .author-details p{
+            display: inline;
+			font-family: Helvetica, sans-serif;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+			vertical-align:center;
+            color: black;
+			font-size: 12px;
+        }
+
+        .feed-container .feed-card .beside-avatar-box .author-details i{
+			width:5px;
+			height:10px;
+			font-size: 13px;
+			position: absolute;
+			right:0;
+			margin-right: 18px;
+        
+		}
+		.categories-container p{
+            display: inline;
+			font-family: 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: #a0a0a0;
+
+        }
+        .feed-container .feed-card .beside-avatar-box .author-details{
+            margin-bottom: 0;
+			color:black;
+			font-family: '', sans-serif;
+        }
+        
+
+        .feed-container .feed-card .beside-avatar-box .poll-question{
+            margin-top: 5px;
+			margin-bottom:5px;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: teal;
+			letter-spacing: 0.5px;
+            line-height: 2ch;
+
+        }
+
+		.feed-container .feed-card .beside-avatar-box a{
+			text-decoration:none;
+			color: teal;
+			letter-spacing: 0.5px;
+
+		}
+		.feed-container .feed-card .beside-avatar-box .poll-info{
+			font-size: 13px;
+			text-align: justify;
+			border-radius: 5px;
+			margin-bottom: 5px;
+            font-family: 'Merriweather Sans';
+
+		}
+
+
+
+
+        .options{
+            height: auto;
+            font-size: 13px;
+            color:black;
+            margin-top: 0;
+        }
+
+        .options .ans-cnt{
+
+        }
+
+        .options .ans-cnt .ans{
+            position: relative;
+            margin-bottom: 10px;
+			padding: 5px 5px 5px 0px;
+        }
+
+        .options .ans-cnt .ans-voted{
+            padding: 2px 10px;
+        }
+
+
+        .percent{
+            font-weight: bold;
+			font-size: 13px;
+        }
+        .txt, .percent{
+            z-index: 2;
+            position: relative;
+			font-size: 13px;
+        }
+
+        .options .ans-cnt .ans .first-bg{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 0;
+		background-color: #F7F7F7;
+        border-radius: 5px;
+
+        }
+
+        .options .ans-cnt .bg{
+        position: absolute;
+        width: 0%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 0;
+        background-color:lightgray;
+        color:white;
+        border-radius: 5px;
+        transition: width 5s;
+        -webkit-transition: width 5s;
+        -moz-transition: width s
+
+        }
+
+
+	
+		.options label{
+			display:block;
+			position:relative;
+			cursor:pointer;
+			border-radius: 5px;
+			padding: 10px 10px 10px 45px;
+			font-size: 13px;
+			border: #F7F7F7 0.5px solid;
+
+			margin-bottom:5px;
+
+			user-select:none;
+			-moz-user-select:none;
+		
+		}
+
+		.options input{
+			opacity: 0;
+			position:absolute;
+		}
+
+		.options .checkmark{
+			position:absolute;
+			top:12px;
+			left:10px;
+			bottom:10px;
+			height: 15px;
+			width: 15px;
+			background-color: #eee;
+			border-radius: 50%;
+			margin-right: 20px;
+		}
+
+		.options label:hover{
+			background-color:#F7F7F;
+		}
+		.options label input:checked ~ .checkmark{
+			background-color: teal;
+		}
+
+
+		.picture-options{
+			display: flex;
+			flex-direction: row;
+			box-sizing:border-box;
+			flex-wrap: wrap;
+		}
+
+		.picture-options label{
+			flex-basis: 45%;
+			box-sizing:border-box;
+			background-color:white;
+			display:block;
+			text-align: center;
+			
+		}
+
+		.picture-options input{
+			display: none;
+		}
+
+		.picture-options label{
+			margin-right: 5%;
+			margin-bottom: 10px;
+		
+		}
+
+		.picture-options span{
+			font-size: 13px;
+			width: 100%;
+			font-weight: normal;
+			display:block;
+		}	
+	
+		.picture-options .checkbox{
+			width: 10px; 
+			height: 10px;
+			margin-bottom: 5px;
+			display: block;
+			border-radius: 50%;
+			background-color: lightgrey;
+			margin: auto;
+		}
+
+		.picture-options img{
+			width:100%;
+			height: 100px;
+			border-radius: 5px;
+		}
+
+		.picture-options input:checked ~ span{
+			background-color: teal;
+			color: black
+		}
+
+		.picture-options p{
+			font-size: 13px;
+		}
+		
+		.picture-options input:checked ~ p{
+			background-color: white; 
+			font-weight: bold;
+		}
+
+
+		
+
+
+
+
+        .feed-card .votes{
+            font-size: 11px;
+			color: darkgray;
+			margin-bottom:5px;
+        }
+
+        .feed-card button{
+            border: 0;
+			margin-top: 5px;
+            background-color: transparent;
+            padding: 5px ;
+			border: 0.5px solid lightgray;
+
+			padding-left:5px ; 
+			padding-right: ;
+			border-radius: 5px;
+			font-size: 13px;
+            color: rgb(79, 78, 78);
+        }
+       
+	    .feed-card button i{
+			margin-right: 5px;
+
+		}
+
+		.feed-card .chosen-option{
+			margin-top:1px;
+			font-size: 14px;
+
+			margin-top: 2px;
+			color: black;
+		}
+
+		.feed-card .comment{
+			font-weight: 400;
+			font-size: 13px;
+			margin-bottom: 4px;
+			margin-top: 1px;
+			border-radius: 10px;
+			line-height: 1.1rem;
+			font-family: Helvetica, Arial, sans-serif;
+
+		}
+
+		.feed-card .comment-question{
+			font-size:14px;
+			margin-top: 0px;
+			margin-bottom: 5px;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			border: 0.5px lightgray solid;
+			font-family: 'Helvetica', Helvetica, Arial, sans-serif;
+			display: block;
+			
+		}
+		.feed-card .comment-opinion{
+			font-size:14px;
+			margin-top: 0px;
+			margin-bottom: 5px;
+			color: black;
+			padding: 2px 5px 2px 5px;
+			border-radius: 5px;
+			border: 0.5px darkgray solid;
+			font-family: 'Helvetica', Helvetica, Arial, sans-serif;
+			display: block;
+			
+		}
+
+		.feed-card .comment-question:focus{
+			background-color: lightgray;;
+		}
+
+		.feed-card .comment-question::selection{
+			background-color: lightgrey;
+
+		}
+        #app {
+            margin-top: 30px;
+        }
+        .body-container {
+            padding-top: 30px;
+        }
+
+        .profile-modal-mask{
+            display: none;
+        }
+
+        .profile-modal-container {
+            padding: 50px 16px;
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .profile-modal-container  .content{
+            display: flex; 
+            justify-content: space-between;
+        }
+        .profile-modal-container .text {
+            color: black; 
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .profile-modal-container button {
+            background-color: teal;
+            border: 0;
+            padding: 10px 20px;
+            color: white;
+            margin-right: 20px;
+        }
+
+        .error-text {
+            font-size: 11px;
+            color: red;
+        }
+
+        .bio {
+            margin-top: 10px;
+        }
+            
+        </style>
+    </head>
+    <body onload="addProfilePictureListener()"> 
+        <div class="modal-mask profile-modal-mask" onclick='hideModal()'>
+            <div class="modal-container profile-modal-container">
+                <p class="text"> Change profile picture? </p>
+                <p class="error-text"></p>
+                <div class="content">
+                    <button onclick="changeProfilePicture()" class="yes-btn">Yes</button>
+                    <button onclick="hideModal()">No </button>
+                </div>
+            </div>
+        </div>
+        {% if user %}
+        <p style='display:none' id='userId'>{{user.id}}</p>
+        <div id="app">
+            <div class="details-container">
+                {%include 'not_home_navbar_template.jinja2' %}
+
+                {% if user_is_self %}
+                    <label>
+                        <form method="post" id="profilePicForm" enctype="multipart/form-data">
+                            <input type="file" name="newProfilePic" id="profilePicInput" style="height: 100%; width: 100%; display: none;"/>
+                            <img id="profilePicDisplay" width="150" height="150" src='{{user.profile_picture}}'>
+                        </form>
+                    </label>
+                {%else %}
+                    <img id="profilePicDisplay" width="150" height="150" src='{{user.profile_picture}}'>
+
+                {% endif %}
+
+                <p class="fullname">{{user.full_name}}</p>
+                <p class="username">{{user.username}}</p>
+				{% if user.bio %}
+                <p class="bio">{{user.bio}}</p>
+				{%else %}
+				<p class='bio' style='font-style:italic'>No bio</p> 
+				{% endif %}
+        </div>
+			<div id='app-container'>
+                <profile></profile>
+            
+
+			</div>
+        {%endif%}
+        <div id="snackbar"></div>
+    </body> 
+    
+    <script src="{{request.static_url('repoll:js/profile_build.js')}}"></script>
+
+    <script>
+        var siteUrl = "http://localhost:6543";
+
+        function showSnackbar(text){
+            var snackbar = document.getElementById('snackbar');
+            snackbar.innerHTML = text;
+  
+            snackbar.className = "show";
+  
+        // After 3 seconds, remove the show class from DIV
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 4000);
+  
+        }
+
+        function addProfilePictureListener(){
+        //add an event listener to discover when profile picture is being changed
+            var profilePictureInput = document.getElementById('profilePicInput');
+            var profilePictureDisplay = document.getElementById("profilePicDisplay");
+
+            profilePictureInput.addEventListener('input', function(){
+                //show modal
+                var modal = document.getElementsByClassName('modal-mask')[0];
+                modal.style.display = "block";
+            });
+        
+        }
+        
+        function hideModal(){
+            //stop propagation in child modal container
+            var modalContainer = document.getElementsByClassName('modal-container')[0];
+            var yesButton = document.getElementsByClassName("yes-btn")[0];
+            modalContainer.addEventListener('click', function(event){
+                event.stopPropagation();
+            });
+            yesButton.addEventListener('click', function(event){
+                event.stopPropagation();
+            });
+
+            //go ahead to hide modal
+            var modal = document.getElementsByClassName('modal-mask')[0];
+            modal.style.display = "none";
+        }
+
+        function updateBio(){
+            showSnackbar("Your bio is updating");            
+
+            var XHRrequest = new XMLHttpRequest();
+
+            //form in which the profile picture input is in
+            var form = document.getElementById('updateBioForm');
+            var formData  = new FormData(form);
+
+            //it requests our change profile pic route
+            XHRrequest.open('POST', siteUrl + "/update_bio");
+
+            //what happens on load
+            XHRrequest.addEventListener('load', function(){
+            });
+
+            XHRrequest.addEventListener('error', function(){
+                showSnackbar("An error occured while updating your bio");
+            });
+
+            XHRrequest.send(formData);
+        }
+
+        function changeProfilePicture(){
+            showSnackbar("Your pic is uploading");
+            var button = document.getElementsByClassName('yes-btn')[0];
+            //stop propation first
+            button.innerText = '...';
+            button.disabled = true;
+            
+
+            var XHRrequest = new XMLHttpRequest();
+
+            //form in which the profile picture input is in
+            var form = document.getElementById('profilePicForm');
+            var formData  = new FormData(form);
+
+            
+            //it requests our change profile pic route
+            XHRrequest.open('POST', siteUrl + "/change_profile_pic");
+
+            //what happens on load
+            XHRrequest.addEventListener('load', function(){
+                //reload the page
+                window.location.reload();
+            });
+
+            XHRrequest.addEventListener('error', function(){
+                //get the error element
+                showSnackbar("An error occured while uploading a new profile picture");
+
+                var errorText = document.getElementById('error-text');
+                errorText.innerHTML = "An error occured while uploading a new profile picture";
+            });
+
+            XHRrequest.send(formData);
+        }
+                
+        var pollTabContent = document.getElementById('polls');
+	    pollTabContent.style.display = 'block';
+	    pollTabContent.style.visibility = 'visible';
+	    pollTabContent.style.opacity = 1;
+
+        var tabs = document.getElementsByClassName('tab');
+        tabs[0].style.borderBottom = 'solid 2px teal';
+        tabs[0].style.fontWeight = 'bold';
+
+
+    
+    function showTabContent(tb, name){
+        var tab = tb; 
+        var tabs = document.getElementsByClassName('tab');
+        for (var i = 0; i < tabs.length; i++){
+            tabs[i].style.borderBottom = 'none';
+            tabs[i].style.fontWeight = 'normal';
+        }
+        tab.style.borderBottom = 'solid 2px teal';
+        tab.style.fontWeight = 'bold';
+        
+        var tabContents = document.getElementsByClassName('t-content');
+        for (var i = 0; i < tabs.length; i++){
+            tabContents[i].style.display = 'none';
+            tabContents[i].style.visibility = 'hidden';
+            tabContents[i].style.opacity = 0;
+        }
+
+        var tabContent = null;
+
+        if (name=='polls'){
+            tabContent = document.getElementById('polls');
+        }
+        else if(name=='opinions'){
+            tabContent = document.getElementById('opinions');
+        }
+        else if (name=='c_and_s'){
+            tabContent = document.getElementById('c_and_s');
+        }
+        else if (name=="l_amd_s"){
+            tabContent = document.getElementById('l_and_s');
+        }
+
+
+        tabContent.style.display = 'block';
+
+        tabContent.style.visibility = 'visible';
+            
+        tabContent.style.opacity = 1;
+    }
+
+    </script>
+</html>

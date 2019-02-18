@@ -1,0 +1,277 @@
+<html>
+    <head>
+	    <link href='https://fonts.googleapis.com/css?family=Merriweather+Sans' rel='stylesheet'/>
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="{{request.static_url('repoll:repoll_static/styles.css') }}"/>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Opinion Metrics: "{{opinion.opinion}}"</title>
+        <style> 
+            *{
+                padding: 0; 
+                margin: 0;
+                font-family: 'Merriweather Sans';
+            }
+
+            #app{
+                margin-top: 25px;
+            }
+
+            select{
+                background-color:white;
+                border: 1px solid darkgrey;
+                border-radius: 5px;
+            }
+            #hidden-id-signifier{
+                display: none;
+            }
+            #hidden-question-signifier{
+                display: none;
+            }
+
+
+		#navbar{
+			display:flex;
+			padding: 10px 10px 10px 10px;
+			width:100%;
+			min-height: 35px;
+			background-color: white;
+			position: fixed;
+			top:0;
+			flex-direction: row;
+			box-shadow: 0px 0px 2px 0px grey;
+			margin-bottom: 10px;
+			z-index: 5;
+			box-sizing:border-box;
+
+		}
+		#navbar h1{
+			font-size: 10vw;
+			text-align: center;
+
+		}
+
+
+		.navbar-actions{
+			position: absolute;
+			display: flex;
+			right: 0;
+			flex-direction: row;
+		}
+
+		.nabar-actions ul{
+			text-decoration:none;
+			display:flex;
+			flex-direction: row;
+		}
+
+
+		.navbar-actions button{
+			display: inline-block;
+			background-color: transparent;
+			border:0;
+			color:darkgray;
+			height: 100%;
+			vertical-align: center; 
+			text-align: center;
+			font-size: 15px;
+			padding-right: 10px;
+		}
+
+		.navbar-icon{
+			position:relative; 
+			right: 0px;
+			margin-right: -10px;
+			width: 30px;
+			padding: 0px;
+			vertical-align:center;
+			text-align:center;
+			padding-left: 10px;
+		}
+
+
+            .chartTitle{
+                font-size: 13px;
+                font-weight: normal;
+                background-color: white; 
+                padding: 10px;
+                border: 0.5px lightgrey solid;
+                margin-bottom: 2px;
+                height: 30px;
+                overflow: hidden; text-overflow: ellipsis;
+            }
+            .chart-container{
+                width: 100%;
+                text-align: center;
+                padding-top: 10px;
+            }
+            #metricsChart{
+                 margin:auto; 
+
+
+            }
+            body{
+                background-color: #F7F7F7;
+
+            }
+            #container{
+                width: 100%;
+                background-color: white;
+                margin:auto;
+            }
+
+            #choice-of-metrics-div{
+                background-color:white;
+                border: .5px solid lightgrey;
+                padding: 10px;
+                margin: auto;
+                position: relative;
+                box-sizing:border-box;
+            }
+            #main-focus-choice-div{
+                display:flex;
+                flex-direction: row;
+                box-sizing: border-box;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                border-bottom: .4px solid lightgrey;
+   
+            }
+
+            #main-focus-choice-div select{
+                font-size:12px;
+                margin-right: 5px;
+                box-sizing: border-box;
+            }
+            .new-metrics-text{
+                display:block;
+                width: 50%; 
+                margin: auto;
+                text-align: center;
+                font-size: 12px;
+            
+            }
+
+            .criterion-text{
+                font-size: 12px;
+                margin-right: 5px;
+            }
+
+            #sub-focus-choice-div{
+                font-size: 12px; 
+                margin-right: 5px;
+                display: flex;
+                flex-direction: row;
+            }
+            .sub-focus-selection-text{
+                font-size: 12px;
+                margin-right: 5px;
+            }
+             #main-focus-choice-div select{
+                font-size:10px;
+                margin-right: 5px;
+            }
+            #sub-focus-choice-div select{
+                font-size: 10px; 
+                margin-right: 5px;
+                max-height: 20px;
+
+            }            
+            .mainFocusAgeSelection{
+                width: 50px;
+                font-size: 10px;
+            }
+            .mainFocusAgeRangeSelection input{
+                width: 50px;
+            }
+
+            .subFocusAgeSelection{
+                width: 50px;
+                font-size: 10px;
+            }
+            
+            .subFocusAgeRangeSelection input{
+                width: 50px;
+                font-size: 10px;
+                
+            }
+
+            .goBtn{ 
+                background-color: teal;
+                border-radius:  50%;
+                color:white;
+                padding: 5px 10px 5px 10px;
+                float: right;
+                display: block;
+                border:0;
+            }
+
+            #sub-container{
+                padding-top: 1px;
+            }
+            .feed-container {
+                padding-top: 40px;
+                margin-bottom: 0px;
+            }
+            .hide { 
+                display: none; 
+            }
+
+            .show {
+                display: block;
+            }
+
+        </style>
+
+
+    </head>
+
+
+
+    <body>
+        	{% include 'not_home_navbar_template.jinja2' %}
+
+        	<div class="feed-container show">
+				<div class="feed-card">
+					<div class="avatar">
+                        {% if opinion.added_by.profile_picture %}
+                        	<img  style='border-radius: 50%; 'src='{{opinion.added_by.profile_picture}}'>
+                        {% else %}
+                            <img style="color:darkgrey; font-size:12px;" src="https://www.w3schools.com/howto/img_avatar.png"/>
+                        {% endif %}
+                    </div>
+				
+                    <div class="beside-avatar-box">
+                        <div class="author-details">
+                            {% if opinion %}
+                            <p class="name" style='color;black; font-weight:bold; font-size:12px;'>{{opinion.added_by.full_name}}</p>
+                            <p class="username"></p>
+							<p class='time-added' style='color:darkgrey; font-size: 12px'>{{opinion.time_added}}</p>
+                        </div>
+
+                        <div class="comment" style='white-space:; font-size:13px; margin-bottom:5px;'>{{opinion.opinion}}</div>
+						<div style='display:flex; flex-direction:row;'>
+                            {% for image in opinion.context_images %}
+							<img id='opinionContextImage' src='{{image.image_link}}' style='max-width:60%; max-height:200px; border-radius:5px;'>
+                            {% endfor %}
+						</div>
+                        	<p class='votes'>{{opinion.num_of_votes}} reactions</p>
+
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <p id='hidden-id-signifier' v-cloak>{{opinion.id}}</p>
+            <p id='hidden-question-signifier' v-cloak>{{opinion.opinion}}</p>
+
+            <div id='app' v-show='!loading'>
+            <script src="{{request.static_url('repoll:js/show_opinion_metrics_build.js')}}"></script>
+            </div>
+    
+    
+    </body>
+
+
+</html>
