@@ -116,6 +116,7 @@ def get_activities_if_authenticated(request, user, page):
                 'type': 'comment',
                 'id': a.id,
                 'userId': a.added_by.id,
+                'userPic': a.added_by.profile_picture,
                 'userSlug': a.added_by.slug,
                 'username': a.added_by.username,
                 'commenterInitals': a.added_by.initials,
