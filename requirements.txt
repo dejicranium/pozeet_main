@@ -37,7 +37,6 @@ paginate-sqlalchemy==0.2.0
 passlib==1.7.1
 PasteDeploy==1.5.2
 pbr==4.3.0
-pkg-resources==0.0.0
 placebo==0.8.2
 plaster==1.0
 plaster-pastedeploy==0.6
