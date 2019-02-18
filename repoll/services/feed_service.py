@@ -406,9 +406,12 @@ def get_activities_if_not_autheticated(request, page):
 
     #compile opinions and add to list of activities
     for opinion_id in opinions:
-        opinion = request.dbsession.query(Opinion).filter(Opinion.id==opinion_id).first()
-        opinion_dictt = compile_opinion_details(request, opinion, user=None)
-        act_dictt["activities"].append(opinion_dictt)
+        try:
+            opinion = request.dbsession.query(Opinion).filter(Opinion.id==opinion_id).first()
+            opinion_dictt = compile_opinion_details(request, opinion, user=None)
+            act_dictt["activities"].append(opinion_dictt)
+        except:
+            continue
 
     # for a third of the polls, we are going to the demographic distribution
     import random
@@ -419,38 +422,40 @@ def get_activities_if_not_autheticated(request, page):
     #compile poll activity and append to the list of activities
     for poll_id in polls:
         poll = request.dbsession.query(Poll).filter(Poll.id ==poll_id).first()
+        try:
+            poll_dictt = {
+                'type': 'poll',
+                'id': poll.id,
+                'userId': poll.added_by.id,
+                'userName': poll.added_by.full_name,
+                'userPic': poll.added_by.profile_picture,
+                'imageInfo': poll.info_image_link,
+                'question': poll.question,
+                'info': poll.info,
+                'totalVotes': poll.num_of_votes,
+                'slug': poll.slug,
+                'timeAdded': poll.time_added,
+                'hasUrlInInfo': url_exists(poll.info),
+                'infoPageThumb': poll.info_link_thumb,
+                'infoPageTitle': poll.info_link_title,
+                'infoPageDescription': poll.info_link_desc,
+                'userHasVoted': False,
+                'hasEnded': poll.has_ended,
+                'options': [
+                    {
+                        'id': option.id,
+                        'image': option.image_link,
+                        'option': option.title,
+                        'score': 0 if not option.num_of_votes else option.num_of_votes
+                    } for option in poll.options
+                ],
 
-        poll_dictt = {
-            'type': 'poll',
-            'id': poll.id,
-            'userId': poll.added_by.id,
-            'userName': poll.added_by.full_name,
-            'userPic': poll.added_by.profile_picture,
-            'imageInfo': poll.info_image_link,
-            'question': poll.question,
-            'info': poll.info,
-            'totalVotes': poll.num_of_votes,
-            'slug': poll.slug,
-            'timeAdded': poll.time_added,
-            'hasUrlInInfo': url_exists(poll.info),
-            'infoPageThumb': poll.info_link_thumb,
-            'infoPageTitle': poll.info_link_title,
-            'infoPageDescription': poll.info_link_desc,
-            'userHasVoted': False,
-            'hasEnded': poll.has_ended,
-            'options': [
-                {
-                    'id': option.id,
-                    'image': option.image_link,
-                    'option': option.title,
-                    'score': 0 if not option.num_of_votes else option.num_of_votes
-                } for option in poll.options
-            ],
-
-        }
+            }
+        except: 
+            continue
 
         act_dictt['activities'].append(poll_dictt)
-
+    
     for comment_id in comments:
         comment = request.dbsession.query(Comment).filter(Comment.id ==comment_id).first()
         object_is_poll = False
@@ -463,17 +468,19 @@ def get_activities_if_not_autheticated(request, page):
             object_is_opinion = comment.opinion != None
         except:
             print("Nothing")
-
-        comment_dictt = {
-            'type': 'comment',
-            'userId': comment.added_by.id,
-            'comment_id': comment.id,
-            'commenterInitals': comment.added_by.initials,
-            'commenter': comment.added_by.full_name,
-            'comment': comment.comment,
-            'option_chosen': comment.option.title,
-            'opinion': comment.opinion.opinion if object_is_opinion else None
-        }
+        try:
+            comment_dictt = {
+                'type': 'comment',
+                'userId': comment.added_by.id,
+                'comment_id': comment.id,
+                'commenterInitals': comment.added_by.initials,
+                'commenter': comment.added_by.full_name,
+                'comment': comment.comment,
+                'option_chosen': comment.option.title,
+                'opinion': comment.opinion.opinion if object_is_opinion else None
+            }
+        except:
+            continue
 
         if object_is_poll:
             comment_dictt['poll'] = {
