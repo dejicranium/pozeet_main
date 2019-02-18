@@ -389,10 +389,18 @@ def get_activities_if_not_autheticated(request, page):
     opinions = TrendingOpinionsStorage().get_opinions()
 
     #convert each entity to integer (each id is naturally a string in and of itself)
-    polls = [int(_id) for _id in polls]
-    opinions = [int(_id) for _id in opinions]
-    comments = [int(_id) for _id in comments]
-    
+    try:
+        polls = [int(_id) for _id in polls]
+    except:
+        pass
+    try:
+        opinions = [int(_id) for _id in opinions]
+    except:
+        pass
+    try:
+        comments = [int(_id) for _id in comments]
+    except: 
+        pass
     #choose only 5 polls
     poll_paginator = SqlalchemyOrmPage(polls, page=page, items_per_page=5, item_count=len(polls))
     polls = poll_paginator.items
