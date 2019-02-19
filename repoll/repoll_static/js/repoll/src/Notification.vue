@@ -1,5 +1,5 @@
 <template id="notification-template">
-  <div>
+  <div id='sub-container'>
     <div
       class="notification-card"
       v-for="notification in notifications"
@@ -18,7 +18,7 @@ import vue from "vue";
 import axios from "axios";
 
 var userId = document.getElementById("user-id-signifier").innerHTML;
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
 
 export default {
   name: "Notification",
