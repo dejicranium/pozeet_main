@@ -32,6 +32,7 @@ def get_activities_if_authenticated(request, user, page):
     user_pic = user.profile_picture
     dictt = {'user_logged_in': True, 'userName': user_full_name, 'userPic': user_pic, 'activities': []}
     activities = request.dbsession.query(Activity)
+    activities = activities[::-1]
     user_categories = []
     for each in user.subscriptions: 
         categories = request.dbsession.query(Category).filter_by(id=each.category_id).all()
@@ -43,7 +44,6 @@ def get_activities_if_authenticated(request, user, page):
     #activities = request.dbsession.query(Activity).filter(Activity.id.in_(activities))
     paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15)
     activities = paginator.items
-    activities = reversed(activities)
 
     for activity in activities:
         source = get_source(request, activity)
