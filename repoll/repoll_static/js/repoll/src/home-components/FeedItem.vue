@@ -1123,7 +1123,7 @@ export default {
 }
 
 .name, .username, .time-added, .action {
-  line-height: 1.3;
+  line-height: 1.0;
 }
 .follow-btn {
   position: absolute;

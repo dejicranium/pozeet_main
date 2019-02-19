@@ -43,6 +43,7 @@ def login_through_xhr(request):
         if user and user.verify_password(xhr_login_password):
             headers = remember(request, user.id)
             response = Response
+            request.response.status = "200"
             return HTTPFound(location=next_url, headers=headers)
         else:
             request.response.status = '400'
@@ -151,6 +152,7 @@ def login_after_registration(request, email, password, next_url=None):
         if user and user.verify_password(password):
             headers = remember(request, user.id)
             response = Response
+            request.response.status = '200'
             return HTTPFound(location=next_url, headers=headers)
         else:
             request.response.status = '400'
@@ -292,6 +294,7 @@ def login(request):
         user = request.dbsession.query(User).filter_by(email=email).first()
         if user and user.verify_password(password):
             headers = remember(request, user.id)
+            request.response.status = '200'
             return HTTPFound(location=next_url, headers=headers)
         error = 'Email address or password is incorrect.'
         return {'error': error}
@@ -312,6 +315,7 @@ def login(request):
 
 @view_config(route_name='logout')
 def logout(request):
+    request.response.status = '200'
     headers = forget(request)
     next_url = request.route_url('login')
     return HTTPFound(location=next_url, headers=headers)
