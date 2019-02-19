@@ -178,7 +178,13 @@
 
 <script>
 	const siteUrl = "";
-
+	if(typeof(String.prototype.trim) === "undefined")
+	{
+		String.prototype.trim = function() 
+		{
+			return String(this).replace(/^\s+|\s+$/g, '');
+		};
+	}
 
 	import axios from 'axios';
 	export default { 
@@ -474,10 +480,10 @@
 
 				formData.append('firstName', this.firstName);
 				formData.append('lastName', this.lastName);
-				formData.append('email', this.email);
+				formData.append('email', this.email.trim());
 				formData.append('password', this.password);
 				formData.append('phone', this.phone);
-				formData.append('username', this.userName);
+				formData.append('username', this.userName.trim());
 				formData.append('sex', this.sex);
 				formData.append('birthDate', this.birthDate);
 				formData.append('birthMonth', this.birthMonth);
