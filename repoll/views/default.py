@@ -23,6 +23,16 @@ from pyramid.security import remember, forget
 from ..services.follow_service import *
 
 
+@view_config(route_name="all_users", renderer="json")
+def all_users(request):
+    users = request.dbsession.query(User)
+    users_dictt = []
+    for user in users:
+        dictt = {'username': user.username}
+        users_dictt.append(dictt)
+    return users_dictt
+
+
 def get_followers_posts(request, user_id):
     polls = []
     user = request.dbsession.query(User).filter(User.id==user_id).first()

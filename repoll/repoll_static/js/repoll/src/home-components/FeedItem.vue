@@ -1121,6 +1121,10 @@ export default {
 .follow-btn-container {
   align-self: flex-end;
 }
+
+.name, .username, .time-added, .action {
+  line-height: 1.3;
+}
 .follow-btn {
   position: absolute;
   right: 0;
@@ -1128,4 +1132,6 @@ export default {
 .feed-button {
   padding: 
 }
+
+
 </style>

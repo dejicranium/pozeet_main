@@ -7,6 +7,7 @@ def pregen(request, elements, kw):
 def includeme(config):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
+    config.add_route('all_users', '/all_users')
     
     config.add_route('register', '/register')
     config.add_route('xhr_register', "/xhr_register")
