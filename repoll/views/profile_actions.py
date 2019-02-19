@@ -19,19 +19,26 @@ from ..services.auth_service import upload_profile_picture
 
 @view_config(route_name="update_bio", renderer="json")
 def update_bio(request):
-    new_bio = request.json_body.get('bio', None)
+    new_bio = request.params.get('newBio', None)
+    user = None
     if new_bio:
         try:
-            user = user.dbsession.query(User).filter(User.id==id)
+            user = request.dbsession.query(User).filter(User.id==request.user.id)
             #update user's bio
-            user.update({'bio': new_bio})
-        except:
+            user.update({'bio': (new_bio)})
+            user = user.first()
+            #user.bio =  new_bio
+            transaction.commit()
+        except Exception as e:
             request.response.status = "400"
-            return {'status': "Couldn't update bio"}
+            return {'status': "Couldn't update bio. Reasons: " + str(e)}
         else:
             request.response.status = "200"
-            return {'status': "success"}
-    
+            return {'status': "success - " + new_bio}
+
+    else: 
+        request.response.status = "400"
+        return {}
 
 @view_config(route_name="change_profile_picture", renderer="json")
 def change_profile_picture(request):
@@ -63,7 +70,7 @@ def change_profile_picture(request):
         return {'status': 'no attribute named file'}
     return {'status': 'profile pic is none'}
 
-@view_config(route_name='view_profile', renderer='../templates/profile_page_mobile.jinja2', user_agent="mobile")
+@view_config(route_name='view_profile', renderer='../templates/profile_page_mobile.jinja2')
 def view_profile(request):
     from repoll.services.follow_service import FollowService
     user_id = request.matchdict.get('user_id', -1)

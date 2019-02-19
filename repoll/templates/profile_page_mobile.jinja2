@@ -36,7 +36,7 @@
 
             img:before{
                   position: absolute;
-                  font:normal normal normal 14px/1 FontAwesome;
+                  font:normal normal normal;
                 content: '\f030';
                 right: 40%;
                 color: #000;
@@ -569,7 +569,15 @@
 
         .bio {
             margin-top: 10px;
+            margin-right: 10px;
         }
+        .biotextChangeButton {
+            background-color: teal;
+            color: white; 
+            padding: 5px;
+            border: 0; 
+        }
+
             
         </style>
     </head>
@@ -587,8 +595,9 @@
         {% if user %}
         <p style='display:none' id='userId'>{{user.id}}</p>
         <div id="app">
+            {%include 'not_home_navbar_template.jinja2' %}
+
             <div class="details-container">
-                {%include 'not_home_navbar_template.jinja2' %}
 
                 {% if user_is_self %}
                     <label>
@@ -605,9 +614,25 @@
                 <p class="fullname">{{user.full_name}}</p>
                 <p class="username">{{user.username}}</p>
 				{% if user.bio %}
-                <p class="bio">{{user.bio}}</p>
-				{%else %}
-				<p class='bio' style='font-style:italic'>No bio</p> 
+                <form id="updateBioForm" method="post">
+                    <div style="display: flex; justify-content: center;">
+                        <p class='bio' id='existingBio' style=''>{{user.bio}}</p> {%if user_is_self %} <p class="bio" style="color: teal;" onclick="editBio()">Edit</p> {% endif %}
+                    </div>
+                    <div style="display: none; width: 100%; flex-direction: column" id="biotextbox">
+                        <textarea id="biotextarea" name="newBio" placeholder='Write about yourself' style="display:; font-size: 12px; width: 100%; height: 100px; padding: 5px;"></textarea>
+                        <button onclick="saveBio()" type="button" class='biotextChangeButton' style="align-self:flex-end; justify-self: flex-end" >Save</button>
+                    </div>
+                {%else %}
+                    <div>
+                        <div style='display: flex; justify-content: center;'>
+                            <p class='bio' style=''>No bio</p> {% if user_is_self %} <p class="bio" style="color: teal;" onclick="editBio()">Edit</p> {%endif%}
+                        </div>
+                        <div style="display: none; width: 100%; flex-direction: column" id="biotextbox">
+                            <textarea id="biotextarea" name="newBio" placeholder='Write about yourself' style="display:; font-size: 12px; width: 100%; height: 100px; padding: 5px;"></textarea>
+                            <button onclick="saveBio()" type="button" class='biotextChangeButton' style="align-self:flex-end; justify-self: flex-end" >Save</button>
+                        </div>
+                    </div>
+                </form>
 				{% endif %}
         </div>
 			<div id='app-container'>
@@ -623,6 +648,8 @@
 
     <script>
     var siteUrl = "";
+
+
         function showSnackbar(text){
             var snackbar = document.getElementById('snackbar');
             snackbar.innerHTML = text;
@@ -633,6 +660,7 @@
             setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 4000);
   
         }
+
 
         function addProfilePictureListener(){
         //add an event listener to discover when profile picture is being changed
@@ -645,6 +673,47 @@
                 modal.style.display = "block";
             });
         
+        }
+
+        function editBio(){
+            //first hide the bio text and the icon -each of which has 'bio' as class
+            var elementsWithBioClass = document.getElementsByClassName('bio');
+            for (let i = 0; i < elementsWithBioClass.length; i++){
+                var currentElement = elementsWithBioClass[i];
+                currentElement.style.display = 'none';
+            }
+            document.getElementById('biotextbox').style.display = "flex";
+
+            if(document.getElementById('existingBio').innerHTML != ''){
+                document.getElementById('biotextarea').value = document.getElementById('existingBio').innerHTML;
+            }
+        }
+
+        function saveBio(){
+            var XHRrequest = new XMLHttpRequest();
+            var bioTextChangeButtons = document.getElementsByClassName('biotextChangeButton');
+            for (let i = 0; i < bioTextChangeButtons.length; i++ ){
+                var button = bioTextChangeButtons[i];
+                button.disabled = true;
+                button.innerText = "...";
+            }
+            //form in which the profile picture input is in
+            var form = document.getElementById('updateBioForm');
+            var formData  = new FormData(form);
+            formData.append('newBio', document.getElementById('biotextarea').value);
+            //it requests our change profile pic route
+            XHRrequest.open('POST', siteUrl + "/update_bio");
+
+            //what happens on load
+            XHRrequest.addEventListener('load', function(){
+                window.location.reload();
+            });
+
+            XHRrequest.addEventListener('error', function(){
+                showSnackbar("An error occured while updating your bio");
+            });
+
+            XHRrequest.send(formData);  
         }
         
         function hideModal(){
@@ -677,6 +746,7 @@
 
             //what happens on load
             XHRrequest.addEventListener('load', function(){
+            
             });
 
             XHRrequest.addEventListener('error', function(){
