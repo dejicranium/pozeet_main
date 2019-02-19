@@ -480,6 +480,7 @@ def get_activities_if_not_autheticated(request, page):
             comment_dictt = {
                 'type': 'comment',
                 'userId': comment.added_by.id,
+                'userPic': comment.added_by.profile_picture,
                 'comment_id': comment.id,
                 'commenterInitals': comment.added_by.initials,
                 'commenter': comment.added_by.full_name,

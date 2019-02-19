@@ -244,8 +244,7 @@
         </div>
 
       	<div class="avatar" @click.stop @click.exact="openUserProfile">
-        	<img v-if="!activity.userPic" src="https://www.w3schools.com/howto/img_avatar.png">
-        	<img v-else :src="activity.userPic">
+        	<imgcd  :src="activity.userPic">
       	</div>
 
       	<div class="beside-avatar-box">
