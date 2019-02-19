@@ -207,6 +207,7 @@ def compile_comment_details(request, comment, user):
             'type': 'comment',
             'comment_id': comment.id,
             'userId': comment.added_by.id,
+			'userPic': comment.added_by.profile_picture,
 			'username': comment.added_by.username,
             'commenterInitals': comment.added_by.initials,
             'commenter': comment.added_by.full_name,

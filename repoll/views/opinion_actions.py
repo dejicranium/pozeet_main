@@ -149,7 +149,7 @@ def get_metrics(request):
 
     return derived_metrics
 
-@view_config(route_name='view_opinion_page', renderer='../templates/view_opinion_mobile.jinja2', user_agent="mobile")
+@view_config(route_name='view_opinion_page', renderer='../templates/view_opinion_mobile.jinja2', )
 def view_opinion_page(request):
     opinion_id = request.matchdict.get('opinion_id')
     opinion = request.dbsession.query(Opinion).filter(Opinion.id==opinion_id).first()
