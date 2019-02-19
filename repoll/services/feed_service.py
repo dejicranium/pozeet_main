@@ -31,7 +31,7 @@ def get_activities_if_authenticated(request, user, page):
     user_full_name = user.full_name
     user_pic = user.profile_picture
     dictt = {'user_logged_in': True, 'userName': user_full_name, 'userPic': user_pic, 'activities': []}
-    activities = request.dbsession.query(Activity).order_by(Activity.created.asc())
+    activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
     user_categories = []
     for each in user.subscriptions: 
         categories = request.dbsession.query(Category).filter_by(id=each.category_id).all()
