@@ -159,9 +159,14 @@ def compile_opinion_details(request, opinion, user):
 
 	    'id':  opinion.id,
 		'type': 'opinion',
+		'userId': opinion.added_by.id,
+		'userSlug': opinion.added_by.slug,
 		'userName': opinion.added_by.full_name,
 		'username': opinion.added_by.username,
 		'userPic': opinion.added_by.profile_picture,
+		'contextPageThumb': opinion.context_page_thumb, 
+		'contextPageTitle': opinion.context_page_title, 
+		'contextPageDesc': opinion.context_page_description,
 		'opinion': opinion.opinion,
 		'options': [
 			{

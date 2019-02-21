@@ -96,6 +96,10 @@ def create_opinion(request):
     new_activity.create_new_activity(subscriptions)
     transaction.commit()
 
+    #return the freshly created opinion
+    newly_created_opinion = compile_opinion_details(request, new_opinion, user)
+    return newly_created_opinion 
+
     return {'opinion': {'id': new_opinion.id, 'options': [{
         'id': option.id, 
         'option': option.title, 

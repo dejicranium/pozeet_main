@@ -244,7 +244,7 @@
         </div>
 
       	<div class="avatar" @click.stop @click.exact="openUserProfile">
-        	<imgcd  :src="activity.userPic">
+        	<img :src="activity.userPic">
       	</div>
 
       	<div class="beside-avatar-box">

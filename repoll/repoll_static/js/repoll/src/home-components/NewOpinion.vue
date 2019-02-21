@@ -102,6 +102,9 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 								vm.showSnackbar('Opinion published!');
 								vm.changeButtonContent(event.target, 'Share');
 								event.target.disabled = false;
+								vm.newOpinionObject = JSON.parse(request.response.data);
+								vm.addToActivities();
+
 							}
 							else {
 								vm.showSnackbar('There was an error sharing your opinion. Please Retry');
@@ -117,6 +120,9 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 
 			closeModal(){
 				this.$emit('close_new_opinion_modal', true);
+
+			},
+			packageNewOpinion(jsonObject){
 
 			},
 

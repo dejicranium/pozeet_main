@@ -47,16 +47,28 @@ def compute_time_difference(date1, date2, suffix='ago'):
     years_d = difference.years
 
     if minutes_d == 0:
-        return "{} secs {}".format(str(seconds_d), suffix)
+        unit = "secs"
+        if seconds_d[0] == '1':
+            unit = "sec"
+        return "{} {} {}".format(str(seconds_d), unit, suffix)
     
     elif hours_d < 1:
-        return "{} mins {}".format(str(minutes_d), suffix)
+        unit = "mins":
+        if minutes_d[0] == '1':
+            unit = "min"
+        return "{} {} {}".format(str(minutes_d), unit, suffix)
 
     elif (hours_d == 1 or hours_d > 1) and days_d < 1:
-        return "{} hrs {}".format(str(hours_d), suffix)
+        unit = 'hrs'
+        if hours_d[0] == "1":
+            unit = 'hr'
+        return "{} {} {}".format(str(hours_d), unit, suffix)
     
     elif (days_d == 1 or days_d > 1) and weeks_d < 1:
-        return "{} days {}".format(str(days_d), suffix)
+        unit = "days"
+        if days_d[0] == '1':
+            unit = 'day'
+        return "{} {} {}".format(str(days_d), unit, suffix)
 
     elif (weeks_d == 1):
         return "{} wk {}".format(str(weeks_d), suffix)
