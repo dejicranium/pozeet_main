@@ -74,7 +74,7 @@
 
 
 <script>
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
 	const activityPOSTURL = "";
 
     import axios from 'axios';
@@ -309,7 +309,7 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
             );
 
 
-			axios.get('http://localhost:6543/comments/opinion/' + idOfPollToBeViewed,{
+			axios.get('/comments/opinion/' + idOfPollToBeViewed,{
 
 			}).then(function(response){
 				vm.comments = response.data.comments;

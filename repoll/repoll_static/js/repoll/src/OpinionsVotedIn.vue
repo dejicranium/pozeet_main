@@ -51,7 +51,7 @@ import AddComment from './home-components/AddComment';
     	setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 4000);
 
 	}
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
 	
 
 

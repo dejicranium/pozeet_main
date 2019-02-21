@@ -1,7 +1,7 @@
 <template>
     <div class="card-container">
         <div>
-            <img src="/static/rename.svg" v-show="listLoading"/>
+            <img src="/repoll_static/rename.svg" v-show="listLoading"/>
         </div>
         <div class="image">
             <img src="https://pbs.twimg.com/profile_images/1081905771028320256/yajLUZzZ_400x400.jpg"/>
@@ -20,8 +20,8 @@
 
 <script>
     import axios from 'axios';
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
-	const activityPOSTURL = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
+	const activityPOSTURL = "";
 
     export default {
         name: 'UserCard',

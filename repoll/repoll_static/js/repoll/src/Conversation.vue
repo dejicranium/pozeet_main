@@ -79,8 +79,8 @@
 	import axios from 'axios';
     import ConvoComment from './view-converstation-components/ConvoComment.vue';
 
-	var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
-	const activityPOSTURL = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+	var siteUrl = "";
+	const activityPOSTURL = "";
 	var conversationId = document.getElementById('conversation-id-signifier').innerHTML; 
 	var replyId = document.getElementById('reply-id-signifier').innerHTML;	
 	

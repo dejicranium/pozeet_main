@@ -109,6 +109,8 @@
           :activity="activityToCommentOn"
           @close_add_coment_modal="closeModal"
           :option="optionToCommentOn"
+          @act_add_to_activities="addToActivitiesList"
+
           @activity_voted="changeActivityJustVoted"
         ></add-new-comment-modal>
 
@@ -127,6 +129,8 @@
         <show-new-poll-modal
           :show_new_poll_modal="showCreateNewPollModal"
           :categories="sortedCategoriesList"
+          @act_add_to_activities="addToActivitiesList"
+
           @close_new_poll_modal="closeModal"
         ></show-new-poll-modal>
         <comments :show_view_comments_modal="showViewCommentsModal"></comments>
@@ -165,7 +169,7 @@ import UsersModal from "./home-components/UsersModal.vue";
 import Sidebar from "./home-components/Sidebar.vue";
 import ShareToModal from "./home-components/ShareToModal";
 
-const siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+const siteUrl = "";
 const userId = document.getElementById("user-id-signifier").innerHTML;
 const userSlug = document.getElementById("user-slug-signifier").innerHTML;
 

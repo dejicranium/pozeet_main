@@ -62,7 +62,7 @@
     import axios from 'axios'; 
     import Chart from 'chart.js';
 
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
        var pollQuestion = document.getElementById('hidden-question-signifier').innerHTML;
        var pollId = document.getElementById('hidden-id-signifier').innerHTML;
 

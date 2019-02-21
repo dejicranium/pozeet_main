@@ -41,7 +41,7 @@
 
 
 <script>
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
 	import axios from 'axios';
 	var userId = document.getElementById("user-id-signifier").innerText;
 	var userSlug = document.getElementById("user-slug-signifier").innerText;

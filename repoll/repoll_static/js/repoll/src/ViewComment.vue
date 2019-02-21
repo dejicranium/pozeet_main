@@ -86,9 +86,9 @@
 <script>
 import ConvoComment from "./view-converstation-components/ConvoComment.vue";
 import axios from "axios";
-	const activityPOSTURL = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+	const activityPOSTURL = "";
 
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
 var commentId = document.getElementById("commentId").innerHTML;
 
 var showSnackbar = function(text) {

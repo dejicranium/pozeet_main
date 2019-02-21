@@ -34,7 +34,7 @@
 
 
 <script>
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
 	const activityPOSTURL = "";
 
 
@@ -102,8 +102,8 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 								vm.showSnackbar('Opinion published!');
 								vm.changeButtonContent(event.target, 'Share');
 								event.target.disabled = false;
-								vm.newOpinionObject = JSON.parse(request.response.data);
-								vm.addToActivities();
+								vm.newOpinionObject = JSON.parse(request.responseText);
+								vm.addToActivities(vm.newOpinionObject);
 
 							}
 							else {
@@ -120,9 +120,6 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 
 			closeModal(){
 				this.$emit('close_new_opinion_modal', true);
-
-			},
-			packageNewOpinion(jsonObject){
 
 			},
 
@@ -142,8 +139,8 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 				});
 			},
 
-			addToActivities(){
-				this.$emit('act_add_to_activities', this.newOpinionObject);
+			addToActivities(object){
+				this.$emit('act_add_to_activities', object);
 			},
 
 

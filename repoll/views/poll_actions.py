@@ -288,7 +288,8 @@ def create_poll(request):
     #RedisCategoryTimelineStorage.add_to_many(categories, new_activity.id)
     transaction.commit()
 
-    return {}
+    newly_created_poll = compile_poll_details(request, new_poll, user)
+    return newly_created_poll
 
         
 """       

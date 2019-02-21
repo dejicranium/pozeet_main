@@ -23,7 +23,7 @@
 </template>
 
 <script>
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
 export default {
     name: 'ShareToModal', 
     props: ['show_shareto_modal', 'activity', ],

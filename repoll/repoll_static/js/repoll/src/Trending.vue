@@ -35,7 +35,7 @@ import Sidebar from './home-components/Sidebar.vue';
 	var changeButtonContent = function(button, text){
 		button.innerHTML = text;
 	}
-	var siteUrl = 'http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543';
+	var siteUrl = '';
 	
 
 export default {

@@ -15,13 +15,13 @@
 
                 <div class="beside-avatar-box">
                     <div class="author-details">
-                        <p class="name" >{{poll.userName}}</p>
+                        <p class="name" style="font-size: 12px;">{{poll.userName}}</p>
                         <p class="username"></p>
 						<p class='time-added'>{{poll.timeAdded}}</p>
 
 					</div>
 
-                    <h6 class="poll-question"><a :href="'localhost:6543/poll/' + poll.id + '/'">{{poll.question}}</a></h6>
+                    <h6 class="poll-question"><a :href="'/poll/' + poll.id + '/'">{{poll.question}}</a></h6>
 
 					<div class="poll-info">
 						<div v-if='poll.hasUrlInfo' class='link-info' style='display:flex; padding: 5px;; flex-direction:row; border:0.5px solid lightgrey; border-radius:10px;'>
@@ -213,8 +213,8 @@
     import Comment from './home-components/Comment.vue';
 	import axios from 'axios';
 	
-	var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543"; 
-	const activityPOSTURL = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+	var siteUrl = ""; 
+	const activityPOSTURL = "";
 
 
     export default {
@@ -562,7 +562,7 @@
             );
 
 
-			axios.get('http://localhost:6543/comments/' + idOfPollToBeViewed,{
+			axios.get('/comments/' + idOfPollToBeViewed,{
 
 			}).then(function(response){
 				vm.comments = response.data.comments;

@@ -40,13 +40,18 @@
 
 <script>
 import axios from "axios";
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
-	const activityPOSTURL = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
+	const activityPOSTURL = "";
 
 
 export default {
   name: "AddComment",
   props: ["show_comment_modal", "activity", "option"],
+  data() {
+    return {
+      newCommentObject: {},
+    }
+  },
   computed: {
     chosenOptionTitle() {
       if (this.activity) {
@@ -64,6 +69,10 @@ export default {
   },
 
   methods: {
+    addToActivities(object){
+				this.$emit('act_add_to_activities', object);
+    },
+    
     comment(event) {
       var vm = this;
       var form = document.getElementById("comment-form");
@@ -86,6 +95,8 @@ export default {
                   vm.option,
                   vm.activity.type
                 ]);
+                vm.newCommentObject = JSON.parse(request.responseText);
+                vm.addToActivities(vm.newCommentObject);
                 vm.closeModal();
                 vm.showSnackbar("Comment added!");
                 vm.changeButtonContent(event.target, "Comment");
@@ -107,6 +118,8 @@ export default {
         request.onreadystatechange = function() {
           if (request.readyState == XMLHttpRequest.DONE) {
             if (request.status == 200) {
+              vm.newCommentObject = JSON.parse(request.responseText);
+              vm.addToActivities(vm.newCommentObject);
               vm.closeModal();
               vm.showSnackbar("Comment Added");
               vm.changeButtonContent(event.target, "Comment");

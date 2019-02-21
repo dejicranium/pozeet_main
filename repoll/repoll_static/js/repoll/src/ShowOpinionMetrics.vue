@@ -69,7 +69,7 @@
 
     var opinion = document.getElementById('hidden-question-signifier').innerHTML;
     var opinionId = document.getElementById('hidden-id-signifier').innerHTML;
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
 
 export default {
     name: 'ShowOpinionMetrics',
@@ -118,7 +118,7 @@ export default {
                 
                 getOpinionDetails(){
                     var vm = this;
-                    axios.get('http://localhost:6543/opinion/' + opinionId).then(response=>{
+                    axios.get('/opinion/' + opinionId).then(response=>{
                         vm.changeOpinionData('options', response.data.options);
                         vm.changeOpinionData('opinion', response.data.opinion);
 
@@ -430,7 +430,7 @@ export default {
                 this.getOpinionDetails();
                 var vm  = this;
                              
-                axios.get('http://localhost:6543/opinion/get-metrics/' + opinionId, {
+                axios.get('/get-metrics/' + opinionId, {
                     params: {
                         m_f: 'gender',
                         s_f: 'poll',

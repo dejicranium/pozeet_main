@@ -183,8 +183,8 @@
 
 
 <script>
-var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
-	const activityPOSTURL = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
+var siteUrl = "";
+	const activityPOSTURL = "";
 
 
 	import axios from 'axios';
@@ -195,7 +195,7 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 		
 		data(){
 			return{
-
+				newPollObject: {},
 				options: [{
 					text: '',
 					placeholder: 'Option 1',
@@ -283,6 +283,9 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 				});
 			},
 
+			addToActivities(object){
+				this.$emit('act_add_to_activities', object);
+			},
 
 			createPoll(event){
 
@@ -301,7 +304,7 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 				var request = new XMLHttpRequest();
 				var vm = this;
 				
-				vm.changeButtonContent(event.target, '...');
+				this.changeButtonContent(event.target, '...');
 
 				request.open("POST", activityPOSTURL + '/ask');
 				request.onreadystatechange = function(){
@@ -311,6 +314,8 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 							vm.showSnackbar('Poll published!');
 							vm.changeButtonContent(event.target, 'Share');
 							event.target.disabled = false;
+							vm.newPollObject = JSON.parse(request.responseText); 
+							vm.addToActivities(vm.newPollObject);
 						}
 						else {
 							vm.showSnackbar('There was an error creating the poll. Please Retry');
@@ -349,6 +354,8 @@ var siteUrl = "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543";
 							vm.showSnackbar('Poll published!');
 							vm.changeButtonContent(event.target, 'Share');
 							event.target.disabled = false;
+							vm.newPollObject = JSON.parse(request.responseText); 
+							vm.addToActivities(vm.newPollObject);
 						}
 						else {
 							vm.showSnackbar('There was an error creating the poll. Please Retry');

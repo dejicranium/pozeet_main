@@ -13,6 +13,7 @@ from ..utils.compile_util import (
                                 compile_opinion_details,
                                 compile_reply_details,
                                 )
+from ..utils.compile_util import compile_comment_details as compile_comment_for_feed
 from greggo.storage.redis.trending_storage import TrendingCommentsStorage, TrendingPollsStorage
 from repoll.services.notification_service import *
 from repoll.services.activity_service import ActivityService
@@ -176,7 +177,8 @@ def add_comment(request):
                 p.add_poll(poll.first())
 
                 transaction.commit()
-
+                newly_created_comment = compile_comment_for_feed(request, new_comment, user)
+                return newly_created_comment
             else:  #it is an opiion
                 opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id)
 
@@ -228,6 +230,8 @@ def add_comment(request):
                         redis_store.increment_gender_votes(str('F') + '::' + str(option_id))
             
                 transaction.commit()
+                newly_created_comment = compile_comment_for_feed(request, new_comment, user)
+                return newly_created_comment
         else:
             if opinion_id:
                 new_user_vote = OpinionVotes()

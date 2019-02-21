@@ -135,6 +135,7 @@ def compile_poll_details(request, poll, user):
 		'timeAdded': poll.time_added,
 		'timeRemaining': poll.time_remaining,
 		'numOfLikes': poll.num_of_likes,
+		'numOfComments': poll.num_of_comments, 
         'options': [
             {
                 'id': option.id, 
@@ -211,7 +212,9 @@ def compile_comment_details(request, comment, user):
 	comment_dictt = {
             'type': 'comment',
             'comment_id': comment.id,
+			'id': comment.id,
             'userId': comment.added_by.id,
+			'userSlug': comment.added_by.slug,
 			'userPic': comment.added_by.profile_picture,
 			'username': comment.added_by.username,
             'commenterInitals': comment.added_by.initials,

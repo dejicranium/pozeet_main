@@ -4,11 +4,10 @@ var webpack = require("webpack");
 module.exports = {
   entry: {
     main: "./src/main.js",
-    /**
+    
     view_poll: "./src/view_poll.js",
     
     view_opinion: './src/view_opinion.js',
-    
     view_conversation: "./src/view_conversation.js",
     
     show_opinion_metrics: './src/show_opinion_metrics.js',
@@ -22,7 +21,6 @@ module.exports = {
     users_modal: './src/users_modal.js',
     profile: './src/profile.js',
     sample: './src/sample.js',
-    **/
   },
 
   output: {
