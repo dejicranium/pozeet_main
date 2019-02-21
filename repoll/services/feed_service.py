@@ -423,7 +423,7 @@ def get_activities_if_not_autheticated(request, page):
 
     # for a third of the polls, we are going to the demographic distribution
     import random
-    random_polls = random.sample(polls, int(len(polls)/2))
+    random_polls = random.sample(polls, int(len(polls)/3))
     for poll in polls: 
         act_dictt['activities'].append(choose_random_demographic_insight(request, poll))
     
@@ -496,6 +496,7 @@ def get_activities_if_not_autheticated(request, page):
         if object_is_poll:
             comment_dictt['poll'] = {
                     'userName': comment.poll.added_by.full_name,
+                    'userPic': comment.poll.added_by.profile_picture,
                     'question': comment.poll.question,
                     'slug': comment.poll.slug,
                     'timeAdded': comment.poll.time_added,
@@ -504,6 +505,7 @@ def get_activities_if_not_autheticated(request, page):
         elif object_is_opinion:
             comment_dictt['opinion'] = {
                     'userName': comment.opinion.added_by.full_name,
+                    'userPic': comment.opinion.added_by.profile_picture,
                     'opinion': comment.opinion.opinion,
                     'timeAdded': comment.opinion.time_added,
             }        
