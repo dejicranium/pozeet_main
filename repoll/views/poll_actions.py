@@ -413,7 +413,7 @@ def create_poll(request):
 
 """
 
-@view_config(route_name='poll_in_full', renderer='../templates/view_poll_mobile.jinja2', user_agent="mobile")
+@view_config(route_name='poll_in_full', renderer='../templates/view_poll_mobile.jinja2',)
 def poll_in_full(request):
     poll_id = request.matchdict.get('poll_id', -1)
     poll = request.dbsession.query(Poll).filter(Poll.id == poll_id).first()
