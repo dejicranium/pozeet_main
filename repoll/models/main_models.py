@@ -55,30 +55,27 @@ def compute_time_difference(date1, date2, suffix='ago'):
     if minutes_d < 1:
         unit = "s"
         if suffix == "ago":
-            return "{}{}".format(str(seconds_d), unit)
+            return "{}s".format(str(seconds_d))
         else: 
-            return "{}{} remaining".format(str(seconds_d), unit)
+            return "{}s remaining".format(str(seconds_d))
 
     elif hours_d < 1:
-        unit = "m"
         if suffix == "ago":
-            return "{}{}".format(str(minutes_d), unit)
+            return "{}m".format(str(minutes_d))
         else: 
             return "{}{} remaining".format(str(minutes_d), unit)
 
     elif (hours_d == 1 or hours_d > 1) and days_d < 1:
-        unit = 'h'
         if suffix == "ago":
-            return "{}{}".format(str(hours_d), unit)
+            return "{}h".format(str(hours_d))
         else: 
-            return "{}{} remaining".format(str(hours_d), unit)
+            return "{}h remaining".format(str(hours_d))
     
     elif (days_d == 1 or days_d > 1) and weeks_d < 1:
-        unit = "d"
         if suffix == "ago":
-            return "{}".format(str(days_d), unit)
+            return "{}d".format(str(days_d))
         else:    
-            return "{}{} remaining".format(str(hours_d), unit)
+            return "{}d remaining".format(str(hours_d))
 
     elif (weeks_d == 1 or weeks_d > 1):
         if suffix == "ago":
