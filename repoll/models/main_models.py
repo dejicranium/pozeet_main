@@ -37,9 +37,11 @@ def compute_time_difference(date1, date2, suffix='ago'):
     
     difference = relativedelta.relativedelta(date1, date2)
     #if the time now is different higher than the scheduled time for ending, just return "Ended"
-    if suffix == "remaining" and date1 > date2:
-        return "Poll ended"
+    if suffix == "remaining":
         difference = relativedelta.relativedelta(date2, date1)
+        if date1 > date2:
+            return "Poll ended"
+
 
     
     seconds_d = difference.seconds
