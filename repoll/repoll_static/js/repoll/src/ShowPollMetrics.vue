@@ -122,7 +122,7 @@ var siteUrl = "";
  
                 makePieChart(chartId, aLabels, aData){
                     //destroy a previous chart
-                    if (this.chart1 != ''){
+                    if (this.chart1){
                         this.chart1.destroy();
                     }
 

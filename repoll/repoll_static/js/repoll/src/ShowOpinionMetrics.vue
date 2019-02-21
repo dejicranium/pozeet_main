@@ -126,8 +126,8 @@ export default {
                 },
  
                 makePieChart(aLabels, aData){
-                    if (this.chart1 != ''){
-                        this.char1.destroy();
+                    if (this.chart1){
+                        this.chart1.destroy();
                     }
                     var ctx = document.getElementById('metricsChart').getContext('2d');
 

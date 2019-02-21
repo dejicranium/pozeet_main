@@ -4,29 +4,28 @@
     <!--This div will be shown for poll activities -->
     <div class="feed-card" v-if="activity.type=='poll'" tabindex="0" @click="openPoll">
     	<div class="poll">
-        	<div class="trigger" v-if="activity.trigger" style="margin-bottom: 5px; padding:10px; padding-left:25px;"
-        >
+        	<div class="trigger" v-if="activity.trigger" style="margin-bottom: 5px; padding:10px; padding-left:25px;">
           <p style="color:darkgrey; font-size:11px;">{{activity.triggerActor}} {{activity.trigger}}</p>
         </div>
         <div class="avatar" @click.stop @click.exact="openUserProfile">
           <img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
           <img v-if="activity.userPic != null" :src="activity.userPic">
+
         </div>
 
         <div class="beside-avatar-box">
-          <div class="author-details" @click.stop @click.exact="openUserProfile">
-            <p
-              class="name"
-              style="font-weight: bold;"
-              @click="openUserProfile"
-            >{{activity.userName}}</p>
-            <p class="username">({{activity.username}})</p>
-            <p class="time-added">{{activity.timeAdded}}</p>
-          </div>
+            <div class="author-details" @click.stop @click.exact="openUserProfile">
+                <div style="display: inline">
+                  <p class="name" style="font-weight: bold; display: block; font-size:12px" @click="openUserProfile">{{activity.userName}}</p>
+                  <p class="time-added">{{activity.timeAdded}}</p>
+                </div> 
+                <p class="username">({{activity.username}})</p>
+                <p class="follow" style="color: teal; font-weight: bold;">+ Follow</p>
+
+            </div>
           <!---<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
 											<p @click='followOrUnfollowUser' style='position:absolute; right: 0; margin-right:18px; color: teal;' v-if='!userIsFollowing'>Follow</p>
           -->
-          <div class="categories-container"></div>
           <h6 class="poll-question">
             <a @click="openPoll">{{activity.question}}</a>
           </h6>
@@ -1125,11 +1124,24 @@ export default {
   line-height: 1.0;
 }
 .follow-btn {
-  position: absolute;
-  right: 0;
+  font-weight: bold;
+  border: 0; 
+  background-color: transparent;
+  padding: 5px; 
+  font-size: 11px;
+  cursor: pointer; 
+  border: 1px solid black; 
+
 }
-.feed-button {
-  padding: 
+ 
+.follow-icon {
+    font-weight: bold; 
+    color: teal; 
+    font-size: 14px; 
+    text-align: center; 
+    padding: 2px 7px;
+    border-radius: 3px; 
+    border: teal 1px solid;
 }
 
 

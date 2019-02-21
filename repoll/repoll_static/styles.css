@@ -389,16 +389,6 @@ body{
 
 }
 
-.feed-container .follow-btn{
-    background-color: transparent; 
-    color:black;
-    border:0;
-    border: 0.5px solid lightgray;
-    padding: 3px;
-    position: absolute;
-    top: 20;
-    margin-right: 18px;
-}
 .categories-container p{
     display: inline;
     font-family: 'Roboto', sans-serif;

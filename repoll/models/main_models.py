@@ -34,11 +34,14 @@ MONTH_MAPPING = {'1': 'Jan',
                 '12': 'Dec'}
 
 def compute_time_difference(date1, date2, suffix='ago'):
+    
+    difference = relativedelta.relativedelta(date1, date2)
     #if the time now is different higher than the scheduled time for ending, just return "Ended"
     if suffix == "remaining" and date1 > date2:
         return "Poll ended"
+        difference = relativedelta.relativedelta(date2, date1)
+
     
-    difference = relativedelta.relativedelta(date1, date2)
     seconds_d = difference.seconds
     minutes_d = difference.minutes
     hours_d = difference.hours
@@ -46,35 +49,40 @@ def compute_time_difference(date1, date2, suffix='ago'):
     weeks_d = difference.weeks
     years_d = difference.years
 
-    if minutes_d == 0:
-        unit = "secs"
-        if seconds_d == 1:
-            unit = "sec"
-        return "{} {} {}".format(str(seconds_d), unit, suffix)
-    
+
+    if minutes_d < 1:
+        unit = "s"
+        if suffix == "ago":
+            return "{}{}".format(str(seconds_d), unit)
+        else: 
+            return "{}{} remaining".format(str(seconds_d), unit)
+
     elif hours_d < 1:
-        unit = "mins"
-        if minutes_d == 1:
-            unit = "min"
-        return "{} {} {}".format(str(minutes_d), unit, suffix)
+        unit = "m"
+        if suffix == "ago":
+            return "{}{}".format(str(minutes_d), unit)
+        else: 
+            return "{}{} remaining".format(str(minutes_d), unit)
 
     elif (hours_d == 1 or hours_d > 1) and days_d < 1:
-        unit = 'hrs'
-        if hours_d == 1:
-            unit = 'hr'
-        return "{} {} {}".format(str(hours_d), unit, suffix)
+        unit = 'h'
+        if suffix == "ago":
+            return "{}{}".format(str(hours_d), unit)
+        else: 
+            return "{}{} remaining".format(str(hours_d), unit)
     
     elif (days_d == 1 or days_d > 1) and weeks_d < 1:
-        unit = "days"
-        if days_d == 1:
-            unit = 'day'
-        return "{} {} {}".format(str(days_d), unit, suffix)
+        unit = "d"
+        if suffix == "ago":
+            return "{}".format(str(days_d), unit)
+        else:    
+            return "{}{} remaining".format(str(hours_d), unit)
 
-    elif (weeks_d == 1):
-        return "{} wk {}".format(str(weeks_d), suffix)
-    
-    elif(weeks_d > 1):
-        return "{} wks {}".format(str(weeks_d), suffix)
+    elif (weeks_d == 1 or weeks_d > 1):
+        if suffix == "ago":
+            return "{}w".format(str(weeks_d))
+        else:
+            return "{}w remaining".format(str(weeks_d))
     
     
 class ContextImage(Base):
