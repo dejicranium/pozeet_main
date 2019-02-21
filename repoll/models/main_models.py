@@ -48,25 +48,25 @@ def compute_time_difference(date1, date2, suffix='ago'):
 
     if minutes_d == 0:
         unit = "secs"
-        if seconds_d[0] == '1':
+        if seconds_d == 1:
             unit = "sec"
         return "{} {} {}".format(str(seconds_d), unit, suffix)
     
     elif hours_d < 1:
         unit = "mins"
-        if minutes_d[0] == '1':
+        if minutes_d == 1:
             unit = "min"
         return "{} {} {}".format(str(minutes_d), unit, suffix)
 
     elif (hours_d == 1 or hours_d > 1) and days_d < 1:
         unit = 'hrs'
-        if hours_d[0] == "1":
+        if hours_d == 1:
             unit = 'hr'
         return "{} {} {}".format(str(hours_d), unit, suffix)
     
     elif (days_d == 1 or days_d > 1) and weeks_d < 1:
         unit = "days"
-        if days_d[0] == '1':
+        if days_d == 1:
             unit = 'day'
         return "{} {} {}".format(str(days_d), unit, suffix)
 
