@@ -53,7 +53,7 @@ def compute_time_difference(date1, date2, suffix='ago'):
         return "{} {} {}".format(str(seconds_d), unit, suffix)
     
     elif hours_d < 1:
-        unit = "mins":
+        unit = "mins"
         if minutes_d[0] == '1':
             unit = "min"
         return "{} {} {}".format(str(minutes_d), unit, suffix)
