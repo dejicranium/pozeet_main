@@ -746,9 +746,7 @@ transition: width 5s;
 
 .feed-card .chosen-option{
     margin-top:1px;
-    font-size: 13px;
-
-    margin-top: 2px;
+    font-size: 12px;
     color: black;
 }
 .feed-card i{

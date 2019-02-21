@@ -19,25 +19,23 @@
             <p class="comment" style="white-space:;">{{comment.comment}}</p>
 
             <div>
-              <div class="comment-question quote" v-if="comment.poll" tab-index="0">
+              <div class="comment-question quote" v-if="comment.poll" tab-index="0" @click="openPoll">
                 <p class="author-name" style="font-weight:normal; color:teal;">Poll</p>
-                <p class="author-name" style="font-size:bold;">
-                  {{comment.poll.userName}}
-                  <span
-                    style="color:lightgray; font-weight:normal;"
-                  >{{comment.poll.timeAdded}}</span>
-                </p>
+                <div class="author-details" style="display: flex;">
+                    <p class="author-name" style="font-size:bold; margin-right: 5px;"> {{comment.poll.userName}} </p>
+                    <p class="author-name" style="font-size:bold; margin-right: 5px;"> {{comment.poll.username}} </p>
+                    <p style="color:darkgrey; font-weight:normal; margin-right: 5px;">{{comment.poll.timeAdded}}</p>                
+                </div>
                 <p class="question">{{comment.poll.question}}</p>
               </div>
 
               <div class="comment-question quote" v-else-if="comment.opinion" tab-index="0">
                 <p class="author-name" style="font-weight:normal; color:teal;">Opinion</p>
-                <p class="author-name" style="font-size:bold;">
-                  {{comment.opinion.userName}}
-                  <span
-                    style="color:lightgray; font-weight:normal;"
-                  >{{comment.opinion.timeAdded}}</span>
-                </p>
+                <div class="author-details" style="display: flex;">
+                    <p class="author-name" style="font-size:bold; margin-right: 5px;"> {{comment.opinion.userName}} </p>
+                    <p class="author-name" style="font-size:bold; margin-right: 5px;"> {{comment.opinion.username}} </p>
+                    <p style="color:darkgrey; font-weight:normal; margin-right: 5px;">{{comment.opinion.timeAdded}}</p>     
+                </div>
                 <p class="question">{{comment.opinion.opinion}}</p>
               </div>
             </div>
@@ -178,56 +176,65 @@ export default {
 
   created() {
     var vm = this;
-    axios
-      .get("" + "/get_conversation/" + coversationId + "/" + replyId)
+    axios.get("" + "/get_conversation/" + coversationId + "/" + replyId).then(response => {
+            vm.user_logged_in = response.data.user_logged_in;
+            vm.changeCommentData(
+              "optionChosen",
+              response.data.comment.optionChosen
+            );
+            vm.changeCommentData("userName", response.data.comment.commenter);
+            vm.changeCommentData("comment", response.data.comment.comment);
+            vm.changeCommentData("type", response.data.comment.type);
+            vm.changeCommentData("id", response.data.comment.comment_id);
+            vm.changeCommentData("userPic", response.data.comment.userPic);
+            vm.changeCommentData("numOfShares", response.data.comment.numOfShares);
+            vm.changeCommentData("numOfAgrees", response.data.comment.numOfAgrees);
+            vm.changeCommentData(
+              "hasSharedComment",
+              response.data.comment.hasSharedComment
+            );
+            vm.changeCommentData("timeAdded", response.data.comment.timeAdded);
+            vm.changeCommentData(
+              "userIsFollowing",
+              response.data.comment.userIsFollowing
+            );
+            vm.changeCommentData("poll", response.data.comment.poll);
+            vm.changeCommentData("opinion", response.data.comment.opinion);
 
-      .then(response => {
-        vm.user_logged_in = response.data.user_logged_in;
-        vm.changeCommentData(
-          "optionChosen",
-          response.data.comment.optionChosen
-        );
-        vm.changeCommentData("userName", response.data.comment.commenter);
-        vm.changeCommentData("comment", response.data.comment.comment);
-        vm.changeCommentData("type", response.data.comment.type);
-        vm.changeCommentData("id", response.data.comment.comment_id);
-        vm.changeCommentData("userPic", response.data.comment.userPic);
-        vm.changeCommentData("numOfShares", response.data.comment.numOfShares);
-        vm.changeCommentData("numOfAgrees", response.data.comment.numOfAgrees);
-        vm.changeCommentData(
-          "hasSharedComment",
-          response.data.comment.hasSharedComment
-        );
-        vm.changeCommentData("timeAdded", response.data.comment.timeAdded);
-        vm.changeCommentData(
-          "userIsFollowing",
-          response.data.comment.userIsFollowing
-        );
-        vm.changeCommentData("poll", response.data.comment.poll);
-        vm.changeCommentData("opinion", response.data.comment.opinion);
+            var replies = response.data.replies;
 
-        var replies = response.data.replies;
+            replies.forEach(reply => {
+              if (reply.id == parseInt("{{reply_id}}")) {
+                reply["toView"] = true;
+              }
 
-        replies.forEach(reply => {
-          if (reply.id == parseInt("{{reply_id}}")) {
-            reply["toView"] = true;
-          }
-
-          vm.flattenReplyReplies(reply);
-        });
-        vm.loading = false;
+              vm.flattenReplyReplies(reply);
+            });
+            vm.loading = false;
 
         //should users be allowed to agree to a comment?
         //it all starts from knowing whether they have voted before.
-      })
-      .catch(function(error) {
-        vm.loading = false;
+      }).catch(function(error) {
+          vm.loading = false;
       });
-  }
+  },
 };
 
 <style scoped>
-#sub-container {
-	padding-top: 40px;
+.quote {
+  border-left: 3px darkgrey solid;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  color: black;
+  padding: 10px;
+  border-radius: 0px;
+  font-family: "Helvetica", Helvetica, Arial, sans-serif;
+  display: block;
+  border: 0.5px lightgray solid;
+  border-left: 3px darkgrey solid;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
 }
 </style>

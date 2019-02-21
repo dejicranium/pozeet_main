@@ -15,19 +15,18 @@
 
         <div class="beside-avatar-box">
             <div class="author-details" @click.stop @click.exact="openUserProfile">
-                <div style="display: inline">
-                  <p class="name" style="font-weight: bold; display: block; font-size:12px" @click="openUserProfile">{{activity.userName}}</p>
-                  <p class="time-added">{{activity.timeAdded}}</p>
-                </div> 
+                <p class="name" style="font-weight: bold; font-size:12px" @click="openUserProfile">{{activity.userName}}</p>
                 <p class="username">({{activity.username}})</p>
-                <p class="follow" style="color: teal; font-weight: bold;">+ Follow</p>
+                <p class="time-added">{{activity.timeAdded}}</p>
+
+                <!--<p class="follow" style="color: teal; font-weight: bold;">Follow</p> -->
 
             </div>
           <!---<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
 											<p @click='followOrUnfollowUser' style='position:absolute; right: 0; margin-right:18px; color: teal;' v-if='!userIsFollowing'>Follow</p>
           -->
           <h6 class="poll-question">
-            <a @click="openPoll">{{activity.question}}</a>
+            <a @click.stop @click.exact="openPoll">{{activity.question}}</a>
           </h6>
           <!--poll info -->
           <div class="poll-info">
@@ -224,7 +223,7 @@
         </div>
 
         <div
-          v-show="activity.numOfComments != 0"
+          v-show="activity.numOfComments > 0"
           style="margin-top:5px; padding:5px; text-align:center;vertical-align:middle; border-top:whitesmoke 0.6px solid;"
         >
           <span style="color:darkgrey" @click="viewComments">View Comments</span>
@@ -250,7 +249,7 @@
     		<div class="author-details" @click.stop @click.exact="openUserProfile">
           		<p class="name" style="font-weight:bold;" @click="openUserProfile">{{activity.commenter}}</p>
          		<p class="username">({{activity.username}})</p>
-          		<p class="action" style="color: lightgrey;">{{activity.timeAdded}}</p>
+          		<p class="time-added" style="color: lightgrey;">{{activity.timeAdded}}</p>
         	</div>
 
         	<div>
@@ -445,7 +444,7 @@
       </div>
 
       <div class="author-details">
-        <p class="name" style="color;black; font-weight:bold; font-size:12px;">{{activity.title}}</p>
+        <p style="color;black; font-weight:bold; font-size:12px;">{{activity.title}}</p>
       </div>
       <canvas :id="'metricsChart' + activity.id" style="width:100%" height="400"></canvas>
     </div>
@@ -1111,8 +1110,12 @@ export default {
 .author-details {
   box-sizing: border-box;
   position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .author-name {
+
   display: flex;
   flex-direction: row;
 }
@@ -1123,12 +1126,38 @@ export default {
 .name, .username, .time-added, .action {
   line-height: 1.0;
 }
+
+.name {
+  max-width: 35%;
+  margin-right: 2px;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.username {
+  max-width: 35%;
+  margin-right: 2px;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.time-added {
+  margin-right: 2px;
+  max-width: 5%;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
 .follow-btn {
   font-weight: bold;
   border: 0; 
   background-color: transparent;
-  padding: 5px; 
-  font-size: 11px;
+  padding: 1px; 
+  font-size: 12px;
   cursor: pointer; 
   border: 1px solid black; 
 

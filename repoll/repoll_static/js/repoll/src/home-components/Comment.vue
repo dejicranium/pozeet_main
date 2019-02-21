@@ -119,6 +119,36 @@ export default {
       }
     },
 
+    reply(event){
+        var vm = this;
+				var replyButton = event.target;
+				replyButton.disabled = true;
+				var vm = this;
+
+				replyButton.innerText = "...";
+
+				if (this.activity.type == 'comment'){
+					axios.post(activityPOSTURL + '/reply-comment', {
+						comment_id: this.activity.id, 
+						reply: this.replyText,
+						
+					}).then(response=>{
+						vm.changeButtonContent(replyButton, "Reply");	
+						replyButton.disabled = false;
+						vm.closeModal();
+						vm.replyText = '';
+						vm.showSnackbar('Reply Added!');
+				
+					}).catch(error=>{
+						vm.changeButtonContent(replyButton, "Reply");
+						replyButton.disabled = false;
+						vm.showSnackbar('Error Adding Reply');
+
+
+          });
+        }
+    },
+
     share() {
       if (this.hasSharedComment) {
         this.unshareComment();
@@ -158,8 +188,8 @@ export default {
     },
 
     setCannotAgree() {
-      var option_voted_for = this.comment_optionId;
-      vm.$emit("change_can_agree_state", option_voted_for);
+        var option_voted_for = this.comment_optionId;
+        vm.$emit("change_can_agree_state", option_voted_for);
     }
   }
 };
@@ -178,6 +208,13 @@ export default {
   max-height: 120px;
 }
 
+.chosen-option .option {
+  font-size: 12px;
+}
+
+.author-details .name {
+  font-size: 12px;
+}
 #hasShared {
   color: teal;
   background-color: white;
