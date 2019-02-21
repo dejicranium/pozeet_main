@@ -1,13 +1,13 @@
 	<template id='comment-template'>
   <div class="body-container">
     <div class="comment-card" :id="[isInnerReply? 'innerReply' : '']">
-      <div class="avatar">
+      <div class="avatar" @click="openUserProfile">
         <img v-if="reply.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
         <img v-else :src="reply.userPic">
       </div>
 
       <div class="beside-avatar-box">
-        <div class="author-details">
+        <div class="author-details" @click="openUserProfile">
           <h3 class="name" style="font-weight:bold; margin-right:5px">{{reply.userName}}</h3>
           <p class="name" style="color:lightgray">{{reply.timeAdded}}</p>
           <p
@@ -85,6 +85,7 @@ export default {
       return this.isInnerReply ? "innerReply" : "";
     }
   },
+
   methods: {
     autoResize(event) {
       event.preventDefault();
@@ -97,7 +98,9 @@ export default {
         }
       });
     },
-
+    openUserProfile() {
+      window.open("" + "/profile/" + this.reply.userId + "/" + this.reply.userSlug, "_self");
+    },
     getReplyReplies(event) {
       var vm = this;
       var button = event.target;
@@ -183,6 +186,16 @@ export default {
 <style scoped>
 #innerReply {
   margin-top: 5px;
+}
+
+#comment-form {
+  display: flex;
+  flex-direction: column; 
+  -ms-flex-direction: column;
+}
+
+#comment-form button {
+  align-self: flex-end;
 }
 .comment {
   box-sizing: border-box;

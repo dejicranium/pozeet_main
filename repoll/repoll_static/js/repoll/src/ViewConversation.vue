@@ -29,7 +29,7 @@
                 <p class="question">{{comment.poll.question}}</p>
               </div>
 
-              <div class="comment-question quote" v-else-if="comment.opinion" tab-index="0">
+              <div class="comment-question quote" v-else-if="comment.opinion" tab-index="0" @click="openOpinion">
                 <p class="author-name" style="font-weight:normal; color:teal;">Opinion</p>
                 <div class="author-details" style="display: flex;">
                     <p class="author-name" style="font-size:bold; margin-right: 5px;"> {{comment.opinion.userName}} </p>
@@ -111,6 +111,13 @@ export default {
   },
 
   methods: {
+
+    openPoll(){
+        window.open('/poll/' + this.comment.poll.id +'/', '_self');
+    },
+    openOpinion(){
+        window.open('/opinion/' + this.comment.opinion.id + '/', '_self');
+    },
     autoResize(event) {
       event.preventDefault();
       var textarea = event.target;
