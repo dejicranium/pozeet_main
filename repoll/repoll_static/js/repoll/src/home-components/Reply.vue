@@ -95,7 +95,7 @@ var siteUrl = "";
 						vm.changeButtonContent(replyButton, 'Reply')
 						vm.closeModal();
 						vm.replyText = '';
-									showSnackbar('Reply Added!');
+						showSnackbar('Reply Added!');
 
 					}).catch(error=>{
 						replyButton.disabled = false;
