@@ -42,7 +42,7 @@ class FeedManager:
             
 
     def get_all_feeds(self, categories_id):
-        user_in_categories_feeds_activities = self.get_user_in_categories_feeds(categories_id)
+        #user_in_categories_feeds_activities = self.get_user_in_categories_feeds(categories_id)
         
         user_feed_activities = self.get_user_feed()
         """
