@@ -56,7 +56,7 @@ class RedisList:
         if start and end:
             return self.redis.lrange(self.key, start, end)
         else:
-            return self.redis.lrange(self.key)
+            return self.redis.lrange(self.key, 0, self.get_length())
 
 
 if __name__ == '__main__':
