@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Notifications</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
+
+	    <link rel="stylesheet" href="{{request.static_url('repoll:repoll_static/styles.css')}}"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <style>
+            #app{
+                margin-top: 40px;
+            }
+            #sub-container {
+                padding-top: 40px;
+            }
+
+        </style>
+    </head>
+
+
+    <body>
+        <p id='user-id-signifier' style='display:none'>{{user_id}}</p>
+
+            <div id= "body-container">
+                {%include 'not_home_navbar_template.jinja2' %}
+
+                <div id='container'>
+                    <div id='app'>
+                        <script src="{{request.static_url('repoll:js/notifications_build.js')}}"></script>
+                    </div>
+                </div>
+             </div>
+
+
+
+    </body>
+
+
+
+</html>

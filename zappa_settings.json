@@ -1,0 +1,16 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "aws_region": "us-east-2",
+        "profile_name": "default",
+        "project_name": "repoll",
+        "runtime": "python3.6",
+<<<<<<< HEAD
+        "s3_bucket": "zappa-tr3vayo7u", 
+        "domain": "pozeet.com"
+=======
+        "s3_bucket": "zappa-ozwstging",
+	"slim_handler": true 
+>>>>>>> 983e7c36572509d54a03577a1df1f4fba1e4c334
+    }
+}

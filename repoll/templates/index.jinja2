@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+	    <link rel="stylesheet" href="{{request.static_url('repoll:repoll_static/main.css')}}"/>
+
+        <title>Barter</title>
+
+
+        <!-- Custom styles for this template -->
+        <link href="stylesheets/css/main.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+    </head>
+
+    <body>
+        <div class="rave-landing">
+            <nav class="navbar">
+                <div class="navbar__container">
+                    <div class="navbar__left">
+                        <div class="navbar__item">
+                            <a href="/" class="navbar__item__link navbar__item__link--brand">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="117" height="28" viewBox="0 0 117 28">
+                                    <g fill="#FFF" fill-rule="nonzero">
+                                        <path d="M40.124 5.364V5.4c1.903-2.01 4.392-3.245 7.613-3.245v5.099c-3.367.154-5.856 1.39-7.613 3.709V24.56H35V10.366l5.124-5.002zm25.182-2.746h4.978v21.943h-4.978v-1.545c-1.757 1.236-3.807 2.008-6.295 2.008-5.857 0-10.395-5.099-10.395-11.435 0-6.335 4.685-11.434 10.395-11.434 2.488 0 4.684.772 6.295 2.008V2.618zm-5.563 17.77c2.196 0 4.099-.772 5.563-3.09V9.881c-1.464-2.318-3.514-3.09-5.563-3.09-3.514 0-6.15 3.244-6.15 6.798 0 3.71 2.49 6.8 6.15 6.8zm36.162-17.77l-9.517 21.943H81.85L72.333 2.618h5.417l6.442 15.144 6.442-15.144h5.27zm12.927 17.643l-4.896 4.779c-5.121-1.171-8.47-5.72-8.47-11.296 0-6.8 4.392-11.744 10.98-11.744 5.856 0 10.102 4.481 10.248 11.28 0 .773 0 1.237-.146 1.7h-16.105c.44 3.09 2.49 5.563 6.296 5.563.787 0 1.487-.09 2.093-.282zM106.3 6.481c-3.368 0-5.271 2.164-5.857 5.254h10.98c-.292-3.245-2.049-5.254-5.123-5.254zM19.387 11.913C23.032 8.95 30.53-1.647 18.814.22 13.71.988 6.212 5.874 4.702 11.474a44.825 44.825 0 0 0-2.604-4.337C.692 5.215-.922 6.697.64 8.674 5.066 14.33 8.14 21.137 8.14 28c.364-3.404-.209-7.577-1.562-11.64.677.22 1.406.33 2.082.33 2.396 3.843 6.041 7.137 10.155 8.675 3.749 1.482 8.748.604 6.717-5.326-1.093-3.24-3.645-6.094-6.144-8.126zm.52-10.321c6.51-.714-.468 7.247-2.76 8.73-2.135-1.373-4.79-2.581-7.394-2.252 1.875-2.36 6.405-6.04 10.154-6.478zM9.701 9.827c1.77-.165 3.697.824 5.155 1.812a11.931 11.931 0 0 1-4.582 1.263c-2.396 0-2.864-2.855-.573-3.075zm9.009 12.408c-3.073-.878-5.937-3.294-8.02-5.765 1.719-.33 3.385-.988 4.947-1.921.573-.275 1.146-.66 1.667-1.043 1.822 1.647 3.697 3.843 4.426 6.313.729 2.69-1.25 2.91-3.02 2.416z"/>
+                                    </g>
+                                </svg>
+                           </a>    
+                        </div>
+                    </div>
+                    <div class="navbar__right">
+
+                        <div class="navbar__item">
+                            <a href="/" class="navbar__item__link">Documentation</a>
+                        </div>
+                        <div class="navbar__item">
+                            <a href="/" class="navbar__item__link">Pricing</a>
+                        </div>                    
+                        <div class="navbar__item">
+                            <a href="/" class="navbar__item__link">FAQ</a>
+                        </div>
+                        <div class="navbar__item">
+                            <span class="navbar__item__button">Go to dashboard</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="hero">
+                <div class="hero__container">
+                    <div class="hero__header">
+                        <h1 class="hero__header__title">A Customer Payment Solution Used Globally.</h1>
+                        <p class="hero__header__subtitle">Rave lets you easily receive payments from 
+                                anywhere in the world with zero setup fees.</p>
+                        <button class="hero__button">
+                            <span class="hero__button__text">
+                                Create account
+                            </span>
+                        </button> 
+                    </div> 
+
+                    <img class="hero__image" src="img/images.png" srcset="img/images@2x.png 2x, img/images@3x.png 3x"/>
+                </div>
+            </div>
+        </div> 
+        <div class="background-complement">
+            <div class="background-complement__triangle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" viewBox="0 0 20 30">
+                    <path fill="#FFF" fill-rule="evenodd" d="M8.339 0v23.667l-5.98-6L.032 20 10 30l9.967-10-2.325-2.333-5.98 6V0z"/>
+                </svg>
+            </div>
+
+        </div>
+
+        <!---why section-->
+        <div class="why">
+            <div class="why__container">
+                <!--header-->
+                <div class="why__wrapper">
+                    <div class="why__header">
+                        <div class="why__header__caption">
+                            <p class="why__header__caption__title">Why</p>
+                            <p class="why__header__caption__subline">use Rave?</p>
+                        </div>
+                        <p class="why__header__mark">?</p>
+                    </div>
+
+                    <!--benefits-->
+                    <div class="why__benefits">
+                        <div class="why__benefits__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45">
+                                <defs>
+                                    <rect id="a" width="45" height="45" rx="9"/>
+                                </defs>
+                                <g fill="none" fill-rule="evenodd">
+                                    <mask id="b" fill="#fff">
+                                        <use xlink:href="#a"/>
+                                    </mask>
+                                    <use fill="#9BC9FF" fill-rule="nonzero" xlink:href="#a"/>
+                                    <path fill="#FFF" d="M17.663 32.385l-4.88 2.492A4.395 4.395 0 0 0 12 35.4c2.845 2.246 18.163 2.266 21 .051a4.36 4.36 0 0 0-.86-.54l-5.226-2.445c-.675-.316-1.101-.962-1.101-1.669v-1.92c.146-.156.314-.357.494-.595a10.987 10.987 0 0 0 1.624-3.064c.67-.194 1.164-.773 1.164-1.462v-2.049c0-.45-.214-.853-.547-1.135v-2.962S29.198 13 22.531 13c-6.667 0-6.017 4.609-6.017 4.609v2.962a1.487 1.487 0 0 0-.547 1.135v2.049c0 .54.303 1.015.757 1.289.547 2.229 1.978 3.833 1.978 3.833v1.872c0 .681-.399 1.31-1.039 1.636z" mask="url(#b)"/>
+                                </g>
+                            </svg>                        
+                            <div class="why__benefits__item__text">
+                                <p class="why__benefits__item__text__title">Rich customer data</p>
+                                <p class="why__benefits__item__text__caption">Rave offers valuable insight into who your customers are so you can understand their 
+                                    transaction habits and purchasing behavior.</p>
+                            </div>
+                        </div>
+                        <div class="why__benefits__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="46" viewBox="0 0 45 46">
+                                <defs>
+                                    <rect id="a" width="45" height="44.958" y=".899" rx="9"/>
+                                </defs>
+                                <g fill="none" fill-rule="evenodd">
+                                    <mask id="b" fill="#fff">
+                                        <use xlink:href="#a"/>
+                                    </mask>
+                                    <use fill="#9BC9FF" fill-rule="nonzero" xlink:href="#a"/>
+                                    <path fill="#FFF" d="M25.731 35.277c.432.35.774.65.432.7-.329.05-3.433.005-3.663 0-.229.005-3.335.05-3.664 0-.342-.05 0-.351.433-.7.433-.35.479-.876.479-.876l.162-1.14h5.179l.163 1.14s.046.526.479.876zm-9.065-9.11c1.384-.012 1.556-.378 2.007-1.903.832-2.407 4.578.63 2.256 1.684-2.321 1.054-5.646.23-4.262.219zm14.186-15.86c.672.594.648 1.85-.053 2.804l-8.344 9.968c-.701.955-.54.912-1.21.318-.672-.593-.675-.411.025-1.365l7.098-11.071c.7-.955 1.813-1.247 2.485-.654zm-1.825 1.326s.122-.57 1.088-1.196c0 0-1.019-.17-1.537.76.345.303.45.436.45.436zM34 14.048c.552 0 1 .492 1 1.098v15.92c0 .606-.448 1.097-1 1.097H11c-.552 0-1-.491-1-1.098V15.146c0-.606.448-1.098 1-1.098h14.355l-1.057 1.647H11.5V28.87h22V15.695h-4l1.379-1.647H34z" mask="url(#b)"/>
+                                </g>
+                            </svg>
+                            
+                            <div class="why__benefits__item__text">
+                                <p class="why__benefits__item__text__title">Customized User Experience</p>
+                                <p  class="why__benefits__item__text__caption">We know the importance of brand recognition, 
+                                    which is why you’ll be able to fully customize 
+                                    your account using the Rave subdomains 
+                                    feature at no additional cost.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="why__wrapper">
+                    <div class="why__benefits">
+                        <div class="why__benefits__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45">
+                                <defs>
+                                    <rect id="a" width="45" height="45" rx="9"/>
+                                </defs>
+                                <g fill="none" fill-rule="evenodd">
+                                    <mask id="b" fill="#fff">
+                                        <use xlink:href="#a"/>
+                                    </mask>
+                                    <use fill="#9BC9FF" fill-rule="nonzero" xlink:href="#a"/>
+                                    <g mask="url(#b)">
+                                        <g transform="translate(8 8)">
+                                            <circle cx="14.478" cy="14.479" r="14.478" fill="#FFF"/>
+                                            <path fill="#9BC9FF" d="M7.461 26.66l.172.112c-.068-.016-.132-.042-.2-.06.009-.02.02-.033.028-.052zm-.93-20.438l-.029-.059c.242-.036.259-.206.443-.269.209-.069.137.007.343 0 .167-.007.268.114.459.026a.655.655 0 0 1-.197.193c-.157.111-.317.225-.504.269-.187.042-.406-.003-.515-.16zm2.897 12.905c-.004.128-.08.24-.144.347a3.52 3.52 0 0 0-.507 1.583c-.039.534-.015 1.191-.48 1.454-.266.148-.64.122-.816.371-.055.075-.081.17-.108.26l-.343 1.247a18.032 18.032 0 0 1-.445-.045c.174.055.294.29.19.452-.167-.088-.386.016-.478.184-.088.167-.076.37-.027.554.152.543.617.982 1.164 1.113-.095.18-.386.101-.564-.02a6.746 6.746 0 0 1-2.661-3.63c-.154-.517-.253-1.068-.555-1.512-.252-.377-.633-.652-.885-1.028-.353-.54-.42-1.24-.829-1.735-.229-.282-.583-.628-.38-.93.081-.124.255-.242.186-.373-.022-.043-.069-.069-.105-.105-.138-.148-.042-.38.026-.57.115-.33.115-.684.066-1.038a2.983 2.983 0 0 1-.787-1.12c-.101-.262-.236-.589-.517-.593-.073-.203-.148-.406-.22-.609-.027.073-.098.118-.177.128a14.396 14.396 0 0 1 3.636-8.66c.047-.02.092-.047.138-.073.494-.288.887-.72 1.365-1.035.098-.065.21-.128.33-.115.119.01.23.13.188.242a.251.251 0 0 1-.096.111A10.1 10.1 0 0 1 3.77 5.218c-.078.04-.16.085-.196.164-.066.134.046.301.187.35.14.049.298.02.442-.013a.714.714 0 0 0-.095.61c.134.012.177-.171.217-.299.163-.507.972-.714.92-1.249.219.115.442-.14.576-.35.134-.213.432-.423.596-.236l.032.315.868-.22a.432.432 0 0 0-.125.537c.095.176.33.265.517.193-.002.154-.14.272-.265.363-.317.24-.658.485-1.028.603l.085.177a.08.08 0 0 1-.029.007c-.235.022-.484-.147-.736-.114-.154.02-.344.02-.433.176-.012.02-.068.295-.029.272l.41-.235a.67.67 0 0 1 .029.357.801.801 0 0 1 .488.107.97.97 0 0 1-.94.567c-.003-.118-.01-.236-.013-.354-.32-.026-.583.25-.743.525-.163.278-.287.596-.556.773-.164.112-.364.154-.54.246-.174.095-.334.275-.298.468.016.092.075.177.073.272-.01.177-.216.26-.354.374-.235.196-.294.557-.546.73-.183.128-.426.125-.64.19-.212.066-.425.279-.339.485-.105.036-.233-.042-.243-.154a7.186 7.186 0 0 0-.726 2.372c.187.13.376-.168.413-.394.039-.225.235-.52.418-.387l-.127.97c-.01.063-.016.128.014.183.036.07.114.098.174.147.167.144.144.4.154.619.01.268.099.53.24.76-.014-.047-.023-.092-.033-.138a.916.916 0 0 0 .714-.22c.101-.092.186-.21.314-.256.132-.049.276-.014.41.023.416.114.858.242 1.136.569.14.166.23.377.397.514.38.32 1.022.179 1.37.536.278.288.226.753.15 1.15-.19-.105-.444.157-.333.344.102-.112.22-.23.367-.23.15-.003.282.203.17.298.263-.334.904-.196 1.006.22.367.026.737.051 1.104.081-.071.539 1.056.57 1.034 1.111zM7.196 3.976a.293.293 0 0 1-.39-.158.292.292 0 0 1 .202-.368c.097-.023.232-.012.262-.107.009-.029.004-.06.004-.09-.004-.18.156-.328.33-.374.173-.044.356-.01.531.025.063.13.081.28.051.42l-.361.016c.01.2-.01.452-.195.526-.167.066-.385-.057-.523.055l.089.055zm1.876-2c.33-.158.608-.406.932-.573.558-.286 1.21-.312 1.837-.332l4.282-.133-.993.545c-.27.148-.577.3-.874.216-.006.239.21.46.45.458-.587.362-1.4-.008-2.02.296-.259.128-.468.37-.753.414-.165.027-.337-.018-.5.019-.275.06-.448.32-.651.513-.234.224-.578.377-.883.27-.305-.106-.465-.56-.22-.773.12-.104.292-.121.435-.194.142-.073.254-.268.147-.386-.046-.052-.122-.072-.164-.127-.047-.06-.042-.145-.08-.21-.145-.255-.548.087-.823-.015l-.122.012zm4.335 1.204c.193-.044.36-.159.541-.242.18-.083.395-.132.572-.044.053.131-.099.25-.232.298-.256.09-.533.114-.8.07l-.08-.082zm11.67 1.44a14.426 14.426 0 0 1 3.881 9.852c0 .088.001.18-.002.268a19.76 19.76 0 0 1-.273-1.254c-.145-.786-.316-1.687-1.007-2.083-.128-.072-.266-.124-.383-.203-.163-.107-.291-.268-.465-.363-.173-.092-.426-.095-.53.069-.112.174.016.413.193.517.176.11.39.134.576.213.377.16.635.557.639.963 0 .406-.258.802-.632.966-.141.059-.292.088-.426.16a.803.803 0 0 0-.39.462 41.45 41.45 0 0 0-1.88-3.706c-.24.299-.151.74.02 1.081.17.34.418.654.484 1.031.029.174.02.355.069.521.085.292.328.504.508.744.213.278.355.616.627.838.269.223.74.262.92-.036-.13.331-.262.658-.392.99l-.998 2.521c-.088.227-.177.449-.265.675-.337.845-.674 1.7-1.194 2.447-.082.115-.167.233-.19.367-.012.095.002.19-.002.285a.735.735 0 0 1-.635.685c.248 0 .31.43.117.613-.2.19-.5.213-.756.324-.682.292-1.103 1.225-1.837 1.137l-.788-2.468c-.105-.324-.21-.655-.206-.995.01-.623.37-1.18.51-1.786.143-.605-.09-1.414-.705-1.492l.166-.429-.31.06c.203-.43.264-1.088-.184-1.249-.197-.069-.416-.003-.62-.045-.203-.043-.374-.32-.21-.449a5.271 5.271 0 0 0-2.131.358c-.236.093-.475.204-.727.194-.406-.016-.728-.337-1.006-.631-.59-.635-1.226-1.424-1.023-2.262.072-.295.242-.583.18-.881-.037-.174-.155-.325-.187-.502-.046-.229.055-.462.173-.665a4.416 4.416 0 0 1 1.578-1.606c-.04-.387.232-.754.572-.94.341-.19.74-.236 1.127-.282.707-.083 1.415-.161 2.125-.244.085-.01.178-.016.25.026.117.072.127.236.163.37.102.383.567.622.94.484.138.472.688.655 1.166.77a.926.926 0 0 1 .212-.777c.17.428.711.556 1.173.569.462.009.973-.024 1.327.267-.049-.31-.102-.621-.154-.936-.016-.111-.04-.233-.128-.308-.118-.098-.288-.063-.442-.059a1.053 1.053 0 0 1-.888-.435 3.566 3.566 0 0 1 2.007-.204 5.261 5.261 0 0 1-.867-1.484c-.05.223-.095.442-.144.665-.09-.22-.194-.459-.404-.56-.213-.104-.54.052-.497.282.02.115.121.2.164.308.082.203-.062.438-.258.534-.196.098-.425.091-.642.085-.023.184-.045.367-.072.554-.066-.17-.135-.338-.2-.508-.091.063-.187.121-.278.184l-.544-.573c-.105.104-.21.213-.314.321-.332-.265-.663-.53-.994-.792-.15-.12-.304-.242-.484-.307-.551-.203-1.14.17-1.553.583-.212.216-.419.472-.431.773-.321-.084-.645.116-.976.12-.443.006-.848-.403-.836-.845.01-.443.432-.832.874-.81.304.02.595.203.897.15a.92.92 0 0 0-.596-1.027c.897-.423 1.797-.846 2.694-1.266.111-.174-.121-.376-.324-.396-.207-.02-.443.02-.59-.128-.174-.173-.067-.491.136-.635.2-.144.458-.178.691-.26.22-.075.415-.192.632-.271.936-.335 1.942.182 2.8.68l.075-.027a1 1 0 0 1-.173.623 1.708 1.708 0 0 1 1.67.1c.21.138.397.328.643.38a.46.46 0 0 0 .164.01zm1.326 4.758c.098.006.209-.063.209-.161-.004-.092-.089-.154-.154-.216s-.115-.173-.053-.236c.06-.022.115-.042.173-.065.03-.203-.15-.38-.334-.475-.183-.098-.393-.153-.534-.307-.017-.014-.03-.033-.03-.053 0-.032.03-.052.053-.075.173-.147.068-.487-.158-.514l.134-.072a.233.233 0 0 0-.242-.124c-.2.032-.261.294-.219.49.05.223.18.43.36.574.07.055.151.104.197.183.098.163.01.373.053.556.036.154.161.27.285.367.077.06.165.122.26.128zm.094 10.076c-.094.244.343.477.225.712-.04.08-.129.118-.2.17-.504.374-.02 1.36-.529 1.723-.178.127-.416.12-.633.102-.052-.005-.106-.01-.152-.033-.2-.1-.12-.411.03-.577.15-.166.359-.333.337-.556-.013-.134-.113-.264-.071-.393.05-.152.246-.178.394-.238a.64.64 0 0 0 .362-.743l.237-.167z"/>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>                        
+                                
+                            <div class="why__benefits__item__text">
+                                <p class="why__benefits__item__text__title">Global Access</p>
+                                <p class="why__benefits__item__text__caption">With 150+ supported currencies, your 
+                                    customers in the US, South Africa and Nigeria 
+                                    can pay you directly from their bank accounts 
+                                    or mobile wallet.</p>
+                            </div>
+                        </div>
+                        <div class="why__benefits__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45">
+                                <defs>
+                                    <rect id="a" width="45" height="45" rx="9"/>
+                                </defs>
+                                <g fill="none" fill-rule="evenodd">
+                                    <mask id="b" fill="#fff">
+                                        <use xlink:href="#a"/>
+                                    </mask>
+                                    <use fill="#9BC9FF" fill-rule="nonzero" xlink:href="#a"/>
+                                    <path fill="#FFF" d="M22.402 34.867C10.825 34.867 10 15.278 10 15.278L22.402 10l12.403 5.278s-.825 19.589-12.403 19.589zm-4.255-13.388l-2.046 1.8 4.91 5.471.009-.01.006.01 8.804-8.946-1.572-2.065-7.155 5.888-2.956-2.148z" mask="url(#b)"/>
+                                </g>
+                            </svg>
+                            <div class="why__benefits__item__text">
+
+                                <p class="why__benefits__item__text__title">Top-Notch Security</p>
+                                <p class="why__benefits__item__text__caption">Rest assured with over 200 fraud rules, 
+                                    our proprietary fraud system checks 
+                                    every transaction to ensure you’re 
+                                    covered and protected.</p>
+                            </div>
+                        </div>
+                        <div class="why__benefits__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+                                <g fill="none" fill-rule="evenodd">
+                                    <rect width="45" height="45" fill="#9BC9FF" fill-rule="nonzero" rx="9"/>
+                                    <path fill="#FFF" d="M16 20.177L9.625 22.87v.135L16 25.726V30L6 24.905v-3.797L16 16v4.177zM21.132 34H18l4.858-24H26l-4.868 24zM28 25.823l6.385-2.707v-.122L28 20.274V16l10 5.095v3.797L28 30v-4.177z"/>
+                                </g>
+                            </svg>
+                            <div class="why__benefits__item__text">
+                                <p class="why__benefits__item__text__title">Straight Forward Setup</p>
+                                <p class="why__benefits__item__text__caption">We’ve written easy to implement code 
+                                    so there’s no setup headache.</p>
+                            </div>
+                        </div>
+                        <div class="why__benefits__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45">
+                                <defs>
+                                    <rect id="a" width="45" height="45" rx="9"/>
+                                </defs>
+                                <g fill="none" fill-rule="evenodd">
+                                    <mask id="b" fill="#fff">
+                                        <use xlink:href="#a"/>
+                                    </mask>
+                                    <use fill="#9BC9FF" fill-rule="nonzero" xlink:href="#a"/>
+                                    <g fill="#FFF" fill-rule="nonzero" mask="url(#b)">
+                                        <path d="M23 10c-7.18 0-13 5.82-13 13s5.82 13 13 13 13-5.82 13-13-5.82-13-13-13zm-10.028 9.514l6.595 2.952 2.066.906 1.532.696 1.255.534a.994.994 0 0 1 .348.79c0 .464-.16.797-.476.997-.318.202-.7.302-1.15.302-1.083 0-2.05-.394-2.902-1.183l-1.787 1.81c1.191 1.021 2.507 1.54 3.946 1.555v1.997h1.51v-1.997c.896-.076 1.675-.375 2.333-.893a3.349 3.349 0 0 0 1.241-2.008l4.819 2.146A10.613 10.613 0 0 1 23 33.617c-5.864 0-10.617-4.754-10.617-10.617 0-1.222.21-2.394.59-3.486zm13.7 3.3l-2.09-.928-1.138-.511-1.648-.743a.555.555 0 0 1-.116-.324c0-.372.158-.635.476-.79a2.422 2.422 0 0 1 1.079-.232c.759 0 1.501.256 2.229.766l1.694-1.741c-.975-.743-2.058-1.145-3.25-1.207v-1.996H22.4v1.996c-.805.046-1.51.275-2.112.684a3.05 3.05 0 0 0-1.23 1.637l-4.95-2.22A10.605 10.605 0 0 1 23 12.383c5.863 0 10.616 4.754 10.616 10.617 0 .952-.127 1.873-.361 2.75l-6.584-2.936z"/>
+                                    </g>
+                                </g>
+                            </svg>                        
+                            <div class="why__benefits__item__text">
+                            <p class="why__benefits__item__text__title">Zero Setup Fees</p>
+                            <p class="why__benefits__item__text__caption">Payments should be easy, so we make 
+                                    setting up Rave absolutely free!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!---how-->
+        <div class="how">
+            <div class="how__container">
+                <h2 class="how__header">How Rave Works</h2>
+                <div class="how__explanations">
+                    <div class="how__explanations__item">
+                        <svg class="how__explanations__item__box"xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="157" height="175" viewBox="0 0 157 175">
+                            <defs>
+                                <rect id="b" width="137" height="137" rx="10"/>
+                                <filter id="a" width="124.8%" height="124.8%" x="-12.4%" y="-9.5%" filterUnits="objectBoundingBox">
+                                    <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5"/>
+                                    <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.102043705 0"/>
+                                </filter>
+                                <rect id="c" width="60" height="60" rx="10"/>
+                            </defs>
+                            <g fill="none" fill-rule="evenodd" transform="translate(10 2)">
+                                <g fill-rule="nonzero" transform="translate(0 22)">
+                                    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+                                    <use fill="#FFF" xlink:href="#b"/>
+                                </g>
+                                <g transform="translate(39 61)">
+                                    <mask id="d" fill="#fff">
+                                        <use xlink:href="#c"/>
+                                    </mask>
+                                    <use fill="#FEB55C" fill-rule="nonzero" xlink:href="#c"/>
+                                    <g fill="#FFF" mask="url(#d)">
+                                        <path fill-rule="nonzero" d="M31.2 46.754c-1.23.147-2.466.237-3.7.246-2.86-.02-5.731-.477-8.517-1.072-1.443-.308-2.876-.684-4.264-1.19-1.108-.404-1.762-.591-1.717-1.93.059-1.73.26-3.466.558-5.168.361-2.062.822-5.084 2.603-6.428 1.03-.777 2.363-1.032 3.542-1.5a15.253 15.253 0 0 0 1.57-.712c1.629 1.805 3.752 2.75 6.224 2.75 2.473 0 4.597-.945 6.225-2.75.483.258.997.484 1.57.712 1.18.468 2.513.723 3.543 1.5.296.223.555.492.783.795-5.347.2-9.62 4.597-9.62 9.993 0 1.72.435 3.34 1.2 4.754zM28 30c-5.439 0-7.395-5.285-7.908-9.627C19.461 15.025 22.068 11 28 11c5.933 0 8.539 4.025 7.908 9.373C35.395 24.715 33.438 30 28 30z"/>
+                                        <path d="M40 50a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm1.03-9.04V37.4h-2.075v3.56h-3.357v1.951h3.357v3.806h2.074V42.91h3.34V40.96h-3.34z"/>
+                                    </g>
+                                </g>
+                                <circle cx="68" cy="18" r="18" fill="#FFF" fill-rule="nonzero" stroke="#FEB55C" stroke-width="4"/>
+                                <text fill="#000" font-family="Flutterwave-Bold, Flutterwave" font-size="20" font-weight="bold">
+                                    <tspan x="62" y="26">1</tspan>
+                                </text>
+                            </g>
+                        </svg>
+                        <p class="how__explanations__item__action">Sign up for free</p>
+                    </div>
+                    <div class="how__explanations__item">
+                        <svg class="how__explanations__item__box" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="157" height="175" viewBox="0 0 157 175">
+                            <defs>
+                                <rect id="b" width="137" height="137" rx="10"/>
+                                <filter id="a" width="124.8%" height="124.8%" x="-12.4%" y="-9.5%" filterUnits="objectBoundingBox">
+                                    <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5"/>
+                                    <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.102043705 0"/>
+                                </filter>
+                                <rect id="c" width="60" height="60" rx="10"/>
+                            </defs>
+                            <g fill="none" fill-rule="evenodd" transform="translate(10 2)">
+                                <g fill-rule="nonzero" transform="translate(0 22)">
+                                    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+                                    <use fill="#FFF" xlink:href="#b"/>
+                                </g>
+                                <g transform="translate(38 61)">
+                                    <mask id="d" fill="#fff">
+                                        <use xlink:href="#c"/>
+                                    </mask>
+                                    <use fill="#FEB55C" fill-rule="nonzero" xlink:href="#c"/>
+                                    <g fill="#FFF" mask="url(#d)">
+                                        <path d="M44.765 43.902c.835 0 1.512.692 1.512 1.546 0 .853-.677 1.545-1.512 1.545H14.512c-.836 0-1.513-.692-1.513-1.545 0-.854.677-1.546 1.513-1.546h30.252zm-28.361-4.017h.378V25.98h-.378a.764.764 0 0 1-.756-.771c0-.426.338-.772.756-.772h26.47c.417 0 .756.346.756.772a.763.763 0 0 1-.756.771h-.378v13.904h.378c.836 0 1.513.692 1.513 1.546 0 .853-.677 1.545-1.513 1.545h-26.47c-.836 0-1.513-.692-1.513-1.545 0-.854.677-1.546 1.513-1.546zM39.47 25.981h-4.537v13.904h4.537V25.98zm-7.563 0h-4.538v13.904h4.538V25.98zm-12.1 0v13.904h4.537V25.98h-4.538zm-5.294-2.932a1.52 1.52 0 0 1-1.479-1.22 1.553 1.553 0 0 1 .858-1.734l15.128-6.951c.395-.18.846-.18 1.24 0l15.01 6.898a1.544 1.544 0 0 1 1.022 1.462c0 .853-.676 1.545-1.513 1.545H14.513z"/>
+                                    </g>
+                                </g>
+                                <circle cx="66" cy="18" r="18" fill="#FFF" fill-rule="nonzero" stroke="#FEB55C" stroke-width="4"/>
+                                <text fill="#000" font-family="Flutterwave-Bold, Flutterwave" font-size="20" font-weight="bold">
+                                    <tspan x="60" y="26">2</tspan>
+                                </text>
+                            </g>
+                        </svg>
+                        <p class="how__explanations__item__action">Link your preferred bank to your account</p>
+                    </div>
+                    <div class="how__explanations__item">
+                        <svg class="how__explanations__item__box" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="157" height="175" viewBox="0 0 157 175">
+                            <defs>
+                                <rect id="b" width="137" height="137" rx="10"/>
+                                <filter id="a" width="124.8%" height="124.8%" x="-12.4%" y="-9.5%" filterUnits="objectBoundingBox">
+                                    <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5"/>
+                                    <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.102043705 0"/>
+                                </filter>
+                                <rect id="c" width="60" height="60" rx="10"/>
+                            </defs>
+                            <g fill="none" fill-rule="evenodd">
+                                <g fill-rule="nonzero" transform="translate(10 24)">
+                                    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+                                    <use fill="#FFF" xlink:href="#b"/>
+                                </g>
+                                <g transform="translate(49 63)">
+                                    <mask id="d" fill="#fff">
+                                        <use xlink:href="#c"/>
+                                    </mask>
+                                    <use fill="#FEB55C" fill-rule="nonzero" xlink:href="#c"/>
+                                    <g fill="#FFF" mask="url(#d)">
+                                        <path d="M36.58 19.302c0-.264 0-.873.945-1.118v2.236c-.945-.245-.946-.854-.946-1.118zm2.895 3.278c.945.245.946.854.946 1.118 0 .264-.001.873-.946 1.118V22.58zM38.5 13c4.687 0 8.5 3.813 8.5 8.5 0 4.687-3.813 8.5-8.5 8.5-4.687 0-8.5-3.813-8.5-8.5 0-4.687 3.813-8.5 8.5-8.5zm2.588 8.188c-.444-.296-.984-.494-1.613-.591v-2.413c.945.245.946.854.946 1.118h1.95c0-1.082-.444-1.95-1.282-2.51-.445-.296-.985-.493-1.614-.591v-.959h-1.95v.959c-.628.098-1.17.295-1.613.592-.84.559-1.282 1.427-1.282 2.51 0 1.081.443 1.95 1.282 2.509.444.296.985.494 1.613.591v2.413c-.945-.245-.946-.854-.946-1.118h-1.95c0 1.082.444 1.95 1.283 2.51.444.296.984.493 1.613.591v.959h1.95v-.959c.629-.098 1.17-.295 1.613-.591.84-.56 1.282-1.428 1.282-2.51 0-1.082-.443-1.95-1.282-2.51zm-29.066 10.29h6.007V48h-6.007V31.478zm40.052 3.884l.904 3.447-15.123 8.335-11.47-3.22-5.92.664V31.28l10.243-1.59 11.213 2.808v3.128l-.018.005-8.02-1.956-.578 2.367 8.635 2.105 10.134-2.785z"/>
+                                    </g>
+                                </g>
+                                <g transform="translate(62 2)">
+                                    <circle cx="18" cy="18" r="18" fill="#FFF" fill-rule="nonzero" stroke="#FEB55C" stroke-width="4"/>
+                                    <text fill="#000" font-family="Flutterwave-Bold, Flutterwave" font-size="20" font-weight="bold">
+                                        <tspan x="12" y="26">3</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                        </svg>
+                        <p class="how__explanations__item__action">Start accepting payments from customers</p>
+                    </div>
+                </div>
+                <button class="how__button">
+                    <span class="how__button__text">Create account</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- faq -->
+        <div class="faq">
+            <div class="faq__container">
+                <h2 class="faq__header">FAQ</h2>
+                <div class="faq__questions">
+                    <div class="faq__questions__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="42" viewBox="0 0 35 42">
+                            <path fill="#9BC9FF" fill-rule="nonzero" d="M34.796 6.562C27.63 6.562 22.14 4.514 17.498 0 12.856 4.514 7.366 6.562.2 6.562c0 11.755-2.433 28.595 17.296 35.434 19.731-6.839 17.299-23.679 17.299-35.434zM16.065 27.248l-5.763-5.763 2.58-2.58 3.183 3.183 6.049-6.05 2.58 2.58-8.63 8.63z"/>
+                        </svg>
+                        <p class="faq__questions__item__title">How secure is rave?</p>
+                        <p class="faq__questions__item__caption">Rave is PCIDSS level 1 compliant so all transactions 
+                                that pass through our systems are automatically 
+                                afforded the highest level of security in online 
+                                payments.</p>
+                    </div>
+
+                    <div class="faq__questions__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="39" height="34" viewBox="0 0 39 34">
+                            <path fill="#9BC9FF" fill-rule="nonzero" d="M28.704 19.377c-5.357-.006-9.698-4.34-9.704-9.688C19 4.338 23.345 0 28.704 0c5.36 0 9.705 4.338 9.705 9.689 0 5.35-4.345 9.688-9.705 9.688zM29.268 5h-2.03v4.004c0 .43.026.855.077 1.277.051.423.119.853.203 1.292h1.47c.084-.439.152-.87.203-1.292.051-.422.077-.848.077-1.277V5zM27 14.1a1.187 1.187 0 0 0 .742 1.106c.15.06.313.091.49.091.173 0 .334-.03.483-.091.15-.06.28-.145.392-.252a1.187 1.187 0 0 0 .357-.854 1.162 1.162 0 0 0-.357-.847 1.28 1.28 0 0 0-.392-.255 1.23 1.23 0 0 0-.483-.095 1.248 1.248 0 0 0-.878.35A1.185 1.185 0 0 0 27 14.1zM12.637 29.696a1.873 1.873 0 0 1-1.872-1.87 1.87 1.87 0 0 1 1.872-1.869 1.87 1.87 0 0 1 1.873 1.87c0 1.032-.839 1.869-1.873 1.869zm-5.78 0a1.873 1.873 0 0 1-1.872-1.87 1.87 1.87 0 0 1 1.872-1.869 1.87 1.87 0 1 1 0 3.739zM0 31.194V21.157h35.907v10.037a2.756 2.756 0 0 1-2.75 2.743H2.769C1.26 33.937 0 32.702 0 31.194zm6.857-6.362a2.995 2.995 0 0 0-.537 5.94 3 3 0 0 0 3.428-2.146 2.999 2.999 0 0 0 3.294 2.168 2.996 2.996 0 0 0 2.596-2.967 2.997 2.997 0 0 0-2.596-2.968 2.999 2.999 0 0 0-3.294 2.168 3.003 3.003 0 0 0-2.89-2.195zM17.434 9.7a10.736 10.736 0 0 0 .857 4.224H0v-1.904a2.787 2.787 0 0 1 2.77-2.758h14.673c-.006.16-.01.294-.01.438zm1.416 5.349a11.12 11.12 0 0 0 6.101 4.983H0v-4.983h18.85zm17.057 4.983h-4.328a11.407 11.407 0 0 0 4.328-2.65v2.65z"/>
+                        </svg>                        
+                        <p class="faq__questions__item__title">Can I identify fraudulent 
+                                transactions?</p>
+                        <p class="faq__questions__item__caption">Yes you can. Every transaction passes through our 
+                                fraud engine when fraudulent transactions are 
+                                identified, they are blocked and we tell you why.</p>
+                    </div>
+                
+                    <div class="faq__questions__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="40" viewBox="0 0 44 40">
+                            <path fill="#9BC9FF" fill-rule="nonzero" d="M26.703 28.13a.577.577 0 0 1-.16.43c-.35.453-.98 1.13-1.888 2.028-.907.9-1.506 1.348-1.796 1.348a.828.828 0 0 1-.48-.158l-2.632-2.039c-.565.287-1.152.521-1.762.702-.168 1.632-.343 2.802-.526 3.512-.107.363-.336.544-.687.544h-4.255a.702.702 0 0 1-.458-.17.582.582 0 0 1-.229-.396l-.526-3.467a10.079 10.079 0 0 1-1.716-.702l-2.7 2.016c-.107.106-.26.158-.458.158a.763.763 0 0 1-.48-.18c-2.197-2.01-3.295-3.218-3.295-3.626 0-.135.053-.28.16-.43.152-.212.465-.612.938-1.201.473-.59.831-1.05 1.075-1.383a11.542 11.542 0 0 1-.8-1.858l-3.479-.544A.564.564 0 0 1 .16 22.5a.67.67 0 0 1-.16-.442v-4.192c0-.15.053-.298.16-.441.107-.144.229-.223.366-.238l3.547-.543c.168-.529.412-1.103.732-1.722a42.981 42.981 0 0 0-2.06-2.606c-.106-.166-.16-.317-.16-.453a.66.66 0 0 1 .16-.454c.336-.453.962-1.125 1.877-2.016C5.537 8.5 6.14 8.055 6.43 8.055c.168 0 .328.052.48.158l2.632 2.04a11.189 11.189 0 0 1 1.762-.726c.168-1.63.343-2.794.526-3.49.107-.362.336-.543.686-.543h4.256c.168 0 .32.057.458.17a.582.582 0 0 1 .229.397l.526 3.466c.519.152 1.09.386 1.716.703l2.7-2.017a.674.674 0 0 1 .458-.158c.168 0 .329.06.481.181 2.196 2.01 3.295 3.218 3.295 3.626 0 .135-.054.28-.16.43-.183.242-.504.65-.962 1.224a25.605 25.605 0 0 0-1.03 1.36c.351.724.61 1.344.779 1.857l3.478.522c.152.03.282.109.389.237a.67.67 0 0 1 .16.442v4.192a.735.735 0 0 1-.16.442c-.107.143-.229.222-.367.238l-3.546.544a11.073 11.073 0 0 1-.732 1.721 43.033 43.033 0 0 0 2.06 2.606c.106.15.16.302.16.453zm-7.917-4.033c1.144-1.133 1.716-2.5 1.716-4.101s-.572-2.969-1.716-4.101c-1.144-1.133-2.525-1.7-4.141-1.7-1.618 0-2.998.567-4.142 1.7-1.144 1.132-1.716 2.5-1.716 4.1 0 1.602.572 2.97 1.716 4.102 1.144 1.133 2.524 1.7 4.142 1.7 1.616 0 2.997-.567 4.14-1.7zm21.738 5.212c2.273.226 3.41.46 3.41.702v3.172c0 .242-1.137.476-3.41.703-.183.408-.412.8-.686 1.178.777 1.707 1.166 2.75 1.166 3.127 0 .06-.03.113-.09.158-1.862 1.073-2.808 1.61-2.838 1.61-.123 0-.474-.356-1.053-1.066-.58-.71-.977-1.223-1.19-1.54a7.81 7.81 0 0 1-.686.044c-.153 0-.381-.015-.686-.044-.214.317-.61.83-1.19 1.54-.58.71-.93 1.065-1.053 1.065-.03 0-.976-.536-2.837-1.609-.061-.045-.092-.098-.092-.158 0-.378.39-1.42 1.167-3.127a6.537 6.537 0 0 1-.686-1.178c-2.273-.227-3.41-.46-3.41-.703v-3.172c0-.241 1.137-.476 3.41-.702.198-.437.427-.83.686-1.178-.778-1.707-1.167-2.749-1.167-3.127 0-.06.03-.113.092-.158.061-.03.328-.18.8-.453.474-.273.924-.53 1.35-.77.428-.243.657-.364.687-.364.122 0 .474.352 1.053 1.054.58.702.977 1.212 1.19 1.53.305-.03.533-.046.686-.046.153 0 .381.015.686.045.778-1.072 1.48-1.918 2.105-2.538l.138-.045c.06 0 1.006.529 2.837 1.586.062.045.091.099.091.158 0 .378-.388 1.42-1.166 3.127.259.348.488.74.686 1.179zm-3.307 4.339c.573-.567.858-1.25.859-2.05 0-.786-.29-1.466-.87-2.04-.58-.574-1.266-.86-2.06-.86-.792 0-1.479.286-2.058.86-.58.574-.87 1.254-.87 2.04 0 .8.286 1.483.858 2.05.572.566 1.262.85 2.07.85.81 0 1.5-.284 2.071-.85zm3.307-27.542c2.273.226 3.41.46 3.41.702V9.98c0 .242-1.137.476-3.41.703-.183.408-.412.8-.686 1.178.777 1.707 1.166 2.75 1.166 3.127 0 .06-.03.113-.09.158-1.862 1.073-2.808 1.61-2.838 1.61-.123 0-.474-.356-1.053-1.066-.58-.71-.977-1.223-1.19-1.54-.305.03-.533.045-.686.045-.153 0-.381-.016-.686-.046-.214.318-.61.831-1.19 1.541s-.93 1.065-1.053 1.065c-.03 0-.976-.536-2.837-1.609-.061-.045-.092-.098-.092-.158 0-.378.39-1.42 1.167-3.127a6.578 6.578 0 0 1-.686-1.178c-2.273-.227-3.41-.46-3.41-.703V6.808c0-.242 1.137-.476 3.41-.702.198-.438.427-.83.686-1.178-.778-1.707-1.167-2.75-1.167-3.127 0-.06.03-.114.092-.159.061-.03.328-.18.8-.453.474-.272.924-.529 1.35-.77.428-.242.657-.363.687-.363.122 0 .474.35 1.053 1.053.58.703.977 1.213 1.19 1.53.305-.03.533-.045.686-.045.153 0 .381.015.686.045C36.611 1.566 37.313.72 37.938.1l.138-.045c.06 0 1.006.528 2.837 1.586.062.045.091.098.091.158 0 .378-.388 1.42-1.166 3.127.259.348.488.74.686 1.179zm-3.307 4.339c.573-.566.858-1.25.859-2.05 0-.786-.29-1.466-.87-2.04-.58-.574-1.266-.861-2.06-.861-.792 0-1.479.287-2.058.86-.58.575-.87 1.255-.87 2.04 0 .8.286 1.485.858 2.05.572.567 1.262.85 2.07.85.81 0 1.5-.283 2.071-.85z"/>
+                        </svg>                        
+                        <p class="faq__questions__item__title">Can you help me through my 
+                                implementation?</p>
+                        <p class="faq__questions__item__caption">Yes we can. If you need any help, message our 
+                                support team in the chat box on the right corner 
+                                of the page, or send an email to ​
+                                integrationsupport@flutterwavego.com​.</p>
+                    </div>
+                    <div class="faq__questions__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="41" height="36" viewBox="0 0 41 36">
+                            <path fill="#9BC9FF" fill-rule="evenodd" d="M35.412 27.76c.084 0 .167-.004.25-.01a18.107 18.107 0 0 1-2.404 2.948c-3.418 3.392-7.963 5.26-12.798 5.26-4.834 0-9.38-1.868-12.798-5.26-3.139-3.114-4.983-7.171-5.264-11.527H1.18c-.438 0-.84-.241-1.044-.626a1.163 1.163 0 0 1 .072-1.209l4.328-6.246a1.176 1.176 0 0 1 .973-.507c.388 0 .752.19.972.507l2.608 3.763 1.72 2.484c.249.358.276.823.072 1.208a1.182 1.182 0 0 1-1.044.626H8.715c.594 5.91 5.635 10.54 11.745 10.54 4.379 0 8.26-2.344 10.3-5.975l1.734 2.5a3.548 3.548 0 0 0 2.918 1.523zM21.36 16.828c1.642 0 2.979 1.326 2.979 2.956v.892c0 1.536-1.187 2.801-2.698 2.942v.627c0 .647-.529 1.171-1.18 1.171-.653 0-1.181-.524-1.181-1.171v-.627c-1.512-.14-2.698-1.406-2.698-2.942 0-.647.528-1.171 1.18-1.171.652 0 1.18.524 1.18 1.171 0 .338.278.613.619.613h1.798c.341 0 .619-.275.619-.613v-.892a.617.617 0 0 0-.619-.614h-1.798c-1.643 0-2.98-1.326-2.98-2.956v-.892c0-1.535 1.187-2.8 2.699-2.942v-.627c0-.647.528-1.171 1.18-1.171.652 0 1.18.524 1.18 1.171v.627c1.512.141 2.699 1.407 2.699 2.942 0 .647-.529 1.171-1.18 1.171-.653 0-1.181-.524-1.181-1.17a.617.617 0 0 0-.618-.614h-1.8a.617.617 0 0 0-.617.613v.892c0 .339.277.614.618.614h1.799zm19.424.626c.204.385.177.85-.072 1.209l-2.765 3.99-1.563 2.256a1.183 1.183 0 0 1-1.945 0l-2.607-3.763-1.721-2.483a1.163 1.163 0 0 1-.072-1.21 1.182 1.182 0 0 1 1.045-.625h1.121c-.594-5.91-5.635-10.54-11.745-10.54-4.379 0-8.26 2.344-10.3 5.975l-1.733-2.5a3.548 3.548 0 0 0-3.17-1.514 18.107 18.107 0 0 1 2.405-2.948C11.08 1.911 15.626.042 20.46.042c4.835 0 9.38 1.869 12.798 5.26 3.139 3.114 4.983 7.171 5.264 11.527h1.218c.438 0 .84.24 1.044.626z"/>
+                        </svg>                        
+                        <p class="faq__questions__item__title">Can I make customers pay the 
+                                transaction fees?</p>
+                        <p class="faq__questions__item__caption">Yes you have the ability to absorb the costs or have 
+                                your customers pay the transaction fees.
+                                </p>
+                    </div>
+                </div>
+                <button class="faq__button">
+                    <span class="faq__button__text">Create account</span>
+                </button>
+            </div>
+        </div>
+        
+        <!--footer-->
+        <div class="footer">
+            <div class="footer__container">
+                <div class="footer__row">
+                    <div class="footer__row__column">
+                        <div class="footer__row__column__header">
+                            <div class="footer__row__column__header__rave">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="162" height="39" viewBox="0 0 162 39">
+                                    <g fill="#FFF" fill-rule="nonzero">
+                                        <path d="M55.124 7.626v.048c2.646-2.762 6.106-4.462 10.584-4.462v7.012c-4.681.213-8.142 1.912-10.584 5.1V34.02H48V14.503l7.124-6.877zM90.133 3.85h6.92V34.02h-6.92v-2.125c-2.443 1.7-5.292 2.763-8.753 2.763-8.141 0-14.45-7.012-14.45-15.723 0-8.712 6.512-15.724 14.45-15.724 3.46 0 6.514 1.063 8.753 2.763V3.85zm-7.735 24.434c3.053 0 5.7-1.062 7.735-4.25V13.837c-2.036-3.187-4.885-4.25-7.735-4.25-4.885 0-8.548 4.463-8.548 9.35 0 5.099 3.46 9.348 8.548 9.348zM132.672 3.85l-13.23 30.171h-6.31L99.903 3.85h7.532l8.955 20.822 8.956-20.822h7.327zm17.973 24.259l-6.807 6.571c-7.12-1.61-11.776-7.866-11.776-15.532C132.062 9.799 138.168 3 147.327 3c8.142 0 14.044 6.162 14.248 15.51 0 1.063 0 1.7-.204 2.338h-22.389c.61 4.25 3.46 7.649 8.752 7.649 1.094 0 2.068-.125 2.91-.388zm-3.521-18.947c-4.682 0-7.328 2.974-8.142 7.224h15.266c-.407-4.462-2.85-7.224-7.124-7.224zM26.843 16.594c5.047-4.13 15.43-18.889-.793-16.289C18.984 1.375 8.6 8.182 6.51 15.982A62.513 62.513 0 0 0 2.905 9.94C.96 7.264-1.277 9.329.886 12.08 7.016 19.959 11.27 29.442 11.27 39c.505-4.741-.288-10.553-2.163-16.212a9.466 9.466 0 0 0 2.884.459c3.317 5.353 8.364 9.941 14.06 12.082 5.191 2.065 12.113.842 9.3-7.417-1.513-4.512-5.046-8.489-8.507-11.318zm.72-14.377c9.014-.994-.648 10.094-3.82 12.159-2.957-1.912-6.634-3.594-10.239-3.135 2.596-3.289 8.869-8.412 14.06-9.024zm-14.13 11.47c2.45-.229 5.118 1.148 7.137 2.524a16.445 16.445 0 0 1-6.345 1.76c-3.316 0-3.965-3.977-.793-4.283zM25.905 30.97c-4.254-1.223-8.22-4.588-11.104-8.03 2.38-.458 4.687-1.376 6.85-2.676.793-.382 1.586-.917 2.307-1.453 2.523 2.294 5.119 5.353 6.128 8.795 1.01 3.747-1.73 4.053-4.181 3.364z"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="footer__row__column__header__social">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+                                    <path fill="#9AC3ED" fill-rule="evenodd" d="M0 1v20a1 1 0 0 0 1 1h10.716v-8.498H8.852v-3.47h2.864V7.12a3.837 3.837 0 0 1 3.837-3.836h2.994v3.12h-2.142a1.22 1.22 0 0 0-1.22 1.218v2.412h3.308l-.457 3.469h-2.85V22H21a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="18" viewBox="0 0 23 18">
+                                    <path fill="#9AC3ED" fill-rule="evenodd" d="M19.866 4.48c.008.195.013.39.013.588 0 6.001-4.567 12.921-12.919 12.921-2.564 0-4.95-.752-6.96-2.04a9.17 9.17 0 0 0 1.083.063 9.108 9.108 0 0 0 5.64-1.944 4.545 4.545 0 0 1-4.242-3.154 4.524 4.524 0 0 0 2.05-.078A4.544 4.544 0 0 1 .89 6.383v-.057c.612.34 1.313.545 2.057.568a4.54 4.54 0 0 1-2.02-3.78c0-.832.224-1.612.615-2.283A12.89 12.89 0 0 0 10.9 5.576a4.541 4.541 0 0 1 7.737-4.142A9.087 9.087 0 0 0 21.52.332a4.554 4.554 0 0 1-1.997 2.513 9.078 9.078 0 0 0 2.608-.716 9.221 9.221 0 0 1-2.265 2.351z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22">
+                                    <g fill="#9AC3ED" fill-rule="evenodd">
+                                        <path fill-rule="nonzero" d="M16.798 22H6.94a6.078 6.078 0 0 1-6.071-6.071V6.07A6.078 6.078 0 0 1 6.94 0h9.858a6.078 6.078 0 0 1 6.07 6.071v9.858A6.078 6.078 0 0 1 16.799 22zm4.12-15.929a4.124 4.124 0 0 0-4.12-4.12H6.94a4.124 4.124 0 0 0-4.12 4.12v9.858a4.124 4.124 0 0 0 4.12 4.12h9.858a4.124 4.124 0 0 0 4.119-4.12V6.07z"/>
+                                        <path fill-rule="nonzero" d="M12.369 17a5.506 5.506 0 0 1-5.5-5.5c0-3.033 2.467-5.5 5.5-5.5s5.5 2.467 5.5 5.5-2.467 5.5-5.5 5.5zm0-9.106A3.61 3.61 0 0 0 8.763 11.5a3.61 3.61 0 0 0 3.606 3.606 3.61 3.61 0 0 0 3.606-3.606 3.61 3.61 0 0 0-3.606-3.606z"/>
+                                        <path d="M17.5 7A1.507 1.507 0 0 1 16 5.5c0-.394.16-.781.44-1.06.279-.28.666-.44 1.06-.44.395 0 .781.16 1.06.44.28.279.44.666.44 1.06 0 .395-.16.783-.44 1.06-.277.28-.665.44-1.06.44z"/>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer__row__column">
+                        <div class="footer__row__column__header">Products</div>
+                        <a href="https://getbarter.co" class="footer__row__column__item">Barter</a>
+                        <a href="https://rave.flutterwave.com" class="footer__row__column__item">Rave</a>
+                        <a href="https://thrivesend.com" class="footer__row__column__item">Thrive</a>
+                        <a href="https://moneywave.flutterwave.com" class="footer__row__column__item">Moneywave</a>
+                    </div>
+                    <div class="footer__row__column">
+                        <div class="footer__row__column__header">Flutterwave</div>
+                        <a href="/" class="footer__row__column__item">Solutions</a>
+                        <a href="/" class="footer__row__column__item">Mission</a>
+                        <a href="/" class="footer__row__column__item">Company</a>
+                        <a href="/" class="footer__row__column__item">About us</a>
+                        <a href="/" class="footer__row__column__item">Sign up</a>
+                    </div>
+                    <div class="footer__row__column">
+                        <div class="footer__row__column__header">Legal</div>
+                        <a href="/" class="footer__row__column__item">Terms & Conditions</a>
+                        <a href="/" class="footer__row__column__item">Privacy Policy</a>
+                        <a href="/" class="footer__row__column__item">Cookies</a>
+                    </div>
+                    <div class="footer__row__column footer__row__column--growMore">
+                        <div class="footer__row__column__header">San Francisco</div>
+                        <div class="footer__row__column__item">1323 Columbus Avenue San Francisco, CA 94133</div>
+                        <div class="footer__row__column__gap"></div>
+                        <div class="footer__row__column__header">Lagos</div>
+                        <div class="footer__row__column__item">8 Providence Street Lekki Phase 1 Lagos, NG</div>
+                    </div>
+                </div>
+                <div class="footer__copyright">Flutterwave Inc. @ 2018</div>
+            </div>
+        </div>
+
+        
+
+
+        <!-- Bootstrap core JavaScript
+================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/custom.js"></script>
+
+
+    </body>
+</html>
