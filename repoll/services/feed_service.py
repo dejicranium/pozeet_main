@@ -31,17 +31,19 @@ def get_activities_if_authenticated(request, user, page):
     user_full_name = user.full_name
     user_pic = user.profile_picture
     dictt = {'user_logged_in': True, 'userName': user_full_name, 'userPic': user_pic, 'activities': []}
-    activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
+    
+    #activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
     user_categories = []
+    
     for each in user.subscriptions: 
         categories = request.dbsession.query(Category).filter_by(id=each.category_id).all()
         for category in categories:
             user_categories.append(category.id)
 
-    #activities = FeedManager(user.id).get_all_feeds(user_categories)    
+    activities = FeedManager(user.id).get_all_feeds(user_categories)    
     #activities = get_latest_activities(request, user.id, already_shown)
-    #activities = request.dbsession.query(Activity).filter(Activity.id.in_(activities))
-    paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15)
+    activities = request.dbsession.query(Activity).filter(Activity.id.in_(activities))
+    paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15, item_count=len(activities))
     activities = paginator.items
 
     for activity in activities:

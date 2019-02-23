@@ -53,6 +53,6 @@ class FeedManager:
         user_feed_activities.extend(category_feed_activities)
         user_feed_activities.extend(user_in_categories_feeds_activities)
         """
-        return user_in_categories_feeds_activities
+        return user_feed_activities
         
         

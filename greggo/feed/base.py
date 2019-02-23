@@ -16,8 +16,13 @@ class BaseFeed:
     def initialize_storage(self):
         return self.storage(self.key, self.redis_server)
 
-    def add_activities(self, activity_and_score):
-        self.storage.add_many(activity_and_score)
+    def add_activities(self, activities):
+        """the number of activities that can be on a user's feed is 400
+            if it passes 400, we need to remove some
+        """
+        if self.storage.count() > 500:
+            self.storage.pop_last()
+        self.storage.add_many(activities)
     
     def get_activities(self):
         activities = self.storage.get_many()

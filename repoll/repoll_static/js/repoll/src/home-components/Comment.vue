@@ -25,7 +25,7 @@
           <span>{{numOfAgrees}}</span>
         </button>
         <button v-else style="background-color:transparent;">
-          <span style="color:black; font-weight:bold;">{{comment.numOfAgrees}} Agrees</span>
+          <span style="color:black; font-weight:bold;">{{comment.numOfAgrees}} agrees</span>
         </button>
         
         <button @click="share" v-bind:class="sharedOrNotClass">

@@ -25,13 +25,11 @@
               tab-index="0"
             >
               <p class="author-name" style="font-weight:normal; color:teal;">Poll</p>
-              <p class="author-name" style="font-size:bold;">
-                {{comment.poll.userName}}
-                <span
-                  style="color:lightgray; font-weight:normal;"
-                >{{comment.poll.timeAdded}}</span>
-              </p>
-              <p class="question">{{comment.poll.question}}</p>
+							<div>
+								<p class='author-name' style='font-size:bold; margin-right:5px; display:inline;'>{{comment.poll.userName}}</p>
+								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">({{comment.poll.username}})</p>
+								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">{{comment.poll.timeAdded}}</p>
+							</div>	
             </div>
 
             <div
@@ -42,12 +40,11 @@
             >
               <p class="author-name" style="font-weight:normal; color:teal;">Opinion</p>
               <p class="author-name" style="font-size:bold;">
-                {{comment.opinion.userName}}
-                <span
-                  style="color:lightgray; font-weight:normal;"
-                >{{comment.opinion.timeAdded}}</span>
-              </p>
-              <p class="question">{{comment.opinion.opinion}}</p>
+							<div>
+								<p class='author-name' style='font-size:bold; margin-right:5px; display:inline;'>{{comment.opinion.userName}}</p>
+								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">({{comment.opinion.username}})</p>
+								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">{{comment.opinion.timeAdded}}</p>
+							</div>	
             </div>
           </div>
 

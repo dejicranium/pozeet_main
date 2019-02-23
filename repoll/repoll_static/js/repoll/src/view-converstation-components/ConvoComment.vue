@@ -7,23 +7,23 @@
       </div>
 
       <div class="beside-avatar-box">
-        <div class="author-details" @click="openUserProfile">
-          <h3 class="name" style="font-weight:bold; margin-right:5px">{{reply.userName}}</h3>
-          <p class="name" style="color:lightgray">{{reply.timeAdded}}</p>
-          <p
-            v-if="isInnerReply"
-            style="color:darkgrey; font-size:13px;"
-          >Replying to {{reply.userRepliedTo}}</p>
-        </div>
-        <div class="reason" id>
+          <div class="author-details" @click="openUserProfile">
+              <p class="name" style="font-weight:bold; margin-right:5px; font-size: 13px; display:inline;">{{reply.userName}}</p>
+              <p class="name" style="margin-right:5px; color:darkgrey; font-size: 13px; display:inline;">({{reply.username}})</p>
+              <p class="name" style="color:darkgrey; font-size: 13px; display:inline;">{{reply.timeAdded}}</p>
+              <div style="display:block;">
+                  <p v-if="isInnerReply" style="color:lightgrey; font-size:13px;">Replying to {{reply.userRepliedTo}}</p>
+              </div>
+          </div>
+        <div class="reason">
           <p class="comment">{{reply.reply}}</p>
         </div>
 
-        <p
+        <button
           v-if="!showReplyReplies && reply.numOfReplies > 0"
-          style="font-size:13px; color:teal;"
+          style="font-size:13px; color:teal; background-color:transparent;border:0;"
           @click="getReplyReplies"
-        >Show Replies</p>
+        >Show Replies</button>
         <p
           v-if="showReplyReplies"
           style="font-size:13px; color:teal;"

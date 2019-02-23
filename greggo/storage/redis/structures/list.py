@@ -26,12 +26,13 @@ class RedisList:
     def trim(self, start, end):
         return self.redis.ltrim(self.key, start, end)
 
-
     def pop_last(self):
         return self.redis.rpop(self.key)
 
+    def delete(self, element):
+        return self.redis.lrem(self.key, 0, element)
 
-    def push(self, values, where=None,):
+    def add(self, values, where=None,):
         if not isinstance(values, list):
             values = [values]
         if where == 'tail':
@@ -51,8 +52,11 @@ class RedisList:
         return self.redis.lpop(self.key)
 
 
-    def get_items(self, start, end):
-        return self.redis.lrange(self.key, start, end)
+    def get_all(self, start=None, end=None):
+        if start and end:
+            return self.redis.lrange(self.key, start, end)
+        else:
+            return self.redis.lrange(self.key)
 
 
 if __name__ == '__main__':

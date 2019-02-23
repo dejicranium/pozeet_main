@@ -24,15 +24,11 @@
 	</template>
 
     <script>
-
 	//definitions
-var siteUrl = "";
+	var siteUrl = "";
 	const activityPOSTURL = "";
-
-	
 	//importations
 	import axios from 'axios';
-	
     export default {
         name: 'Rely',
         props: ['show_reply_modal', 'activity'],
@@ -112,38 +108,36 @@ var siteUrl = "";
 		}
 
     }
-    
-    </script>
+</script>
 
 
-	<style scoped>
+<style scoped>
 
-	.modal-header p {
-		font-size: 12px;
-	}
-	.modal-body {
-		padding: 0;
-		padding-bottom: 10px;
-	}
-	.modal-body textarea {
-		font-size: 12px; 
-		padding: 2px;
-		height: 100%;
-	}
+.modal-header p {
+	font-size: 12px;
+}
+.modal-body {
+	padding: 0;
+	padding-bottom: 10px;
+}
+.modal-body textarea {
+	font-size: 12px; 
+	padding: 2px;
+	height: 100%;
+}
 
-	.modal-footer {
-		display: flex;
-		justify-content: flex-end;
-		padding-right: 2px;
-	}
-	.modal-footer button {
-		color: white;
-		font-size: 12px;
-		padding: 2px;
-		border: 0; 
-		padding: 6px;
-		background-color: teal;
-	}
-	</style>
-	
-    
+.modal-footer {
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 2px;
+}
+.modal-footer button {
+	color: white;
+	font-size: 12px;
+	padding: 2px;
+	border: 0; 
+	padding: 6px;
+	background-color: teal;
+}
+</style>
+

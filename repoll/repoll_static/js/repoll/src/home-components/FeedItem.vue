@@ -1,77 +1,65 @@
 <template id='feed-item'>
-  <div class="feed-container">
+	<div class="feed-container">
     <!--you will have to re-write the styles. This modal imports from authentication modal-->
     <!--This div will be shown for poll activities -->
     <div class="feed-card" v-if="activity.type=='poll'" tabindex="0" @click="openPoll">
     	<div class="poll">
         	<div class="trigger" v-if="activity.trigger" style="margin-bottom: 5px; padding:10px; padding-left:25px;">
-          <p style="color:darkgrey; font-size:11px;">{{activity.triggerActor}} {{activity.trigger}}</p>
-        </div>
-        <div class="avatar" @click.stop @click.exact="openUserProfile">
-          <img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
-          <img v-if="activity.userPic != null" :src="activity.userPic">
+          		<p style="color:darkgrey; font-size:11px;">{{activity.triggerActor}} {{activity.trigger}}</p>
+        	</div>
+        	<div class="" v-if="activity.trigger" style="margin-bottom: 5px; padding:10px; display: flex;">
+				<button class="follow-btn">Follow</button>
+        	</div>
 
-        </div>
+			<div class="avatar" @click.stop @click.exact="openUserProfile">
+				<img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
+				<img v-if="activity.userPic != null" :src="activity.userPic">
+			</div>
 
-        <div class="beside-avatar-box">
-            <div class="author-details" @click.stop @click.exact="openUserProfile">
-                <p class="name" style="font-weight: bold; font-size:12px" @click="openUserProfile">{{activity.userName}}</p>
-                <p class="username">({{activity.username}})</p>
-                <p class="time-added">{{activity.timeAdded}}</p>
+			<div class="beside-avatar-box">
+				<div class="author-details" @click.stop @click.exact="openUserProfile">
+					<p class="name" style="font-weight: bold; font-size:12px" @click="openUserProfile">{{activity.userName}}</p>
+					<p class="username">({{activity.username}})</p>
+					<p class="time-added">{{activity.timeAdded}}</p>
 
-                <!--<p class="follow" style="color: teal; font-weight: bold;">Follow</p> -->
+					<!--<p class="follow" style="color: teal; font-weight: bold;">Follow</p> -->
+				</div>
+			<!---<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
+												<p @click='followOrUnfollowUser' style='position:absolute; right: 0; margin-right:18px; color: teal;' v-if='!userIsFollowing'>Follow</p>
+				-->
+				<h6 class="poll-question">
+					<a @click.stop @click.exact="openPoll">{{activity.question}}</a>
+				</h6>
+				<!--poll info -->
+				<div class="poll-info">
+					<div v-if="infoHasLink != undefined && infoHasLink == null" class="link-info" style="display:flex; padding: 5px;; flex-direction:row; border:0.5px solid lightgrey; border-radius:10px;">
+						<img :src="infoLinkThumb" width="150" height="100" style="margin-right:5px;">
+						<div style="display:flex; flex-direction:column">
+							<h4>{{infoLinkTitle}}</h4>
+							<p>{{infoLinkDescription}}</p>
+						</div>
+					</div>
 
-            </div>
-          <!---<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
-											<p @click='followOrUnfollowUser' style='position:absolute; right: 0; margin-right:18px; color: teal;' v-if='!userIsFollowing'>Follow</p>
-          -->
-          <h6 class="poll-question">
-            <a @click.stop @click.exact="openPoll">{{activity.question}}</a>
-          </h6>
-          <!--poll info -->
-          <div class="poll-info">
-            <div
-              v-if="infoHasLink != undefined && infoHasLink == null"
-              class="link-info"
-              style="display:flex; padding: 5px;; flex-direction:row; border:0.5px solid lightgrey; border-radius:10px;"
-            >
-              <img :src="infoLinkThumb" width="150" height="100" style="margin-right:5px;">
-              <div style="display:flex; flex-direction:column">
-                <h4>{{infoLinkTitle}}</h4>
-                <p>{{infoLinkDescription}}</p>
-              </div>
-            </div>
+					<div v-if="activity.info" style="margin-bottom:3px; white-space:;">{{activity.info}}</div>
 
-            <div v-if="activity.info" style="margin-bottom:3px; white-space:;">{{activity.info}}</div>
-
-            <div v-if="activity.imageInfo">
-              <img
-                :src="activity.imageInfo"
-                style=" max-width: 100%; max-height:300px; border-radius:10px"
-              >
-            </div>
-          </div>
+					<div v-if="activity.imageInfo">
+						<img
+							:src="activity.imageInfo"
+							style=" max-width: 100%; max-height:300px; border-radius:10px"
+						>
+					</div>
+        		</div>
 
           <!--if the poll has ended, just show the results already! -->
-          <template v-if="!pollHasEnded" @click.stop>
+        <template v-if="!pollHasEnded" @click.stop>
             <!-- this is the default. Shows when the user has not voted -->
             <template v-if="!isPicturePoll">
-              <template v-if="!userHasVoted && !seenPollResults">
-                <div
-                  class="options"
-                  v-for="option in activity.options"
-                  :option="option"
-                  :key="option.id + activity.id"
-                >
-                  <label>
-                    <input
-                      type="radio"
-                      @click="optionChosen(option.id)"
-                      name="option"
-                      :value="option.id"
-                    >
-                    <span class="checkmark"></span>
-                    {{option.option}}
+              	<template v-if="!userHasVoted && !seenPollResults">
+                	<div class="options" v-for="option in activity.options" :option="option" :key="option.id + activity.id">
+                  	<label>
+                    	<input type="radio" @click="optionChosen(option.id)" name="option" :value="option.id">
+                    	<span class="checkmark"></span>
+            			{{option.option}}
                   </label>
                 </div>
               </template>
@@ -429,8 +417,7 @@
       </div>
     </div>
 
-    <div
-      class="feed-card"
+    <div class="feed-card"
       v-else-if="activity.type=='demo'"
       tabindex="0"
       style="text-align:center;"
@@ -1129,7 +1116,7 @@ export default {
 
 .name {
   max-width: 35%;
-  margin-right: 2px;
+  margin-right: 5px;
   overflow: hidden; 
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1137,18 +1124,18 @@ export default {
 
 .username {
   max-width: 35%;
-  margin-right: 2px;
+  margin-right: 5px;
   overflow: hidden; 
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .time-added {
-  margin-right: 2px;
-  max-width: 5%;
-  overflow: hidden; 
-  text-overflow: ellipsis;
-  white-space: nowrap;
+	margin-right: 5px;
+  	max-width: 5%;
+ 	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 

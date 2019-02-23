@@ -7,7 +7,7 @@ class BaseRedisTimelineStorage:
     def __init__(self, key, redis=None):
         self.redis = redis or REDIS_SERVER
         self.key = key
-        self.storage = RedisSet
+        self.storage = RedisList
 
     def get_key(self):
         return self.key
@@ -46,6 +46,18 @@ class RedisUserTimelineStorage(BaseRedisTimelineStorage):
     def remove_many(self, members):
         storage = self.get_storage()
         storage.delete(members)
+
+    def pop_last(self):
+        storage = self.get_storage()
+        storage.pop_last()
+
+    def pop_first(self):
+        storage = self.get_storage()
+        storage.pop_first()
+    
+    def count(self):
+        storage = self.get_storage()
+        return storage.length()
 
 
 class RedisCategoryTimelineStorage(BaseRedisTimelineStorage):

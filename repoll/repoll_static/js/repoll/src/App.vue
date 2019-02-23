@@ -591,6 +591,7 @@ a {
 .show-more-btn {
   color: white; 
   border: 0; 
+  background-color: teal;
   border-radius: 3px;
   padding: 2px;
   

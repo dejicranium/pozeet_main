@@ -11,8 +11,8 @@
                <div class="beside-avatar-box">
                     <div class="author-details">
                         <p class="name" style='font-weight:bold;'>{{comment.userName}}</p>
-                        <p class="username"></p>
-                        <p class="action"></p>
+                        <p class="username">( {{comment.username}} )</p>
+                        <p class="time-added">{{comment.timeAdded}}</p>
                     </div>
 
 
@@ -21,20 +21,27 @@
 
 
                     <div>
-                        <div class="comment-question" v-if='comment.poll' tab-index="0">
+                        <div class="comment-question quote" v-if='comment.poll' tab-index="0" @click="openPoll">
                             <p class='author-name' style='font-weight:normal; color:teal;'>Poll</p>
-                            <p class='author-name' style='font-size:bold; margin-right: 5px'>{{comment.poll.userName}}</p> <span style="color:lightgray; font-weight:normal;">{{comment.poll.timeAdded}}</span>
+							<div>
+								<p class='author-name' style='font-size:bold; margin-right:5px; display:inline;'>{{comment.poll.userName}}</p>
+								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">({{comment.poll.username}})</p>
+								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">{{comment.poll.timeAdded}}</p>
+							</div>							
 							<p class='question'>{{comment.poll.question}}</p>
 
 
                         </div>
                             
 							
-						<div class="comment-question" v-else-if='comment.opinion' tab-index="0">
+						<div class="comment-question quote" v-else-if='comment.opinion' tab-index="0" @click="openOpinion">
                             <p class='author-name' style='font-weight:normal; color:teal;'>Opinion</p>
-                            <p class='author-name' style='font-size:bold; margin-right:5px;'>{{comment.opinion.userName}}</p><span style="color:lightgray; font-weight:normal;">{{comment.opinion.timeAdded}}</span>
+							<div>
+								<p class='author-name' style='font-size:bold; margin-right:5px; display:inline;'>{{comment.opinion.userName}}</p>
+								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">({{comment.opinion.username}})</p>
+								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">{{comment.opinion.timeAdded}}</p>
+							</div>
 							<p class='question'>{{comment.opinion.opinion}}</p>
-
 
                         </div>
 
@@ -109,7 +116,12 @@ export default {
 
 
         methods:{
-
+			openPoll(){
+				window.open('/poll/' + this.comment.poll.id +'/', '_self');
+			},
+			openOpinion(){
+				window.open('/opinion/' + this.comment.opinion.id + '/', '_self');
+			},
 			autoResize(event){
 				event.preventDefault();
 				var textarea = event.target;
@@ -228,4 +240,21 @@ export default {
 	#body-container {
 		padding-top: 50px;
 	}
+
+.quote {
+  border-left: 3px darkgrey solid;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  color: black;
+  padding: 10px;
+  border-radius: 0px;
+  font-family: "Helvetica", Helvetica, Arial, sans-serif;
+  display: block;
+  border: 0.5px lightgray solid;
+  border-left: 3px darkgrey solid;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
 </style>

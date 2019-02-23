@@ -36,6 +36,8 @@ def compile_comments(request, comment):
         user = request.dbsession.query(User).filter(User.id == request.user.id).first()
     comment_dictt['id'] = comment.id
     comment_dictt['userName'] = comment.added_by.full_name
+    comment_dictt['username'] = comment.added_by.username
+
     comment_dictt['type'] = 'comment'
     comment_dictt['option'] = comment.option.title
     comment_dictt['optionId'] = comment.option.id
