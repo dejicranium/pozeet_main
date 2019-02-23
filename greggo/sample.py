@@ -1,7 +1,7 @@
 import redis
 from greggo.config import REDIS_SERVER
 
-r = REDIS_SERVERS
+r = REDIS_SERVER
 def convert_dictt_to_list(dictt):
     return [k for k in dictt.keys()]
 def add_something(something):
