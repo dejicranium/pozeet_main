@@ -1,7 +1,5 @@
 import redis
-
-r = redis.StrictRedis()
-
+from greggo.config import REDIS_SERVER
 def convert_dictt_to_list(dictt):
     return [k for k in dictt.keys()]
 def add_something(something):
@@ -20,8 +18,5 @@ def add_something(something):
         add(key, something)
     print(members)
 if __name__ == "__main__":
-    r.rpush('b', 20)
-    r.rpush('b', 12)
-    print(r.lrange('b', 0, 100))
-    r.lrem('b', 0, 20)
-    print(r.lrange('b', 0, 20))
+    for i in range(0, 100):
+        r.spop('u_fd:' + i)
