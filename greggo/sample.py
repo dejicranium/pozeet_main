@@ -21,4 +21,4 @@ def add_something(something):
     print(members)
 if __name__ == "__main__":
     for i in range(0, 100):
-        print(r.smembers('u_fing:{}'.format(str(i))))
+        print(r.smembers('u_fd:{}'.format(str(i))))
