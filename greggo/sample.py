@@ -21,8 +21,4 @@ def add_something(something):
     print(members)
 if __name__ == "__main__":
     for i in range(0, 100):
-<<<<<<< HEAD
         r.spop('u_fd:' + str(i))
-=======
-        r.spop('u_fd:' + i)
->>>>>>> 4fe121ecaea842da72103973e170b5179bc1f8fa
