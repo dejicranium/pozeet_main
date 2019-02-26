@@ -35,7 +35,7 @@ class BaseFeed:
 
 
 class UserFeed(BaseFeed):
-    key_format = "u_fd:%(user_id)s"
+    key_format = "u_f:%(user_id)s"
 
     def __init__(self, user_id, redis_server=None):
         self.key = self.key_format % {'user_id': user_id}
