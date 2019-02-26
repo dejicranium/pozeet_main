@@ -44,7 +44,7 @@ def get_activities_if_authenticated(request, user, page):
     paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15, item_count=len(activities))
     
     #activities = get_latest_activities(request, user.id, already_shown)
-    activities = request.dbsession.query(Activity).filter(Activity.id.in_(activities))
+    activities = request.dbsession.query(Activity).filter(Activity.id.in_(paginator.items))
 
     for activity in activities:
         source = get_source(request, activity)
