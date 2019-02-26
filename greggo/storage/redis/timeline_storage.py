@@ -57,7 +57,7 @@ class RedisUserTimelineStorage(BaseRedisTimelineStorage):
     
     def count(self):
         storage = self.get_storage()
-        return storage.length()
+        return storage.get_length()
 
 
 class RedisCategoryTimelineStorage(BaseRedisTimelineStorage):

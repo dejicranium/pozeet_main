@@ -23,9 +23,9 @@ def fanout_activities(user_id, follower_ids, activities, subscriptions=None):
 
     #MISSION: optionally add to 5 random categories that the user follows
     #EXPL: this enables user to easily get the activities of users that they are not following# 
-    if subscriptions:
-        user_in_category_feed = RedisUserInCategoryTimeline
-        user_in_category_feed.add_to_many(subscriptions, activities)
+    #if subscriptions:
+     #   user_in_category_feed = RedisUserInCategoryTimeline
+      #  user_in_category_feed.add_to_many(subscriptions, activities)
 
 @app.task
 def remove_acitivities(user_id, acitivities):
