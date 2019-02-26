@@ -14,9 +14,9 @@
 
 
                 <div class="beside-avatar-box">
-                    <div class="author-details">
+                    <div class="author-details" @click="openUserProfile">
                         <p class="name" style="font-size: 12px;">{{poll.userName}}</p>
-                        <p class="username" style="font-size:12px; color:darkgrey">({{poll.username})</p>
+                        <p class="username" style="font-size:12px; color:darkgrey">({{poll.username}})</p>
 						<p class='time-added' style="font-size:12px; color:darkgrey;">{{poll.timeAdded}}</p>
 
 					</div>
@@ -506,6 +506,9 @@
 			numOfLikes(){
 				return this.poll.numOfLikes;
 			},
+			openUserProfile() {
+     	 		window.open("" + "/profile/" + this.activity.userId + "/" + this.activity.userSlug, "_self");
+    },
 
 		},
 
