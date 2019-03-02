@@ -15,15 +15,20 @@
 			top: 50;
 			width: 100%;
 		}
-
+        .navbar {
+            min-height: 35px;
+            display: flex;
+            justify-content: center;
+        }
         </style>
     </head>
 
 
     <body>
         <p id='user-id-signifier' style='display:none'>{{user_id}}</p>
-                {%include 'not_home_navbar_template.jinja2' %}
-
+                <div class="navbar">
+                    <i class="fas fa-home" onclick="window.open('/mobile/feed', '_self')" style="align-self: center;"></i>
+                </div>
                 <div id='container'>
                     <div id='app'>
                         <script src="{{request.static_url('repoll:js/notifications_build.js')}}"></script>
