@@ -5,6 +5,7 @@
       v-for="notification in notifications"
       :notification="notification"
       tabindex="0"
+      :key="notification.url"
       @click="goToNotificationOrigin(notification.url)"
     >
       <p v-html="notification.text"></p>
