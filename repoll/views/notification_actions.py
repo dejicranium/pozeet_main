@@ -134,7 +134,7 @@ def get_unseen_notifications(request):
                 dictt[new_object_id]['leadingActors'].append(n_actor)
             else:
                 dictt[new_object_id]['otherActors'].append(n_sender_id)
-
+            
         else:
             if notif.status == 'unseen':
                 dictt[new_object_id]['unseen'] = True
