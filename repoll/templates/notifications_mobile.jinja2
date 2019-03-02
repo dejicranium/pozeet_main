@@ -26,7 +26,7 @@
 
     <body>
         <p id='user-id-signifier' style='display:none'>{{user_id}}</p>
-                {% include "not_home_navbar.jinja2" %}
+                {% include "not_home_navbar_template.jinja2" %}
                 <div id='container'>
                     <div id='app'>
                         <script src="{{request.static_url('repoll:js/notifications_build.js')}}"></script>
