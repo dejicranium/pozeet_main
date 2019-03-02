@@ -11,7 +11,9 @@
     margin-bottom: 10px;
     z-index: 5;
     box-sizing: border-box;">
+    {% if request.referer %}
     <a href="{{request.route_url(request.referer)}}" ><i class="fas fa-arrow-left" style="align-self:center; justify-self: flex-start;"></i></a>
+    {% endif %}
     <p class="home-text" onclick="window.open('/mobile/feed', '_self')" 
         style="align-self: center; justify-self: center; font-weight:bold; margin:auto; text-align: center; width: 50%;">Home</p>  
 </div>
