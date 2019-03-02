@@ -26,9 +26,7 @@
 
     <body>
         <p id='user-id-signifier' style='display:none'>{{user_id}}</p>
-                <div class="navbar">
-                    <i class="fas fa-home" onclick="window.open('/mobile/feed', '_self')" style="align-self: center;"></i>
-                </div>
+                {% include "not_home_navbar.jinja2" %}
                 <div id='container'>
                     <div id='app'>
                         <script src="{{request.static_url('repoll:js/notifications_build.js')}}"></script>

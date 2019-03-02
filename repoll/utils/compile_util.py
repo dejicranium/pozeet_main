@@ -10,7 +10,7 @@ def return_polls_voted_in(request, user):
 
 	"""for each in user.polls_voted_in: 
 		polls = request.dbsession.query(User).filter_by(id=each.user_id).all()
-		for poll in polls: 
+		for pofll in polls: 
 			polls_voted_in.append(poll)
 	"""
 	return polls_voted_in

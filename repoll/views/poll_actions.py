@@ -546,7 +546,6 @@ def get_voters_on_poll(request):
 @view_config(route_name='polls_voted_in_page', renderer='../templates/polls_voted_in_page.jinja2', user_agent="mobile")
 def polls_voted_in_page(request):
     user = request.dbsession.query(User).filter(User.id==request.user.id).first()
-
     return {'user': user}
 
 @view_config(route_name='get_polls_voted_in', renderer='json')

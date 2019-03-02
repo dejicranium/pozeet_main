@@ -507,7 +507,7 @@
 				return this.poll.numOfLikes;
 			},
 			openUserProfile() {
-     	 		//window.open("" + "/profile/" + this.poll.userId + "/" + this.poll.userSlug, "_self");
+     	 		window.open("" + "/profile/" + this.poll.userId + "/" + this.poll.userSlug, "_self");
 			},
 
 		},
