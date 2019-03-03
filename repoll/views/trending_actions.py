@@ -17,7 +17,7 @@ from ..models.main_models import (
 @view_config(route_name='trending_polls', renderer="json")
 def get_trending_polls(request):
     trending_polls_list = []
-    trending_polls_dictt = {'polls': []}
+    trending_polls_dictt = {'userLoggedIn': None, 'polls': []}
     user = request.dbsession.query(User).filter(User.id==request.user.id).fist()
     polls_id = TrendingPollsStorage().get_polls()
 
@@ -30,6 +30,11 @@ def get_trending_polls(request):
         trending_polls_list.append(compile_poll_details(request, poll, user))
 
     trending_polls_dictt['polls'] = trending_polls_list
+
+    # since trending polls is the first thing to be gotten on the trending page,
+    # we should add the userLoggedIn property to the response.data, because our vue component needs it
+    # to determine whether user is logged in or not
+    trending_polls_dictt['userLoggedIn'] = True if request.user else False
     return trending_polls_dictt
 
 

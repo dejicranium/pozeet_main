@@ -16,6 +16,7 @@ def home_feed(request):
 		return {'er': '', 'user': user}
 	return {'user': False}
 
+
 @view_config(route_name='get_latest_posts', renderer='json')
 def get_activities(request):
 	page = request.params.get("page")
@@ -38,30 +39,7 @@ def trending_page(request):
 	else:
 		user = False
 	return {'er': 'er', 'user': user}
-	
 
-@view_config(route_name='get_trending', renderer='json')
-def get_trending(request):
-	if not request.user:
-		return {}
-	dictt = {'activities': []}
-	polls = TrendingPollsStorage().get_polls()
-	for poll in polls:
-		poll_id = poll
-		poll = request.dbsession.query(Poll).filter(Poll.id==poll_id).first()
-		polls.append(poll)
-	comments = TrendingCommentsStorage().get_comments()
-	opinions = TrendingOpinionsStorage().get_opinions()
-	for poll in polls:
-		poll_dictt = compile_poll_details(request, poll, request.user)
-		dictt['activities'].append(poll_dictt)
-
-	for opinion in opinions: 
-		comment_dictt = compile_opinion_details(request, opinion, request.user)
-		dictt['activities'].append(poll_dictt)
-	
-	return dictt	
-		
 
 @view_config(route_name="insert", renderer="json")
 def insert(request):
@@ -76,12 +54,15 @@ def insert(request):
 		dictt['result'] = "no poll"
 	return dictt
 
+
 @view_config(route_name="number_of_activities", renderer="json")
 def number_of_activities(request):
 	activities = request.dbsession.query(Activity)
 	length = activities.count()
 	return {'len': length}
 
+
 @view_config(route_name="index", renderer="../templates/index.jinja2", user_agent="mobile")
 def index(request):
 	return {}
+
