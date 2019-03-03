@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/repoll/views/test_mobile.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/test_mobile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/views/trending_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/trending_actions.py" afterDir="false" />
-    </list>
+    <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,14 +10,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/views/trending_actions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
+            <state relative-caret-position="285">
               <caret line="19" column="50" lean-forward="true" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
               <folding>
                 <element signature="e#0#144#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/repoll/templates/notifications_mobile.jinja2">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="31" column="92" selection-start-line="31" selection-start-column="92" selection-end-line="31" selection-end-column="92" />
             </state>
           </provider>
         </entry>
@@ -91,6 +97,7 @@
         <option value="$PROJECT_DIR$/repoll/utils/compile_util.py" />
         <option value="$PROJECT_DIR$/repoll/views/test_mobile.py" />
         <option value="$PROJECT_DIR$/repoll/views/trending_actions.py" />
+        <option value="$PROJECT_DIR$/repoll/templates/notifications_mobile.jinja2" />
       </list>
     </option>
   </component>
@@ -122,6 +129,12 @@
               <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
               <item name="repoll" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
+              <item name="repoll" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
@@ -235,11 +248,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/repoll/views/trending_actions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
+        <state relative-caret-position="285">
           <caret line="19" column="50" lean-forward="true" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
           <folding>
             <element signature="e#0#144#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/templates/notifications_mobile.jinja2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="92" selection-start-line="31" selection-start-column="92" selection-end-line="31" selection-end-column="92" />
         </state>
       </provider>
     </entry>

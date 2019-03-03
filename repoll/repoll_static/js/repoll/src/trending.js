@@ -25,7 +25,7 @@ Vue.mixin({
   });
  
  new Vue({
-   el: '#container',
+   el: '#app',
    render: h => h(Trending),
  })
  
