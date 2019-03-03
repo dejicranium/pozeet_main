@@ -108,7 +108,7 @@ def includeme(config):
     config.add_route('trending_page', '/trending')
     config.add_route('trending_polls', '/trending_polls')
     config.add_route('trending_opinions', '/trending_opinions')
-    condigf.add_route('trending_comments', '/trending_comments')
+    config.add_route('trending_comments', '/trending_comments')
 
     config.add_route('view_conversation_page', '/view_conversation/conversation_id={conversation_id:\d+}/reply_id={reply_id:\d+}')
     config.add_route('get_conversation', '/get_conversation/{conversation_id:\d+}/{reply_id:\d+}/')
