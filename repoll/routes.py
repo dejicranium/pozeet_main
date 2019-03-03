@@ -104,8 +104,11 @@ def includeme(config):
     config.add_route('category_polls_page', '/polls/category_id={category_id:\d+}')
     
     #config.add_route('agree_with_opinion', )
+    # everything that has to do with trending
     config.add_route('trending_page', '/trending')
-    config.add_route('get_trending', '/get_trending')
+    conflg.add_route('trending_polls', '/trending_polls')
+    config.add_route('trending_opinions', '/trending_opinions')
+    condigf.add_route('trending_comments', '/trending_comments')
 
     config.add_route('view_conversation_page', '/view_conversation/conversation_id={conversation_id:\d+}/reply_id={reply_id:\d+}')
     config.add_route('get_conversation', '/get_conversation/{conversation_id:\d+}/{reply_id:\d+}/')
@@ -131,4 +134,4 @@ def includeme(config):
     config.add_route('change_profile_picture', "/change_profile_pic")
     config.add_route('update_bio', "/update_bio")
 
-    config.add_route('index', '/index')
+    config.add_route('index', '/index') 

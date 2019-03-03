@@ -26,6 +26,5 @@ Vue.mixin({
  });
 new Vue({
   el: '#app',
-  delimiters: ["((", "))"],
   render: h => h(Notification)
 })

@@ -49,7 +49,7 @@
 
 		<div class="other-details">
             <div class="tab-header">
-                <div class="tab all" style="border-bottom: 1px solid teal;"
+                <div class="tab all" style="border-bottom: 3px solid teal;"
 				id='*'
 				@click='makeTabActive("*")'
 				:class="[isActiveTab('*') ? isActiveClass : '']">
@@ -303,8 +303,8 @@ var siteUrl = "";
 				
 				vm.loading = false;
             }).catch(function(error){
-					vm.loading = false;
-			    }
+				vm.loading = false;
+			}
             
             );
 

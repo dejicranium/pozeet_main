@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Notifications</title>
+        <link rel="stylesheet" href="{{request.static_url('repoll:repoll_static/styles.css')}}"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .tab-header{
+                display: flex;
+                flex-direction: row;
+                box-shadow: 0 4px 2px -2px lightgray;
+                justify-content: space-evenly;
+                flex-wrap: wrap;
+
+            }
+
+            .tab{
+                padding: 10px 10px 10px 5px;
+                font-size: 12px;
+                text-align: center;
+                cursor: pointer;
+                font-weight: 500;
+                min-width: 20px;
+                font-weight: 200;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <div class="tab-header">
+            <div class="tab all">
+                <p>Poll</p>
+            </div>
+            <div class="tab">
+                <p>Opinion</p>
+            </div>
+            <div class="tab">
+                <p>Comments</p>
+            </div>
+        </div>
+    </body>
+</html>

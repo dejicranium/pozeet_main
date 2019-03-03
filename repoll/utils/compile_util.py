@@ -1,6 +1,10 @@
 from ..models.main_models import Share, Reply, Category
 from .scraper_util import get_first_url, url_exists, get_page_thumb_title_desc, get_page_desc, get_page_thumb
 
+
+def normalize_redis_data(collection):
+	return [item.decode('utf-8') for item in collection]
+
 def return_polls_voted_in(request, user):
 	if not request.user:
 		return []

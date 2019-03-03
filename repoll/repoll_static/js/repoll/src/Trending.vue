@@ -1,328 +1,280 @@
 <template>
-	<div class="body-container">
-		<div class="tab-container">
-			<div class="tab polls">
-				<p>Poll</p>
-			</div>
-			<div class="tab opinions">
-				<p>Opinions</p> 
-			</div>
-			<div class="tab comments">
-				<p>Comments</p>
-			</div> 
+<div>
+	<div class="tab-header">
+		<div class="tab polls" @click="changeActivityToShow('polls')">
+			<p>>Poll</p>
 		</div>
-		<div class="content-container">
-			<div class=""></div>
+		<div class="tab opinions" @click="changeActivityToShow('opinions')">
+			<p>Opinion</p>
 		</div>
-
-		<h1>thjis is soo good</h1>
+		<div class="tab comments" @click="changeActivityToShow('comments')">
+			<p>Comments</p>
+		</div>
 	</div>
-    
+
+	<div class="trending-body">
+		<!-- for each type of content -->
+        <feed-item
+          	v-for="activity in activities"
+          	:activity="activity"
+          	:user_logged_in="userLoggedIn"
+          	:show_comment_modal="showCommentModal"
+          	@act_close_comment_modal="closeModal"
+          	@act_show_comment_modal="showCommModal"
+          	@set_activity_comment_details="setActivityCommentDetails"
+          	@set_option_comment_details="setOptionCommentDetails"
+          	@show_auth_modal="showAuthModal"
+          	@act_show_view_comments_modal="showViewComments"
+          	@act_show_voters_modal="mShowUsersModal"
+          	@act_show_shareto_modal="showShareToModal"
+          	@change_activity_to_refer_to="changeActivityToReferTo"
+          	:key="'index' + activities.indexOf(activity) + '-' + activity.id"
+          	@set_activity_respondent_details="setActivityRespondentDetails"
+          	@act_set_activity_to_share="setActivityToShare"
+          	@set_reply_activity_details="setReplyActivityDetails">
+		</feed-item>
+
+	</div>
+</div>
 </template>
 
 
+
 <script>
-import axios from 'axios';
-import AddComment from './home-components/AddComment.vue'; 
-import AuthenticationModal from './home-components/AuthenticationModal.vue';
-import Comments from './home-components/Comments.vue';
-import FeedItem from './home-components/FeedItem.vue';
-import NewOpinion from './home-components/NewOpinion.vue';
-import NewPoll from './home-components/NewPoll.vue'; 
-import Reply from './home-components/Reply.vue';
-import Sidebar from './home-components/Sidebar.vue'; 
+	import FeedItem from './home-components/FeedItem.vue';
+	import Reply from "./home-components/Reply.vue";
+	import AddComment from "./home-components/AddComment.vue";
+	import AuthenticationModal from "./home-components/AuthenticationModal.vue";
+	import Comments from "./home-components/Comments.vue";
+	import FeedItem from "./home-components/FeedItem.vue";
+	import NewOpinion from "./home-components/NewOpinion.vue";
+	import NewPoll from "./home-components/NewPoll.vue";
+	import UsersModal from "./home-components/UsersModal.vue";
+	import Sidebar from "./home-components/Sidebar.vue";
+	import ShareToModal from "./home-components/ShareToModal";
 
-	var changeButtonContent = function(button, text){
-		button.innerHTML = text;
-	}
-	var siteUrl = '';
-	
+	import axios from "axios";
+	export default {
+		name: 'Trending',
+		components: {
+			'feed-item': FeedItem,
 
-export default {
-    name: "Trending",
-   
-	delimiters: ['((','))'],
-	components: { 
-      'sidebar': Sidebar, 
-      'reply': Reply, 
-      'feed-item': FeedItem, 
-      'new-opinion-modal': NewOpinion, 
-      'add-new-comment-modal': AddComment, 
-       'comments': Comments, 
-    },
-
+		},
 		data(){
-			return{
-				loading: true,
-				loadingMoreContent: false,
-				locations: true,
-				sidebarContentSelectedClass: 'sidebar-content-selected',
-
-				activities: [],
-				categories: [],
-				subscriptions: [],
-
-				userLoggedIn: false,
-				userName: '',
-				userPic: '',
-
-				optionToCommentOn: 0,
-				activityToReplyTo: {},
-				activityToCommentOn: {},
-
-				showRespondentsModal: false,
-				showNewSelectionModal: false,
-				showAuthenticationModal: false,
-				showReplyModal: false,
-				showCommentModal: false,
-				showSidebar: false,
-				showCategories: false,
-				showViewCommentsModal: false,
-				showCreateNewPollModal: false,
-				showSubscriptions:false,
-				showCreateNewOpinionModal: false,
-				activityToGetRespondents: {},
-				activityToVoteOn: {},
-				
-
+			return {
+				activitiesList: [],
+				activitiesToShow: 'polls',
+				userLoggedIn: null,
+				//this denotes the page that should be gotten: pagination
+				// the default is 1
+				pollPage: 1, 
+				opinionPage: 1, 
+				commentsPage: 1, 
 			}
 		},
-
-		computed:{
-			sortedSubscriptionsList(){
-				var sortedSubscriptions = this._sortCategoryList(this.subscriptions);
-				return sortedSubscriptions;
-			},
-
-			sortedCategoriesList(){
-				var sortedCategories = this._sortCategoryList(this.categories);
-				return sortedCategories;
-			},
+		computed: {
+			activities(){
+				if (this.activitiesToShow == "polls"){
+					var polls = activitiesList.filter(activity=>activity.type=="poll");
+					return polls;
+				}
+				else if (this.activitiesToShow == "comments") {
+					var comments = activitiesList.filter(activity=>activity.type=="comment");
+					return comments;
+				}
+				else if (this.activitiesToShow == "opinions") {
+					var opinions = activitiesList.filter(activity=>activity.type=="opinion");
+				}
+			}
 		},
-
+		created() {
+			var vm = this; 
+			//always load the polls first, as we assume that is the entry point.
+			vm.getPolls();
+		},
 		methods:{
-			openPollsVotedIn: function(){
-				window.open("" + '/polls_voted_in/', '_self');
+			makeTabActive(activityType){
+				/** 
+				 * Indicates the active tab and puts a colored border-bottom to signify
+				 * We know the tab that is active through the 'activeType' parameter
+				 * The name of the activityType is also the class of the tab
+				*/
 
-			},
+				// first make sure that the other tabs don't have a colored border bottom;
+				var tabs = document.getElementsByClassName('tab');
+				tabs.forEach(tab=>{
+					tab.style.borderBottom = "0px";
+				});
 
-			openProfile: function(){
-				window.open("" + '/profile/{{user.id}}/{{user.slug}}', '_self');
-			},
-			_sortCategoryList(list){
-				list.sort(function(a, b){
-					if (a.categoryName < b.categoryName) return -1;
-					if (a.categoryName > b.categoryName) return 1;
-				})
-				return list;
-			},
-
-			mShowNewSelectionModal(){
-				this.showNewSelectionModal = true; 
+				// go ahead to give the selected tab a border bottom;
+				var tab = document.getElementsByClassName(activityType)[0];
+				tab.style.borderBottom = "2px teal solid";
 			},
 
-		
+			changeActivityToShow(activityType){
+				//make sure that the tab that has just being clicked is made active
+				this.makeTabActive(activityType);
 
-			showNewPollModal(){
-				this.showCreateNewPollModal = true;
+				// the activitiesToShow enables our computed property "activities" to change. 
+				// this will tell the feed-item component the kind of activities to show;
+				this.activitiesToShow = activityType;
 			},
-			showNewOpinionModal(){
-				this.showCreateNewOpinionModal = true;
+			getPolls() {
+				var vm = this; 
+				//always load the polls first, as we assume that is the entry point.
+				axios.get("/trending_polls").then(response=>{
+					vm.activitiesList.push(response.data.polls);
+				});
 			},
-			showViewComments(value){
-				this.showViewCommentsModal = true;
+			getOpinions(){
+				var vm = this; 
+				axios.get("/trending_opinions").then(response=>{
+					vm.activitiesList.push(response.data.opinions);
+				});
 			},
-			
-			toggleSubscriptions(){
+			getComments(){
+				var vm = this; 
+				axios.get("/trending_comments").then(response=>{
+					vm.activitiesList.push(response.data.comments);
+				});
 			},
-
-			toggleShowCategories(){
-				this.showCategories = !this.showCategories;
-			},
-			toggleAuthModal(){
-				this.showAuthenticationModal = !this.show_auth_modal;
-			},
-
-			closeAddCommentModal(newData){
-				this.showCommentModal = newData;
-			},
-
-
-			closeModal(newData){
-					this.showCommentModal = false;
-				
-				
-					this.showAuthenticationModal = false;
-								this.showSidebar = false;
-				
-
-				this.showCommentModal == false;
-				
-				this.showCreateNewOpinionModal = false;
-				this.showCreateNewPollModal = false;
-				this.showReplyModal = false;
-				
-			},
-
-			setActivityCommentDetails(activity){
-				this.activityToCommentOn = activity;
-			},
-
-			setReplyActivityDetails(activity){
-				this.activityToReplyTo = activity;
-				this.showReplyModal = true;
-			},
-
-			setActivityRespondentDetails(activity){
-				this.activityToGetRespondents = activity;
-				this.showRespModal();
-			},
-
-			setOptionCommentDetails(optionId){
-				this.optionToCommentOn = optionId;
-			},
-
-			showCommModal(newData){
+			showCommModal(newData) {
 				this.showCommentModal = true;
 			},
+			changeActivityData(activity, key, value) {
+      			this.$set(activity, key, value);
+    		},
 
-			showAuthModal(newData){
-				this.showAuthenticationModal = newData;
-			},
-			
-			showRespModal(){
-				this.showRespondentsModal = true;
-			},
-
-			subscribeToCategory(categoryId){
-				var category = this.categories.filter(c=> c.categoryId==categoryId);
-				var category = category[0]; //because the above returns a list of one object;
-				var categoryIndex = this.categories.indexOf(category); //we need the index of the category so we can remove it from list of categories
-
-				this.subscriptions.push(category);
-				this.categories.splice(categoryIndex, 1);
-			},
-
-			unsubscribeFromCategory(categoryId){
-				var category = this.subscriptions.filter(c=> c.categoryId==categoryId);
-				var category = category[0]; //because the above returns a list of one object;
-				var categoryIndex = this.subscriptions.indexOf(category); //we need the index of the category so we can remove it from list of categories
-
-				this.subscriptions.splice(categoryIndex, 1);
-				this.categories.push(category);
-			},
-
-			goToCategoryPage(categoryId){
-				window.open("" + '/polls/category_id=' + categoryId);
-			},
-
-			addToActivitiesList(activityObject){
-				this.activities.unshift(activityObject);
-			},
-
-			changeActivityData(activity, key, value){
-				this.$set(activity, key, value);
-			},
-
-			changeActivityJustVoted(activityDetailsList){
+    		changeActivityJustVoted(activityDetailsList) {
 				var activityId = activityDetailsList[0];
 				var optionId = activityDetailsList[1];
 				var type = activityDetailsList[2];
 
-				var vm = this;
-				var activityInstances = this.activities.filter(a=>a.id==activityId &&a.type==type);
-				activityInstances.forEach(function(activity){
+      			var vm = this;
+     	 		var activityInstances = this.activities.filter(
+					a => a.id == activityId && a.type == type
+				);
+				activityInstances.forEach(function(activity) {
 					activity.totalVotes += 1;
-					vm.$set(activity, 'userHasVoted', true);
+					vm.$set(activity, "userHasVoted", true);
 
-					activity.options.forEach(function(option){
-						if (option.id == optionId){
+					activity.options.forEach(function(option) {
+						if (option.id == optionId) {
 							option.score += 1;
-						}
-					});
-				});
-                
+						}	
+		        	});
+ 		    	});
+			},
+			addToActivitiesList(activityObject) {
+      			this.activities.unshift(activityObject);
+			},
+			showAuthModal(newData) {
+				this.showAuthenticationModal = newData;
+			},
+			closeModal(newData) {
+				this.showCommentModal = false;
+				this.showAuthenticationModal = false;
+				this.showSidebar = false;
+				this.showCommentModal == false;
+				this.showCreateNewOpinionModal = false;
+				this.showCreateNewPollModal = false;
+				this.showReplyModal = false;
+				this.showShareToModal_ = false;
+				this.showUsersModal = false;
 			},
 
-			 getDocHeight() {
-    var D = document;
-    return Math.max(
-        D.body.scrollHeight, D.documentElement.scrollHeight,
-        D.body.offsetHeight, D.documentElement.offsetHeight,
-        D.body.clientHeight, D.documentElement.clientHeight
-    );
-},
+			setActivityCommentDetails(activity) {
+				this.activityToCommentOn = activity;
+			},
 
-		},
-		
+			setReplyActivityDetails(activity) {
+				this.activityToReplyTo = activity;
+				this.showReplyModal = true;	
+			},
 
-	
+			setActivityRespondentDetails(activity) {
+				this.activityToGetRespondents = activity;
+				this.showRespModal();
+			},
 
+			setOptionCommentDetails(optionId) {
+				this.optionToCommentOn = optionId;
+			},
+			closeAddCommentModal(newData) {
+				this.showCommentModal = newData;
+			},
+			showShareToModal() {
+				this.showShareToModal_ = true;
+			},
 
-		//this is what happens when you load the page.
-		//automaticall
-		created(){
-			var vm = this;
+			mShowNewSelectionModal() {
+				this.showNewSelectionModal = true;
+			},
 
-			axios.get("" + '/get_trending').then(response => {
-			//this will give a list of polls
-			var response_list = response.data.activities;
-			this.activities = response_list;
-			this.userName = response.data.userName;
-			this.userPic = response.data.userPic;
-			this.userLoggedIn = response.data.user_logged_in; 
-			this.loading =false;
-			
+			mShowUsersModal(urlToLoad) {
+				this.showUsersModal = true;
+				this.usersModalUrlToLoad = urlToLoad;
+			},
 
-			
-			});
-
-			//get categories data
-			axios.get("" + '/categories').then(response => {
-				this.categories = response.data.categories;
-			});
-
-			axios.get("" + '/show_subscriptions').then(response => {
-				this.subscriptions = response.data.subscriptions;
-			});
-	
-
-			window.onscroll = () => {
-				/**
-				var loader = document.getElementById('loadingMoreContent');
-				var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop;
-				var winheight = window.innerHeight || (document.documentElement || document.body).clientHeight;
-				var docHeight = this.getDocHeight();
-				var trackLength = docHeight - winheight;
-				var pctScrolled = Math.floor(scrollTop/trackLength * 100); // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
-				this.loadingMoreContent = true;
-
-				if (pctScrolled == 98){
-					axios.get(siteUrl + '/get/latest').then(response=>{
-						response.data.activities.forEach(activity=>{
-							this.activities.push(activity);
-						});
-					});
-					console.log(pctScrolled);
+			showNewPollModal() {
+				if (!this.userLoggedIn) {
+					this.showAuthenticationModal = true;
+					return;
 				}
-				**/
-			}
+				this.showCreateNewPollModal = true;
+			},
+			showNewOpinionModal() {
+				if (this.userLoggedIn == false) {
+					this.showAuthenticationModal = true;
+					return;
+				}
+				this.showCreateNewOpinionModal = true;
+			},
+
+			showViewComments(value) {
+				this.showViewCommentsModal = true;
+			},
+
+			toggleShowCategories() {
+				this.showCategories = !this.showCategories;
+			},
+			toggleAuthModal(intent) {
+				this.showAuthenticationModal = !this.show_auth_modal;
+			},
+			setActivityToShare(activity) {
+				this.activityToShare = activity;
+			},
+			changeUserData(id, value) {
+				this.$set(this.user, id, value);
+			},
 		}
-}
+	}
+
 </script>
 
 <style scoped>
-	.container {
-		background-color: white; 
+	.tab-header{
+		display: flex;
+		flex-direction: row;
+		box-shadow: 0 4px 2px -2px lightgray;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
+
 	}
-	.tab-container {
-		display: flex; 
-		justify-content: space-between;
-		align-items: center;
+
+	.tab{
+		padding: 10px 10px 10px 5px;
+		font-size: 12px;
+		text-align: center;
+		cursor: pointer;
+		font-weight: 500;
+		min-width: 20px;
+		font-weight: 200;
 	}
-	.tab {
-		color: teal;
-		padding: 10px;
+
+	.trending-body {
+		margin-top: 10px;
 	}
+
 
 </style>
