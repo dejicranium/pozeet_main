@@ -106,7 +106,7 @@ def includeme(config):
     #config.add_route('agree_with_opinion', )
     # everything that has to do with trending
     config.add_route('trending_page', '/trending')
-    conflg.add_route('trending_polls', '/trending_polls')
+    config.add_route('trending_polls', '/trending_polls')
     config.add_route('trending_opinions', '/trending_opinions')
     condigf.add_route('trending_comments', '/trending_comments')
 

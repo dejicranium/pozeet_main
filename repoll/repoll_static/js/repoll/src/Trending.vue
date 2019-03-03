@@ -41,7 +41,6 @@
 
 
 <script>
-	import FeedItem from './home-components/FeedItem.vue';
 	import Reply from "./home-components/Reply.vue";
 	import AddComment from "./home-components/AddComment.vue";
 	import AuthenticationModal from "./home-components/AuthenticationModal.vue";

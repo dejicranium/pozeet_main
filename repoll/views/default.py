@@ -165,9 +165,6 @@ def show_category(request):
         dictt['categoryName'] = category.category_name
         dictt['categoryId'] = category.id
         categories_dict['categories'].append(dictt)
-
-    
-
     return categories_dict
     
     

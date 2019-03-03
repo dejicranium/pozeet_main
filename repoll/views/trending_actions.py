@@ -29,7 +29,7 @@ def get_trending_polls(request):
     polls_id = normalize_redis_data(polls_id)
     polls_id = [int(_id) for _id in polls_id]
     polls = request.dbsession.query(Poll).filter(Poll.id.in_(polls_id))
-
+    
     for poll in polls:
         trending_polls_list.append(compile_poll_details(request, poll, user))
 

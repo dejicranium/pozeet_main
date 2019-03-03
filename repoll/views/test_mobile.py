@@ -31,7 +31,7 @@ def get_activities(request):
 		return get_activities_if_not_autheticated(request, page)
 
 
-@view_config(route_name='trending_page', renderer='../templates/trending_mobile_page.jinja2', user_agent="mobile")
+@view_config(route_name='trending_page', renderer='../templates/trending_mobile_page.jinja2')
 def trending_page(request):
 	if request.user:
 		user = request.dbsession.query(User).filter(User.id==request.user.id).first()
