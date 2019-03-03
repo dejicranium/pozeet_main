@@ -6,11 +6,7 @@ from ..utils.compile_util import (
 
 from pyramid.view import view_config
 
-from greggo.storage.redis.timeline_storage import (
-    TrendingPollsStorage,
-    TrendingCommentsStorage,
-    TrendingOpinionsStorage)
-
+from greggo.storage.redis.trending_storage import (TrendingPollsStorage, TrendingOpinionsStorage, TrendingCommentsStorage)
 from ..models.main_models import (
     Comment,
     User,
