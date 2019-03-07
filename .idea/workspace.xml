@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/repoll/views/follow_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/follow_actions.py" afterDir="false" />
-    </list>
+    <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +25,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/repoll/views/follow_actions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
+            <state relative-caret-position="89">
               <caret line="53" column="57" selection-start-line="53" selection-start-column="57" selection-end-line="53" selection-end-column="57" />
               <folding>
                 <element signature="e#0#57#0" expanded="true" />
@@ -137,9 +135,9 @@
       <find>agree_with_comment</find>
       <find>followers</find>
       <find>user_</find>
-      <find>voters</find>
-      <find>FollowService</find>
       <find>Following</find>
+      <find>FollowService</find>
+      <find>voters</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -393,16 +391,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/views/poll_actions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="527" column="43" selection-start-line="527" selection-end-line="528" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/repoll/models/main_models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
@@ -413,9 +401,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/views/poll_actions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="527" column="43" selection-start-line="527" selection-end-line="528" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/repoll/views/follow_actions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
+        <state relative-caret-position="89">
           <caret line="53" column="57" selection-start-line="53" selection-start-column="57" selection-end-line="53" selection-end-column="57" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
