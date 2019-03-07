@@ -51,8 +51,8 @@ def followings(request):
 	followings = user.following
 
 	for each in followings:
-		followingz = request.dbsession.query(User).filter(User.id == request.user.id).first()
-		for following in followingz:
+		ffls = request.dbsession.query(User).filter_by(id=each.followed_id).all()
+		for following in ffls:
 			user_dict = {}
 			user_dict['userId'] = following.id
 			user_dict['userName'] = following.full_name
