@@ -20,7 +20,8 @@ from sqlalchemy.orm import relationship, backref
 from webhelpers2.date import distance_of_time_in_words, time_ago_in_words
 from passlib.apps import custom_app_context
 
-MONTH_MAPPING = {'1': 'Jan',
+MONTH_MAPPING = {
+    '1': 'Jan',
                 '2': 'Feb',
                 '3': 'Mar',
                 '4': 'Apr',

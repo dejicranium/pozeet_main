@@ -351,39 +351,41 @@ def agree_with_comment(request):
             transaction.commit()
 
         elif opinion_id:
-            opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id)
-            new_user_vote = OpinionVotes()
-            new_user_vote.user_id = user.id
-            new_user_vote.opinion_id = opinion_id
+            try:
+                opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id)
+                new_user_vote = OpinionVotes()
+                new_user_vote.user_id = user.id
+                new_user_vote.opinion_id = opinion_id
 
-            # store the vote
-            request.dbsession.add(new_user_vote)
+                # store the vote
+                request.dbsession.add(new_user_vote)
 
-            # increment necessary details
-            opinion.update({"num_of_votes" : (Opinion.num_of_votes + 1)})
-            option.update({"num_of_votes" : (Option.num_of_votes + 1)})
-            comment.update({'num_of_votes': (Comment.num_of_votes + 1)})
+                # increment necessary details
+                opinion.update({"num_of_votes" : (Opinion.num_of_votes + 1)})
+                option.update({"num_of_votes" : (Option.num_of_votes + 1)})
+                comment.update({'num_of_votes': (Comment.num_of_votes + 1)})
+                comment.update({'num_of_agrees': (Comment.num_of_agrees + 1)})
 
+                # see whether there's space for the comment in trends
+                t = TrendingCommentsStorage()
+                t.add_comment(comment.first())
 
-            # see whether there's space for the comment in trends
-            t = TrendingCommentsStorage()
-            t.add_comment(comment.first())
+                # save user's age in redis voters age storage
+                user_age = user.age
+                redis_store = OpinionVotersAgeStorage(poll_id, REDIS_SERVER)
+                redis_store.increment_age(str(user_age) + '::' + str(option_id))
 
+                if user.sex:
+                    redis_store = OpinionVotersGenderStorage(poll_id, REDIS_SERVER)
+                # increment gender_votes
+                    if user.sex == 'Male':
+                        redis_store.increment_gender_votes(str('M') + '::' + str(option_id))
+                    else:
+                        redis_store.increment_gender_votes(str('F') + '::' + str(option_id))
 
-            # save user's age in redis voters age storage
-            user_age = user.age
-            redis_store = OpinionVotersAgeStorage(poll_id, REDIS_SERVER)
-            redis_store.increment_age(str(user_age) + '::' + str(option_id))
-
-            if user.sex:
-                redis_store = OpinionVotersGenderStorage(poll_id, REDIS_SERVER)
-            # increment gender_votes
-                if user.sex == 'Male':
-                    redis_store.increment_gender_votes(str('M') + '::' + str(option_id))
-                else:
-                    redis_store.increment_gender_votes(str('F') + '::' + str(option_id))
-
-            transaction.commit()
+                transaction.commit()
+            except Exception as e:
+                return {'status': e}
         
     except Exception as e:
         raise e
@@ -392,20 +394,10 @@ def agree_with_comment(request):
         return {'status': 'success'}
     
 
-
 @view_config(route_name='view_opinion_comments', renderer='json')
 def get_opinion_comments(request):
     opinion_id = request.matchdict.get('opinion_id', None)
-    option_id = request.params.get('option_id', None)
-    #start = request.params.get('start', None)
-    #end = request.params.get('end', None)
     dictt = {'comments':[]}
-
-    #if start == None and end == None: 
-     #   start = 0
-      #  end = 15
-    #else: 
-     #   start = int(start)
 
     if opinion_id: 
         comments = request.dbsession.query(Comment).filter(Comment.opinion_id==opinion_id)
@@ -418,20 +410,18 @@ def get_opinion_comments(request):
         return {'nothing': 'nothing'}    
 
 
-
 @view_config(route_name='view_comment_page', renderer='../templates/view_comment.jinja2', user_agent="mobile")
 def view_comment_page(request):
     comment_id = request.matchdict.get('comment_id', None)
 
-    comment = request.dbsession.query(Comment).filter(Comment.id==comment_id).first()
+    comment = request.dbsession.query(Comment).filter(Comment.id == comment_id).first()
     return {'comment': comment, 'comment_id': comment_id}
 
 
 @view_config(route_name='get_comment', renderer='json')
 def get_comment(request):
-    dictt = {}
     comment_id = request.matchdict.get('comment_id', None)
-
-    comment = request.dbsession.query(Comment).filter(Comment.id==comment_id).first()
+    comment = request.dbsession.query(Comment).filter(Comment.id == comment_id).first()
     dictt = compile_comments(request, comment)
     return dictt
+
