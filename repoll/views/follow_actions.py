@@ -70,5 +70,4 @@ def get_followers(request):
 			user_dict['userIsFollowing'] = follower.id in user_followees
 			followers_dict_list.append(user_dict)
 
-	return {'followers': followers}
-
+	return followers_dict_list

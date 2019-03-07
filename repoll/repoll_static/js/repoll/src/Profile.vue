@@ -127,9 +127,9 @@
 			@close_modal='closeModal'>
 		</reply>
 
-		<user-modal :show_users_modal="showUsersModal" :url_to_load="usersModalUrlToLoad">
+		<users-modal :show_users_modal="showUsersModal" :url_to_load="usersModalUrlToLoad">
 
-		</user-modal>
+		</users-modal>
         </div>
 </template>
 
@@ -143,7 +143,7 @@ var siteUrl = "";
 import FeedItem from './home-components/FeedItem.vue';
 import AddComment from "./home-components/AddComment.vue";
 import Reply from "./home-components/Reply.vue";
-import UserModal from './home-components/UserModal.vue';
+import UserModal from './home-components/UsersModal.vue';
 
 import axios from 'axios';
 export default {
@@ -151,7 +151,7 @@ export default {
     components: {'feed-item': FeedItem,
                 'add-new-comment-modal': AddComment,
 				'reply': Reply,
-				'user-modal': UserModal},
+				'users-modal': UserModal},
     data(){
         return {
 
