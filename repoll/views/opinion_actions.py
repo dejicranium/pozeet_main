@@ -1,34 +1,19 @@
 from pyramid.view import view_config
-from ..models.main_models import (User,
- Poll,
- Option,
- Comment,
- Category,
- PollCategory,
- Activity,
- Vote,
- PollVotes,
- OpinionVotes, 
- SeenResults, 
- Opinion, 
- ContextImage)
+from ..models.main_models import (
+    User,
+    Option,
+    OpinionVotes,
+    Opinion,
+    ContextImage)
 
-from greggo.storage.redis.voters_age_storage import PollVotersAgeStorage, OpinionVotersAgeStorage
-from greggo.storage.redis.voters_gender_storage import PollVotersGenderStorage, OpinionVotersGenderStorage
-from greggo.storage.redis.trending_storage import TrendingPollsStorage, TrendingOpinionsStorage
-from ..services.metrics_service import MetricsAggregator, MetricsObject, DemographObject
-from greggo.config import REDIS_SERVER
-from repoll.services.notification_service import NotificationService
-import datetime
-from ..utils.compile_util import return_polls_voted_in, return_opinions_voted_in, return_comments_shared
+from greggo.storage.redis.voters_age_storage import OpinionVotersAgeStorage
+from greggo.storage.redis.voters_gender_storage import OpinionVotersGenderStorage
+from greggo.storage.redis.trending_storage import TrendingOpinionsStorage
+from ..services.metrics_service import MetricsAggregator
+from ..utils.compile_util import return_polls_voted_in, return_opinions_voted_in
 from ..utils.compile_util import compile_opinion_details
-from ..utils.scraper_util import get_page_thumb_title_desc, url_exists, get_first_url
-from pyramid.response import Response
 from ..services.activity_service import ActivityService
-from ..services.auth_service import add_image_description
-from ..form import PollCreateForm
 import transaction
-from pyramid.httpexceptions import HTTPFound
 import uuid
 from ..services.auth_service import add_image_description
 from ..utils.compile_util import return_categories_subscribed_to
@@ -46,7 +31,7 @@ def create_opinion(request):
     new_opinion.opinion = opinion
     new_opinion.user_id = request.user.id
 
-    #check if there's a url in the opinion
+    # check if there's a url in the opinion
     if url_exists(new_opinion.opinion):
         try:
             url_in_opinion = get_first_url(new_opinion.opinion)
@@ -177,7 +162,7 @@ def view_opinion(request):
                     ]
             }
     if request.user:
-        dictt['userHasVoted'] = int(opinion_id) in return_opinion_voted_in(request, user)
+        dictt['userHasVoted'] = int(opinion_id) in return_opinions_voted_in(request, user)
     else:
         dictt['userHasVoted'] = False
     dictt['options'] = [{           
