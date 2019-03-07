@@ -1,5 +1,6 @@
-from ..services.follow_service import FollowService, User
+from ..services.follow_service import FollowService
 from pyramid.view import view_config
+from ..models.main_models import  User
 from greggo.storage.redis.user_followings_storage import FollowingsManager
 from greggo.feed.base import *
 
@@ -53,18 +54,21 @@ def followings(request):
 
 @view_config(route_name="followers", renderer='json')
 def get_followers(request):
-	followers = {}
-	user_id = request.params.get('userId', None)
-	user = requesta.dbsession.query(User).filter(User.id==request.user.id).first()
-	user_dict = {}
+	user = request.dbsession.query(User).filter(User.id == request.user.id).first()
+	followers_dict_list = []
+	followers = user.followers
+	user_followees = FollowService.get_followees_ids(request, user)
 
-	#if the user requesting to see list of followers is the same as the user who's followers are being request to be seen
-	if request.user.id == int(user_id):
-		pass
-	
-	user = request.dbsession.query(User).filter(User.id==request.user.id).first()
-	if request.user:
-		pass
-	followers = FollowService.get_followers(request, user)
+	for each in followers:
+		ffls = request.dbsession.query(User).filter_by(id=each.follower_id).all()
+		for follower in ffls:
+			user_dict = {}
+			user_dict['userId'] = follower.id
+			user_dict['userName'] = follower.full_name
+			user_dict['username'] = follower.username
+			user_dict['userPic'] = follower.profile_picture
+			user_dict['userIsFollowing'] = follower.id in user_followees
+			followers_dict_list.append(user_dict)
+
 	return {'followers': followers}
 

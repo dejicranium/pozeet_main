@@ -563,13 +563,13 @@ export default {
         	return 0;
       	}
 
-		else if(this.activity.type=="poll"){
-			this.$emit("act_show_voters_modal", "/voters/" + this.activity.id);
-		}
+      else if(this.activity.type=="poll"){
+        this.$emit("act_show_voters_modal", "/voters/" + this.activity.id);
+      }
 
-		else if (this.activity.type=="opinion"){
-			this.$emit("act_show_voters_modal", '/opinion_voters/'+ this.activity.id);
-		}
+		  else if (this.activity.type=="opinion"){
+			  this.$emit("act_show_voters_modal", '/opinion_voters/'+ this.activity.id);
+		  }
     },
     reply() {
      	var result = true;

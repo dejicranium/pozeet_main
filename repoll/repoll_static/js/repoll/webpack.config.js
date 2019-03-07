@@ -21,7 +21,9 @@ module.exports = {
     view_comment: "./src/view_comment.js",
     notifications: "./src/notifications.js",
     users_modal: './src/users_modal.js',
+    **/
     profile: './src/profile.js',
+    /**
     sample: './src/sample.js',
     
     **/

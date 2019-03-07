@@ -4,7 +4,7 @@
             <img src="/repoll_static/rename.svg" v-show="listLoading"/>
         </div>
         <div class="image">
-            <img src="https://pbs.twimg.com/profile_images/1081905771028320256/yajLUZzZ_400x400.jpg"/>
+            <img :src="user.userrPic"/>
         </div>
         <div class="detail">
             <div class="name">{{user.userName}}</div>

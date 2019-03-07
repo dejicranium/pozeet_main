@@ -13,7 +13,7 @@
                     <p> following</p>
                 </div>
 
-                <div class="followers f-detail">
+                <div class="followers f-detail" @click="mShowUsersModal('/followers')">
                     <p class="figure" id='followers_number'>{{user.num_of_followers}} </p>
 					<p>followers</p>
                 </div>
@@ -126,6 +126,10 @@
 			:show_reply_modal='showReplyModal'
 			@close_modal='closeModal'>
 		</reply>
+
+		<user-modal :show_users_modal="showUsersModal" :url_to_load="usersModalUrlToLoad">
+
+		</user-modal>
         </div>
 </template>
 
@@ -139,15 +143,20 @@ var siteUrl = "";
 import FeedItem from './home-components/FeedItem.vue';
 import AddComment from "./home-components/AddComment.vue";
 import Reply from "./home-components/Reply.vue";
+import UserModal from './home-components/UserModal.vue';
 
 import axios from 'axios';
 export default {
     name: "Profile", 
     components: {'feed-item': FeedItem,
                 'add-new-comment-modal': AddComment,
-                'reply': Reply},
+				'reply': Reply,
+				'user-modal': UserModal},
     data(){
         return {
+
+			//show users modal?
+
             activities: {
                 polls: [],
                 opinions: [],
