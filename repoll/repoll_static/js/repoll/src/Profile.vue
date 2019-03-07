@@ -7,7 +7,7 @@
 		
         </div>
             <div class="follow-details">
-                <div class="following f-detail">
+                <div class="following f-detail" @click="mShowUsersModal('/followings')">
                     <p class="figure" >{{user.num_of_followed}}</p>
 
                     <p> following</p>
@@ -127,7 +127,8 @@
 			@close_modal='closeModal'>
 		</reply>
 
-		<users-modal :show_users_modal="showUsersModal" :url_to_load="usersModalUrlToLoad">
+		<users-modal :show_users_modal="showUsersModal" :url_to_load="usersModalUrlToLoad"
+		          @act_close_users_modal="closeModal">
 
 		</users-modal>
         </div>
@@ -322,6 +323,7 @@ export default {
 				this.showCreateNewOpinionModal = false;
 				this.showCreateNewPollModal = false;
 				this.showReplyModal = false;
+				this.showUsersModal = false;
 				
 			},
 

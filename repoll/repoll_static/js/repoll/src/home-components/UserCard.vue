@@ -4,7 +4,7 @@
             <img src="/repoll_static/rename.svg" v-show="listLoading"/>
         </div>
         <div class="image">
-            <img :src="user.userrPic"/>
+            <img :src="user.userPic"/>
         </div>
         <div class="detail">
             <div class="name">{{user.userName}}</div>

@@ -44,12 +44,23 @@ def unfollow_user(request):
 			return {'status': 'failed', 'reason': str(e)}
 			
 
-	
 @view_config(route_name='followings', renderer='json')
 def followings(request):
 	user = request.dbsession.query(User).filter(User.id==request.user.id).first()
-	followings = FollowService.get_following(request, user)
-	return {'followings' : followings}
+	followings_dict_list = []
+	followings = user.following
+
+	for each in followings:
+		followingz = request.dbsession.query(User).filter(User.id == request.user.id).first()
+		for following in followingz:
+			user_dict = {}
+			user_dict['userId'] = following.id
+			user_dict['userName'] = following.full_name
+			user_dict['username'] = following.username
+			user_dict['userPic'] = following.profile_picture
+			user_dict['userIsFollowing'] = True
+			followings_dict_list.append(user_dict)
+	return followings_dict_list
 
 
 @view_config(route_name="followers", renderer='json')

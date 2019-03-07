@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/UserCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/UserCard.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repoll/views/follow_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/follow_actions.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/views/follow_actions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="553">
-              <caret line="72" column="30" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
+            <state relative-caret-position="202">
+              <caret line="50" column="31" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
               <folding>
                 <element signature="e#0#57#0" expanded="true" />
               </folding>
@@ -40,7 +41,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/views/poll_actions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
+            <state relative-caret-position="14">
               <caret line="527" column="43" selection-start-line="527" selection-end-line="528" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
@@ -107,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/repoll/routes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="214">
-              <caret line="59" column="31" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="31" />
+              <caret line="59" column="45" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -137,10 +138,10 @@
       <find>return_opinions_vot</find>
       <find>agree_with_comment</find>
       <find>user_</find>
-      <find>voters</find>
-      <find>FollowService</find>
       <find>followers</find>
       <find>Following</find>
+      <find>voters</find>
+      <find>FollowService</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -377,23 +378,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/views/poll_actions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="527" column="43" selection-start-line="527" selection-end-line="528" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/routes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="59" column="31" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/repoll/services/follow_service.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -414,13 +398,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/views/poll_actions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="527" column="43" selection-start-line="527" selection-end-line="528" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/repoll/views/follow_actions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="72" column="30" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
+        <state relative-caret-position="202">
+          <caret line="50" column="31" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="59" column="45" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="45" />
         </state>
       </provider>
     </entry>
