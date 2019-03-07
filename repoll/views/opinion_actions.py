@@ -19,7 +19,6 @@ from ..services.auth_service import add_image_description
 from ..utils.compile_util import return_categories_subscribed_to
 from ..utils.scraper_util import url_exists, get_first_url, get_page_thumb_title_desc
 from ..services.follow_service import FollowService
-#@view_config()
 
 @view_config(route_name='create_opinion', renderer='json')
 def create_opinion(request):
@@ -36,7 +35,7 @@ def create_opinion(request):
         try:
             url_in_opinion = get_first_url(new_opinion.opinion)
             context_thumb, context_title, context_description = get_page_thumb_title_desc(url_in_opinion)
-        #store
+        # store
             new_opinion.context_page_thumb = context_thumb
             new_opinion.context_page_title = context_title
             new_opinion.context_page_description = context_description
@@ -103,7 +102,7 @@ def get_metrics(request):
     sub_focus_objects = request.params.get('s_f_objs')
     opinion_id = request.matchdict.get('opinion_id')
 
-    #we can't pass a list through the params, so let's get the sub
+    # we can't pass a list through the params, so let's get the sub
     # the sub_focus_object when it is options
     if sub_focus_objects == 'options':
         opinion = request.dbsession.query(Opinion).filter(Opinion.id==opinion_id).first()
@@ -132,11 +131,13 @@ def get_metrics(request):
 
     return derived_metrics
 
-@view_config(route_name='view_opinion_page', renderer='../templates/view_opinion_mobile.jinja2', )
+
+@view_config(route_name='view_opinion_page', renderer='../templates/view_opinion_mobile.jinja2')
 def view_opinion_page(request):
     opinion_id = request.matchdict.get('opinion_id')
     opinion = request.dbsession.query(Opinion).filter(Opinion.id==opinion_id).first()
     return {"opinion": opinion, "title": "View opinion by {}".format(opinion.added_by.full_name) }    
+
 
 @view_config(route_name='view_opinion', renderer='json')
 def view_opinion(request):
@@ -162,7 +163,7 @@ def view_opinion(request):
                     ]
             }
     if request.user:
-        dictt['userHasVoted'] = int(opinion_id) in return_opinions_voted_in(request, user)
+        dictt['userHasVoted'] = int(opinion_id) in return_opinions_voted_in(request, user) or opinion.user_id == request.user.id
     else:
         dictt['userHasVoted'] = False
     dictt['options'] = [{           
@@ -174,11 +175,13 @@ def view_opinion(request):
 
     return dictt
 
+
 @view_config(route_name='opinions_voted_in_page', renderer='../templates/opinions_voted_in_page.jinja2', user_agent="mobile")
 def opinions_voted_in_page(request):
     user = request.dbsession.query(User).filter(User.id==request.user.id).first()
 
     return {'user': user}
+
 
 @view_config(route_name='get_opinions_voted_in', renderer='json')
 def get_opinions_voted_in(request):
@@ -196,6 +199,7 @@ def get_opinions_voted_in(request):
         dictt['activities'].append(opinion_dictt)
 
     return dictt
+
 
 @view_config(route_name="get_voters_on_opinion", renderer="json")
 def get_voters_on_opinion(request):

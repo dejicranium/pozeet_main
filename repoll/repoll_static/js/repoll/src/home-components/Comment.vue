@@ -299,5 +299,29 @@ export default {
   color: teal;
   background-color: white;
 }
+#innerReply {
+  margin-top: 5px;
+}
+
+#comment-form {
+  display: flex;
+  flex-direction: column; 
+  -ms-flex-direction: column;
+}
+
+#comment-form button {
+  align-self: flex-end;
+}
+.comment {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  padding-bottom: 2px;
+  width: 100%;
+  border-radius: 0;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 120px;
+}
 </style>
 
