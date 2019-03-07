@@ -18,5 +18,4 @@ def upload_image_option(file, file_name, **options):
         ],
         tags = ['profile_pic'],
     )
-
     return uploaded_image

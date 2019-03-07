@@ -897,14 +897,14 @@ export default {
         var labels = ["Male", "Female"];
         var data = [this.activity["M"].votes, this.activity["F"].votes];
 
-		this.makePieChart(labels, data);
+		  this.makePieChart(labels, data);
 		
       } else if (main_focus == "age_range") {
-        var vm = this;
-        var data = []; //The data to be input in the pie chart
-        var labels = [];
-        this.activity.optionTitles.forEach(title => {
-          labels.push(title); //push the titles into the labels list;
+          var vm = this;
+          var data = []; //The data to be input in the pie chart
+          var labels = [];
+          this.activity.optionTitles.forEach(title => {
+            labels.push(title); //push the titles into the labels list;
         });
 
         var ages = [];
@@ -913,8 +913,8 @@ export default {
         var i = parseInt(this.activity.lowerBound);
         var upperBound = parseInt(this.activity.upperBound) + 1;
         while (i < upperBound) {
-          ages.push(i);
-          i++;
+            ages.push(i);
+            i++;
         }
 
         //loop through the optionTitles

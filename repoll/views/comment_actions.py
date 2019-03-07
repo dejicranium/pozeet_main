@@ -66,6 +66,8 @@ def compile_comments(request, comment):
     
     return comment_dictt
 
+
+
 @view_config(route_name='view_comments', renderer='json')
 def view_comments(request):
     poll_id = request.matchdict.get('poll_id', None)
@@ -289,6 +291,9 @@ def agree_with_comment(request):
     poll_id = json_body.get('poll_id', None)
     user_id = request.user.id
     new_agree = None
+
+    """
+    activity_service = ActivityService
     activity = activity_service.get_activity()
 
     user_id = activity.object_owner_id
@@ -300,45 +305,45 @@ def agree_with_comment(request):
     notif = NotificationService(request, user_id, sender_id, activity_type, source, _object)
     notif.create_new_notification()
     transaction.commit()
-
+    """
 
     user = request.dbsession.query(User).filter(User.id==request.user.id).first()
     option = request.dbsession.query(Option).filter(Option.id == option_id)
     comment = request.dbsession.query(Comment).filter(Comment.id == comment_id)
 
-    #if we are aggreeing to an opinion
+    # we are aggreeing to an opinion
     if comment_id and user_id and option_id: 
         new_agree = Agrees(comment_id=comment_id, user_id=user_id, option_id=option_id)
         request.dbsession.add(new_agree)    
     try:
         if poll_id:
-        #store the vote 
+            # store the vote
             poll = request.dbsession.query(Poll).filter(Poll.id == poll_id)
             new_user_vote = PollVotes()
             new_user_vote.user_id = user.id
             new_user_vote.poll_id = poll_id
 
-       #store the vote
+            # store the vote
             request.dbsession.add(new_user_vote)
 
-       #increment necessary details
+            # increment necessary details
             poll.update({"num_of_votes" : (Poll.num_of_votes + 1)})
             option.update({"num_of_votes" : (Option.num_of_votes + 1)})
             comment.update({'num_of_votes': (Comment.num_of_votes + 1)})
             comment.update({'num_of_agrees': (Comment.num_of_agrees + 1)})
-        #see whether there's space for the comment in trends
+
+            # see whether there's space for the comment in trends
             t = TrendingCommentsStorage()
             t.add_comment(comment.first())
 
-
-       #save user's age in redis voters age storage
+            # save user's age in redis voters age storage
             user_age = user.age
             redis_store = PollVotersAgeStorage(poll_id, REDIS_SERVER)
             redis_store.increment_age(str(user_age) + '::' + str(option_id))
 
             if user.sex:
                 redis_store = PollVotersGenderStorage(poll_id, REDIS_SERVER)
-            #increment gender_votes
+                # increment gender_votes
                 if user.sex == 'Male':
                     redis_store.increment_gender_votes(str('M') + '::' + str(option_id))
                 else:
@@ -351,28 +356,28 @@ def agree_with_comment(request):
             new_user_vote.user_id = user.id
             new_user_vote.opinion_id = opinion_id
 
-       #store the vote
+            # store the vote
             request.dbsession.add(new_user_vote)
 
-       #increment necessary details
+            # increment necessary details
             opinion.update({"num_of_votes" : (Opinion.num_of_votes + 1)})
             option.update({"num_of_votes" : (Option.num_of_votes + 1)})
             comment.update({'num_of_votes': (Comment.num_of_votes + 1)})
 
 
-        #see whether there's space for the comment in trends
+            # see whether there's space for the comment in trends
             t = TrendingCommentsStorage()
             t.add_comment(comment.first())
 
 
-       #save user's age in redis voters age storage
+            # save user's age in redis voters age storage
             user_age = user.age
             redis_store = OpinionVotersAgeStorage(poll_id, REDIS_SERVER)
             redis_store.increment_age(str(user_age) + '::' + str(option_id))
 
             if user.sex:
                 redis_store = OpinionVotersGenderStorage(poll_id, REDIS_SERVER)
-            #increment gender_votes
+            # increment gender_votes
                 if user.sex == 'Male':
                     redis_store.increment_gender_votes(str('M') + '::' + str(option_id))
                 else:

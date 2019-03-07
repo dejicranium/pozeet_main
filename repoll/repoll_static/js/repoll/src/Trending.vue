@@ -87,16 +87,15 @@
 			}
 		},
 		created() {
-			var vm = this; 
 			//always load the polls first, as we assume that is the entry point.
-			vm.getPolls();
+			this.getPolls();
 		},
-		methods:{
+		methods: {
 			makeTabActive(activityType){
 				/** 
-				 * Indicates the active tab and puts a colored border-bottom to signify
+				 * Indicates the active tab and puts a colored border-bottom to signify which tab is active
 				 * We know the tab that is active through the 'activeType' parameter
-				 * The name of the activityType is also the class of the tab
+				 * The name of the activityType is also the class of the tab, this method makes it useful in the 'changeActivityToShow' function
 				*/
 
 				// first make sure that the other tabs don't have a colored border bottom;

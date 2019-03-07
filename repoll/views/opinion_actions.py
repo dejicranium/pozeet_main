@@ -85,29 +85,23 @@ def create_opinion(request):
     request.dbsession.add(new_opinion)
     request.dbsession.flush()
 
-    #add opinion to trends 
+    # add opinion to trends
     trend = TrendingOpinionsStorage()
     trend.add_opinion(new_opinion)
     
-    #get the categories that user has subscribed to
+    # get the categories that user has subscribed to
     subscriptions = return_categories_subscribed_to(request, user)
 
     new_activity = ActivityService(request, 'opinion', request.user, new_opinion)
     new_activity.create_new_activity(subscriptions)
     transaction.commit()
 
-    #return the freshly created opinion
+    # return the freshly created opinion
     newly_created_opinion = compile_opinion_details(request, new_opinion, user)
     return newly_created_opinion 
 
-    return {'opinion': {'id': new_opinion.id, 'options': [{
-        'id': option.id, 
-        'option': option.title, 
-        'score': 0,
-        } for option in new_opinion.options]
-        }}
 
-#@view_config(route_name='agree_with_opinion', renderer)
+# @view_config(route_name='agree_with_opinion', renderer)
 @view_config(route_name='opinion_metrics', renderer='../templates/show_opinion_metrics.jinja2',)
 def get_opinion_metrics(request):
     opinion_id = request.matchdict.get('opinion_id', -1)
@@ -167,7 +161,7 @@ def view_opinion(request):
     if request.user:
         user  = request.dbsession.query(User).filter(User.id==request.user.id).first()
     
-    dictt = {   'id': opinion.id,
+    dictt = {'id': opinion.id,
                 'type': 'opinion',
                 'userId': opinion.added_by.id,
                 'userName': opinion.added_by.full_name,
@@ -181,10 +175,11 @@ def view_opinion(request):
                 'contextImage': [
                     {'imgLink': img.image_link} for img in opinion.context_images
                     ]
-                }
+            }
     if request.user:
+        dictt['userHasVoted'] = int(opinion_id) in return_opinion_voted_in(request, user)
+    else:
         dictt['userHasVoted'] = False
-
     dictt['options'] = [{           
                         'id': option.id,
                         'option': option.title,

@@ -199,7 +199,12 @@
 
 				-->
             </div>
-			<comment v-for='comment in sortedComments' @change_can_agree_state='changeCanAgreeWithCommentsState' :comment='comment' :replies='replies' :can_agree_to_comments='canAgreeToComments'></comment>
+			<comment v-for='comment in sortedComments' 
+			@change_can_agree_state='changeCanAgreeWithCommentsState'
+			:origin="'poll'"
+			 :comment='comment' 
+			 :replies='replies' 
+			 :can_agree_to_comments='canAgreeToComments'></comment>
 
 
 		</div>

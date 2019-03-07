@@ -59,13 +59,16 @@
                 <div class="tab" v-for='option in poll.options'
 					 :option='option'
 					 :id='option.id'
+					 :key="option.id"
 					 @click='makeTabActive(option.id)'>
                     <p>{{option.option}}</p>
                 </div>
             </div>
 
             <!--COMMENT COMPONENT-->
-			<comment v-for='comment in sortedComments' @change_can_agree_state='changeCanAgreeWithCommentsState' :comment='comment' :replies='replies' :can_agree_to_comments='canAgreeToComments'></comment>
+			<comment v-for='comment in sortedComments'
+				:origin="'opinion'"
+				@change_can_agree_state='changeCanAgreeWithCommentsState' :comment='comment' :can_agree_to_comments='canAgreeToComments'></comment>
 
 		</div>
 	</div>
@@ -78,13 +81,13 @@ var siteUrl = "";
 	const activityPOSTURL = "";
 
     import axios from 'axios';
-	import Comment from './view-converstation-components/ConvoComment.vue'
+	import Comment from './home-components/Comment.vue'
+
     export default {
         name: 'ViewOpinion', 
         components: {
             'comment': Comment,
         },
-		props: ['comment', 'can_agree_to_comments'],
 		
         data(){
 			return{

@@ -19,7 +19,6 @@ def return_polls_voted_in(request, user):
 	"""
 	return polls_voted_in
 
-
 def return_opinions_voted_in(request, user):
 	if not request.user:
 		return []
