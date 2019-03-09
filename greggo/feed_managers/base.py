@@ -39,11 +39,10 @@ class FeedManager:
         feed = RedisUserInCategoryTimeline
         activities = feed.get_activities_from_categories(categories_id)
         return activities
-            
 
-    def get_all_feeds(self, categories_id):
-        #user_in_categories_feeds_activities = self.get_user_in_categories_feeds(categories_id)
-        
+
+    def get_all_feeds(self):
+        # user_in_categories_feeds_activities = self.get_user_in_categories_feeds(categories_id)
         user_feed_activities = self.get_user_feed()
         """
         category_feed_activities = self.get_categories_feed(categories_id)

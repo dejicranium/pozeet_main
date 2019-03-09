@@ -34,14 +34,13 @@ from repoll.utils.compile_util import compile_poll_details, return_categories_su
 from webhelpers2.text import urlify
 
 
-
 @view_config(route_name='vote', renderer='json')
 def vote(request):
     body = request.json_body
     poll_id = body.get('poll_id')
     option_id = body.get('option_id')
 
-    #get relevant info from db
+    # get relevant info from db
     user = request.dbsession.query(User).filter(User.id==request.user.id).first()
     option = request.dbsession.query(Option).filter(Option.id == option_id)
     poll = request.dbsession.query(Poll).filter(Poll.id == poll_id)
@@ -50,32 +49,30 @@ def vote(request):
     new_user_vote.user_id = user.id
     new_user_vote.poll_id = poll_id
 
-    #store the vote
+    # store the vote
     request.dbsession.add(new_user_vote)
     request.dbsession.flush()
 
-    #increment necessary details 
+    # increment necessary details
     poll.update({'num_of_votes' : (Poll.num_of_votes + 1)})   
     option.update({"num_of_votes" : (Option.num_of_votes + 1)})
 
-    #see whether it's trending
+    # see whether it's trending
     trend_storage = TrendingPollsStorage()
     trend_storage.add_poll(poll.first())
 
-    #save user's age in redis voters age storage
+    # save user's age in redis voters age storage
     user_age = user.age
     redis_store = PollVotersAgeStorage(poll_id, REDIS_SERVER)
     redis_store.increment_age(str(user_age) + '::' + str(option_id))
 
-    user_gender = user.sex
     if user.sex:
         redis_store = PollVotersGenderStorage(poll_id, REDIS_SERVER)
-        #increment gender_votes
+        # increment gender_votes
         if user.sex == 'Male':
             redis_store.increment_gender_votes(str('M') + '::' + str(option_id))
         else:
             redis_store.increment_gender_votes(str('F') + '::' + str(option_id))
-
 
     activity_service = ActivityService(request, 'poll_vote', request.user, new_user_vote, poll.first())
     activity_service.create_new_activity()
@@ -92,9 +89,7 @@ def vote(request):
     notif.create_new_notification()
     transaction.commit()
 
-
-    #create a notification
-
+    # create a notification
     transaction.commit()
 
     response = Response
@@ -414,6 +409,7 @@ def create_poll(request):
 
 """
 
+
 @view_config(route_name='poll_in_full', renderer='../templates/view_poll_mobile.jinja2',)
 def poll_in_full(request):
     poll_id = request.matchdict.get('poll_id', -1)
@@ -421,7 +417,6 @@ def poll_in_full(request):
     if poll_id != -1:
         return {'poll_id': poll_id, 'poll': poll}
     return {'titles': poll.question}
-
 
 
 @view_config(route_name='view_poll', renderer='json')
@@ -442,7 +437,6 @@ def view_poll(request):
     return dictt
 
 
-
 @view_config(route_name='view_poll_results', renderer='json')
 def view_results(request):
     body = request.json_body
@@ -461,14 +455,12 @@ def view_results(request):
     return {'success': 'success'}
 
 
-
 @view_config(route_name='poll_metrics', renderer='../templates/show_poll_metrics.jinja2', user_agent="mobile")
 def poll_gender_distribution(request):
     poll_id = request.matchdict.get('poll_id', -1)
     #we need to get details abouthe poll like name and stuff
     poll = request.dbsession.query(Poll).filter(Poll.id==poll_id).first()
     return {'poll': poll}
-    
 
 
 @view_config(route_name='get_metrics', renderer='json')
@@ -479,17 +471,18 @@ def get_metrics(request):
     sub_focus_objects = request.params.get('s_f_objs')
     poll_id = request.matchdict.get('poll_id')
 
-    #we can't pass a list through the params, so let's get the sub
+    # we can't pass a list through the params, so let's get the sub
     # the sub_focus_object when it is options
     if sub_focus_objects == 'options':
         poll = None
-        #if main focus is age range
+        # if main focus is age range
         try:
-            #if this doesn't work, it means, what we are enquiring into is an opinion
+            # if this doesn't work, it means, what we are enquiring into is an opinion
             # I REALLY NEED TO CHANGE THIS RUBBISH
             poll = request.dbsession.query(Poll).filter(Poll.id==poll_id).first()
             sub_focus_objects = [option.id for option in poll.options]
-        except:
+
+        except Exception as e:
             poll = request.dbsession.query(Opinion).filter(Opinion.id==poll_id).first()
             sub_focus_objects = [option.id for option in poll.options]
 
@@ -497,7 +490,7 @@ def get_metrics(request):
         if main_focus == 'age_range':
             sub_focus_objects = sub_focus_objects
         else:
-            #if it is age 
+            # if it is age
             sub_focus_objects = int(sub_focus_objects)
     
     if main_focus and sub_focus and main_focus_objects and sub_focus_objects and poll_id:
@@ -523,7 +516,7 @@ def get_voters_on_poll(request):
     poll_id = request.matchdict.get('poll_id', None)
     start_index = request.matchdict.get('s', None)
     end_index = request.matchdict.get('e', None)
-    #get list of followers as we'll be needing it
+    # get list of followers as we'll be needing it
     user = request.dbsession.query(User).filter(User.id == request.user.id).first()
     user_followees = FollowService.get_followees_ids(request, user)
 
@@ -548,6 +541,7 @@ def polls_voted_in_page(request):
     user = request.dbsession.query(User).filter(User.id==request.user.id).first()
     return {'user': user}
 
+
 @view_config(route_name='get_polls_voted_in', renderer='json')
 def get_polls_voted_in(request):
     user = request.dbsession.query(User).filter(User.id==request.user.id).first()
@@ -560,5 +554,5 @@ def get_polls_voted_in(request):
     for poll in polls:
         poll_dictt = compile_poll_details(request, poll, user)
         dictt['activities'].append(poll_dictt)
-
     return dictt
+

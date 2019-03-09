@@ -33,22 +33,25 @@ def reply_to_comment(request):
 
         request.dbsession.add(new_reply)
         request.dbsession.flush()
-        #add to trending comments
+        # add to trending comments
         trending_comments = TrendingCommentsStorage()
         trending_comments.add_comment(comment)
         
-        #create new activity
+        # create new activity
         new_activity = ActivityService(request, 'reply', request.user, new_reply, comment) 
         new_activity.create_new_activity()
         transaction.commit()
 
         created_activity = new_activity.get_activity()
-        
-        user_id = created_activity.object_owner_id
-        sender_id = request.user.id
-        activity_type =  created_activity.activity_type
-        source = new_reply
-        _object = comment
+
+        # if the user who is replying is not the same as the user who commented
+        # create notification
+        if new_reply.to_user != request.user.id:
+            user_id = created_activity.object_owner_id
+            sender_id = request.user.id
+            activity_type =  created_activity.activity_type
+            source = new_reply
+            _object = comment
 
         new_notification = NotificationService(request, user_id, sender_id, activity_type, source, _object)
         new_notification.create_new_notification()
@@ -79,29 +82,30 @@ def reply_to_reply(request):
             replied_id=reply_id,
             conversation_id=reply.conversation_id
         )
-
-        #input details in trending
-
         request.dbsession.add(new_reply)
         request.dbsession.flush()
 
+        # increase number of replies
         increase_num_of_replies(reply_obj, Reply)
-    #add activity
+
+        # add activity
         new_activity = ActivityService(request, 'reply', request.user, new_reply, reply)
         new_activity.create_new_activity()
 
         created_activity = new_activity.get_activity()
-        
-        user_id = created_activity.object_owner_id
-        sender_id = request.user.id
-        activity_type = created_activity.activity_type
-        source = new_reply
-        _object = reply
 
-        new_notification = NotificationService(request, user_id, sender_id, activity_type, source, reply)
-        new_notification.create_new_notification()
+        # make sure you don't create a notification if it was the user who created the reply that replied
+        if new_reply.to_user != request.user.id:
+            user_id = created_activity.object_owner_id
+            sender_id = request.user.id
+            activity_type = created_activity.activity_type
+            source = new_reply
+            _object = reply
+
+            new_notification = NotificationService(request, user_id, sender_id, activity_type, source, reply)
+            new_notification.create_new_notification()
+
         transaction.commit()
-    
         request.response.status = '200'
         return {'status': 'success'}
     except Exception as e:

@@ -1,4 +1,3 @@
-import redis
 from greggo.config import REDIS_SERVER
 
 r = REDIS_SERVER
@@ -19,6 +18,10 @@ def add_something(something):
     else: 
         add(key, something)
     print(members)
+
 if __name__ == "__main__":
     for i in range(0, 100):
-        print(r.smembers('u_fd:{}'.format(str(i))))
+        r.sadd('xyz', i)
+
+    stuff = r.smembers(xyz)
+    print(list(stuff))    

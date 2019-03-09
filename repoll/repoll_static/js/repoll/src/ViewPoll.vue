@@ -14,7 +14,7 @@
 
 
                 <div class="beside-avatar-box">
-                    <div class="author-details" @click="openUserProfile">
+                    <div class="author-details">
                         <p class="name" style="font-size: 12px;">{{poll.userName}}</p>
                         <p class="username" style="font-size:12px; color:darkgrey">({{poll.username}})</p>
 						<p class='time-added' style="font-size:12px; color:darkgrey;">{{poll.timeAdded}}</p>
@@ -617,9 +617,7 @@
             );
 
 
-			axios.get('/comments/' + idOfPollToBeViewed,{
-
-			}).then(function(response){
+			axios.get('/comments/' + idOfPollToBeViewed,{}).then(function(response){
 				vm.comments = response.data.comments;
 			});
 

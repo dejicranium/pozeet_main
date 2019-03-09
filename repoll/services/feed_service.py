@@ -1,25 +1,30 @@
 from ..models.main_models import *
 from .activity_service import get_source
 import random
+from ..models.main_models import Opinion
 from ..utils.scraper_util import get_first_url, url_exists, get_page_thumb_title_desc, get_page_desc, get_page_thumb
 from ..utils.compile_util import (
-                                    return_polls_voted_in, 
-                                    return_opinions_voted_in, 
-                                    compile_comment_details,
-                                    compile_reply_details,
-                                    compile_comment_details,
-                                    compile_opinion_details,
+                                return_polls_voted_in,
+                                return_opinions_voted_in,
+                                compile_comment_details,
+                                compile_reply_details,
+                                compile_comment_details,
+                                compile_opinion_details,
+                                return_categories_subscribed_to,
                                     )
 from greggo.storage.redis.trending_storage import *
 from greggo.storage.redis.user_followings_storage import FollowingsManager
 from .metrics_service import *
 from .activity_service import get_latest_activities
 from greggo.feed_managers.base import FeedManager
+from greggo.storage.redis.active_categories_subscribers_storage import  ActiveCategoriesSubscribers
 from .paginate import Paginate
 from paginate_sqlalchemy import SqlalchemyOrmPage
 
+
 def user_is_following( user1_id, user2_id):
     return FollowingsManager.user_is_following(user1_id, user2_id)
+
 
 def return_polls_results_seen_by_user(request, user):
     seen_results = []
@@ -27,12 +32,54 @@ def return_polls_results_seen_by_user(request, user):
         seen_results.append(int(poll.poll_id))
     return seen_results
 
+
+def get_feed(request, user, page):
+    # the 5 active users to get opin from
+    active_category_users = []
+    category_activities = []
+
+    # get categories that user is subscribed to
+    subscriptions = return_categories_subscribed_to(request, user)
+
+    # activities by user's followers
+    user_feed_activities = FeedManager.get_all_feeds()
+    user_feed_paginator = SqlalchemyOrmPage(user_feed_activities, page=page, items_per_page=10, item_count=len(user_feed_activities))
+    user_feed_activities = user_feed_paginator.items
+
+    # choose 5 random categories user is subscribed to
+    five_random_categories = random.sample(subscriptions, 5)
+
+    # polls in subscribed activities:
+    for category in five_random_categories:
+        poll_category_map = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category)
+        poll_category_paginator = SqlalchemyOrmPage(poll_category_map, page=page, items_per_page=1)
+        poll = request.dbsession.query(PollCategory).filter(PollCategory.category_id == poll_category_paginator.items)\
+            .first()
+        category_activities.append(poll)
+
+    # choose 5 random categories user is subscribed to
+    five_random_categories = random.sample(subscriptions, 5)
+
+    # in each category, select one active user
+    for category in five_random_categories:
+        storage = ActiveCategoriesSubscribers(int(category))
+        active_category_users.append(storage.get_random_users(1))
+
+    # get latest opinions by users
+    active_users_activities = request.dbsession.query(Opinion).filter(Opinion.user_id.in_(active_category_users)).limit(1)
+
+    all_activities = user_feed_activities.extend(category_activities)
+    all_activities = all_activities.extend(active_users_activities)
+
+    return all_activities
+
+
 def get_activities_if_authenticated(request, user, page):
     user_full_name = user.full_name
     user_pic = user.profile_picture
     dictt = {'user_logged_in': True, 'userName': user_full_name, 'userPic': user_pic, 'activities': []}
     
-    #activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
+    # activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
     user_categories = []
     
     for each in user.subscriptions: 
@@ -40,11 +87,12 @@ def get_activities_if_authenticated(request, user, page):
         for category in categories:
             user_categories.append(category.id)
 
-    activities = FeedManager(user.id).get_all_feeds(user_categories)
-    paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15, item_count=len(activities))
+    activities = get_feed(request, user, page)
+    # activities = FeedManager(user.id).get_all_feeds(user_categories)
+    # paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15, item_count=len(activities))
     
-    #activities = get_latest_activities(request, user.id, already_shown)
-    activities = request.dbsession.query(Activity).filter(Activity.id.in_(paginator.items))
+    # activities = get_latest_activities(request, user.id, already_shown)
+    # activities = request.dbsession.query(Activity).filter(Activity.id.in_(paginator.items))
 
     for activity in activities:
         source = get_source(request, activity)
