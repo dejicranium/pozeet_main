@@ -99,7 +99,8 @@ var siteUrl = "";
     export default {
         name: 'ViewOpinion', 
         components: {
-            'comment': Comment,
+			'comment': Comment,
+			'authentication-modal': AuthenticationModal,
         },
 		
         data(){
@@ -270,7 +271,7 @@ var siteUrl = "";
 
 			addComment(optionName){
 				if (this.userLoggedIn == false){
-					this.mShowAuthenticationModal();
+					this.showAuthenticationModal = true;
 					return 0;
 				}
 				 
