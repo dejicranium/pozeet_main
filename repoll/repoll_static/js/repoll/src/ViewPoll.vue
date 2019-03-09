@@ -205,11 +205,18 @@
 			 :comment='comment' 
 			 :replies='replies'
 			 :user_logged_in="userLoggedIn"
-			 :can_agree_to_comments='canAgreeToComments'></comment>
+			 :can_agree_to_comments='canAgreeToComments'
+			 @act_show_auth_modal="mShowAuthenticationModal"></comment>
 
 
 		</div>
-	
+		<!-- AUTHENTICATION MODAL -->
+			<authentication-modal
+				:activity_to_refer="poll"
+				:categories="_sortCategoryList"
+				:show_authentication_modal="showAuthenticationModal"
+				@close_auth_modal="closeModal"
+			></authentication-modal>
 	</div>
 
 </template>
@@ -256,6 +263,10 @@
 
 
         methods:{
+			mShowAuthenticationModal(){
+				this.showAuthenticationModal = true;
+			},
+
 			_sortCategoryList(list){
 				list.sort(function(a, b){
 					if (a.categoryName < b.categoryName) return -1;
@@ -356,11 +367,20 @@
 			},
 
 			addComment(){
-				if (this.user_logged_in == false){
+				if (this.userLoggedIn == false){
 					this.activity_to_refer = this.poll;
 					this.showAuthenticationModal = true;
 					return 0;
 				
+				}
+				else if (this.poll.userHasVoted == true){
+					alert("You can no longer vote in this poll");
+				}
+				else if (this.poll.hasEnded == true){
+					alert("You can no longer vote in this poll");
+				}
+				else if (this.poll.userHasSeenResults == true){
+					alert("You can no longer vote in this poll");
 				}
 				this.intent = 'toComment';
 			},
@@ -421,8 +441,25 @@
 						vm.seenPollResults = false;
 
 				});
+			},
+			loadCategories(){
+				// a recursion to make sure we get categories at all cost
 
-				
+				//base case
+				if (this.categories.length == 0){
+					axios.get("" + "/categories").then(response => {
+						this.categories = response.data.categories;
+					}).then(response=> {
+						//return
+						return 0;
+					}).catch(error=>{
+						//start recursion
+						this.loadCategories();
+					});
+				}
+				else {
+					return 0; // return nothing
+				}
 				
 			},
 
@@ -434,7 +471,14 @@
 					addCommentBox.classList.remove('start');
 					addCommentBox.classList.add('end');
 				}
+			},
+
+			showAuthenticationModal: function(newValue){
+				if (newValue == true){
+					this.loadCategories();
+				}
 			}
+			
 		},
 		computed:{
 
@@ -539,7 +583,7 @@
                 vm.changePollData('info', response.data.info);
 				vm.changePollData('imageInfo', response.data.imageInfo);
 				vm.changePollData('totalVotes', response.data.totalVotes);
-				vm.changePollData('userSlug', response.data.slug);
+				vm.changePollData('userSlug', response.data.userSlug);
 				vm.changePollData('isPicturePoll', response.data.isPicturePoll);
 				vm.changePollData('hasUrlInfo', response.data.hasUrlInfo);
 				vm.changePollData('infoPageThumb', response.data.infoPageThumb);
@@ -609,6 +653,43 @@
       0% {  -webkit-transform: translateY(-1%); }   
     100% {  -webkit-transform: translateY(0); }
 }
+	.modal-container .modal-body{
+		position: relative;
+		padding-bottom: 20px;
+	}
+
+	.modal-container .modal-body .final-input{
+		margin-bottom: 30px;
+	}
+	.modal-container .modal-body button{
+		position: absolute;
+		right: 0; 
+		bottom: 0;
+		margin-right: 20px; 
+	}
+	.third-stage {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.final-stage {
+		align-items: center;
+		justify-content: center;
+	}
+
+	.final-stage button{
+		position: relative; 
+		margin-right: 0;
+	}
+	.proceed-container {
+		display: flex;
+		flex-direction: column;
+		justify-self: flex-end;
+	}
+	.proceed-container button {
+		align-self: flex-end;
+		position: relative;
+	}
 </style>
 
 

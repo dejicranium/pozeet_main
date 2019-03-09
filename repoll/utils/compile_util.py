@@ -128,7 +128,7 @@ def compile_poll_details(request, poll, user):
         'totalVotes': poll.num_of_votes,
         'slug': poll.slug, 
 		'isPicturePoll': options_with_image != [],  #
-
+		'userSlug': poll.added_by.slug,
         'hasUrlInfo': url_exists(poll.info),
         'infoPageThumb': poll.info_link_thumb,
 

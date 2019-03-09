@@ -42,7 +42,7 @@
 	<div class='addCommentBox' v-show="intent == 'toComment' && !poll.userHasVoted">
 		<form id='comment-form'>
 			<p class='chosenOption'>{{chosenOptionName}}</p>
-			<textarea type="text" placeholder='Reason' @click="autoResize" name='comment' id='comment-form'></textarea>
+			<textarea type="text" placeholder='Reason' @click="autoResize" name='comment'></textarea>
 			<button @click='comment'>Comment</button>
 		</form>
 	</div>
@@ -77,6 +77,7 @@
 		</div>
 
 		<!-- AUTHENTICATION COMPONENT -->
+		<!-- eventually, I'll need to make authentication modal to load categories by itself -->
 		<authentication-modal
           :activity_to_refer="poll"
           :categories="_sortCategoryList"
@@ -182,7 +183,7 @@ var siteUrl = "";
 				// a recursion to make sure we get categories at all cost
 
 				//base case
-				if (this.categories.length != 0){
+				if (this.categories.length == 0){
 					axios.get("" + "/categories").then(response => {
 						this.categories = response.data.categories;
 					}).then(response=> {
@@ -274,14 +275,22 @@ var siteUrl = "";
 					this.showAuthenticationModal = true;
 					return 0;
 				}
-				 
-				this.chosenOptionName = optionName;
-				this.intent = 'toComment';
 
-				//look for the id of the option that has the option name;
-				var optionWithName = this.poll.options.filter(o=> o.option == optionName);
-				//make it the id of the option the chosen option
-				this.chosenOption = optionWithName[0].id;
+				// if user is the creator of the opinion or has already voted
+				else if (this.poll.userHasVoted == true){
+					alert("You can't vote in this opinion anymore");
+				}
+				// else, if user has not voted or is not not the creator of the poll
+				else {
+					this.chosenOptionName = optionName;
+					this.intent = 'toComment';
+
+					//look for the id of the option that has the option name;
+					var optionWithName = this.poll.options.filter(o=> o.option == optionName);
+					//make it the id of the option the chosen option
+					this.chosenOption = optionWithName[0].id;
+				}
+
 			},
 
 			comment(event){
@@ -414,4 +423,43 @@ white-space: pre-wrap;
 .addCommmentBox {
 	height: 0px;
 }
+
+	.modal-container .modal-body{
+		position: relative;
+		padding-bottom: 20px;
+	}
+
+	.modal-container .modal-body .final-input{
+		margin-bottom: 30px;
+	}
+	.modal-container .modal-body button{
+		position: absolute;
+		right: 0; 
+		bottom: 0;
+		margin-right: 20px; 
+	}
+	.third-stage {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.final-stage {
+		align-items: center;
+		justify-content: center;
+	}
+
+	.final-stage button{
+		position: relative; 
+		margin-right: 0;
+	}
+	.proceed-container {
+		display: flex;
+		flex-direction: column;
+		justify-self: flex-end;
+	}
+	.proceed-container button {
+		align-self: flex-end;
+		position: relative;
+	}
+
 </style>

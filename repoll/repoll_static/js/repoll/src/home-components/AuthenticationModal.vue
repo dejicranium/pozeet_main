@@ -66,7 +66,7 @@
 								<label for="phone" class="form-label">Phone Number <span class='required'>*</span></label> 
 								<input v-model='phone' id='phone' class='form-control final-input' type='text' name='pone' required/>
 								
-								<button @click='nextRegistrationStage' type='button'>Proceed</button>
+								<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
 
 						</div>
 
@@ -129,7 +129,7 @@
 								</div>
 							</div>
 
-							<button @click='nextRegistrationStage' type='button'>Proceed</button>
+							<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
 
 						</div>
 					
@@ -143,7 +143,7 @@
 
 							</div>
 							<div class="proceed-container">
-								<button type='button' @click='nextRegistrationStage'>Proceed</button>
+								<button type='button' @click='nextRegistrationStage' class="proceed-button">Proceed</button>
 							</div>
 						</div>
 
@@ -158,7 +158,7 @@
                				accept="image/png, image/jpeg" />
 
 						</div>
-						<button class="proceed-btn" type='button' @click='completeRegistration' > <i class="fa fa-circle-o-notch fa-spin" v-if=''></i>Register</button>
+						<button class="proceed-button" type='button' @click='completeRegistration' > <i class="fa fa-circle-o-notch fa-spin" v-if=''></i>Register</button>
 
 					</div>
 					</form>
@@ -223,7 +223,17 @@
 
 
 		},
-		
+		watch: {
+			show_authentication_modal: function(newValue){
+				if (newValue == true){
+					// we want locations to load only when authentication modal is shown
+					axios.get("" + '/get-locations').then(response=>{
+					this.locations = response.data.locations;
+					});
+				}
+			}
+			
+		},
 
 		computed:{
 			relevantSubUnits(){
@@ -521,10 +531,6 @@
 			for (let i=2005; i > 1930; i--){
 				this.years.push(i);
 			}
-
-			axios.get("" + '/get-locations').then(response=>{
-				this.locations = response.data.locations;
-			});
 		},
 
 	}
@@ -562,13 +568,17 @@
 		position: relative; 
 		margin-right: 0;
 	}
+	
 	.proceed-container {
 		display: flex;
-		flex-direction: column;
 		justify-self: flex-end;
 	}
-	.proceed-container button {
-		align-self: flex-end;
+	.proceed-container .proceed-button {
+		justify-self: flex-end;
+		position: relative;
+	}
+	.proceed-container .previous-button {
+		justify-self: flex-start;
 		position: relative;
 	}
 
