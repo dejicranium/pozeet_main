@@ -8,6 +8,8 @@
                         </div>
                     </div>
 					<div class="container" v-for="user in users">
+                        <img src="https://s3.us-east-2.amazonaws.com/pozeet-static/rename.svg" v-show="listLoading"/>
+
                         <user-card :user='user'></user-card>
                         <!--<div>
                             <img src="/static/rename.svg" v-show="listLoading"/>
@@ -74,7 +76,9 @@ var siteUrl = "";
 					}).then(response=>{
                         vm.users = response.data;
                         vm.listLoading = false;
-					});
+					}).catch(error=>{
+                        vm.listLoading = false;
+                    });
                 }
                 else {
                     //clear the users' list

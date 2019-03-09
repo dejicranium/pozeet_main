@@ -4,6 +4,7 @@ from ..models.main_models import  User
 from greggo.storage.redis.user_followings_storage import FollowingsManager
 from greggo.feed.base import *
 
+
 @view_config(route_name='follow_user', renderer='json')
 def follow_user(request):
 	user_id = request.user.id
@@ -13,12 +14,10 @@ def follow_user(request):
 		return {'state': "Nice try. But you can't and shouldn't follow yourself"}
 
 	FollowService.follow_user(request, user_id, followed_id)
-	
-	#store in redis
+	# store in redis
 	FollowingsManager.follow_user(user_id, followed_id)
-	
-	
 	return {'state': 'success'}
+
 
 @view_config(route_name='unfollow_user', renderer='json')
 def unfollow_user(request):
@@ -30,7 +29,7 @@ def unfollow_user(request):
 			FollowService.unfollow_user(request, user_id, user_to_unfollow_id)
 			return {'status': 'success'}
 
-			#store in redis
+			# store in redis
 			FollowingsManager.unfollow_user(request, user_id, user_to_unfollow_id)
 			to_unfollow_activities = request.dbsession.query(Activity).filter(Activity.user_id==user_to_unfollow_id)
 			activities_to_unfollow_id = [activity.id for activity in to_unfollow_activities]

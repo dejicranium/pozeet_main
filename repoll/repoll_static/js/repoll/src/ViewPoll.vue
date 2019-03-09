@@ -203,7 +203,8 @@
 			@change_can_agree_state='changeCanAgreeWithCommentsState'
 			:origin="'poll'"
 			 :comment='comment' 
-			 :replies='replies' 
+			 :replies='replies'
+			 :user_logged_in="userLoggedIn"
 			 :can_agree_to_comments='canAgreeToComments'></comment>
 
 
@@ -233,6 +234,7 @@
 			return{
 				activity_to_refer: {},
 				loading: true,
+				userLoggedIn: null,
             	some: 'deji',
             	poll: {}, //it'a list because we want it to be reactive.
 				chosenOption: 0,
@@ -529,6 +531,7 @@
 				vm.user_logged_in = response.data.userLoggedIn;
                 vm.changePollData('id', response.data.id);
 				vm.changePollData('question', response.data.question);
+				vm.changePollData('userLoggedIn', response.data.userLoggedIn);
                 vm.changePollData('userName', response.data.userName);
 				vm.changePollData('userId',response.data.userId);
 				vm.changePollData('type', response.data.type);
@@ -536,7 +539,7 @@
                 vm.changePollData('info', response.data.info);
 				vm.changePollData('imageInfo', response.data.imageInfo);
 				vm.changePollData('totalVotes', response.data.totalVotes);
-				vm.changePollData('slug', response.data.slug);
+				vm.changePollData('userSlug', response.data.slug);
 				vm.changePollData('isPicturePoll', response.data.isPicturePoll);
 				vm.changePollData('hasUrlInfo', response.data.hasUrlInfo);
 				vm.changePollData('infoPageThumb', response.data.infoPageThumb);

@@ -25,7 +25,6 @@
 
       <div class="action-buttons">
         <button v-if="can_agree_to_comments" @click="agree">Agree
-          <span>{{numOfAgrees}}</span>
         </button>
 
         <button v-else style="background-color:transparent;">
@@ -72,7 +71,7 @@ import ConvoComment from '../view-converstation-components/ConvoComment.vue';
 
 export default {
   name: "Comment",
-  props: ["comment", "can_agree_to_comments", "origin"],
+  props: ["comment", "can_agree_to_comments", "origin", 'user_logged_in'],
   components: {
     'convo-comment': ConvoComment,
   },
@@ -156,9 +155,16 @@ export default {
 			
 			}     
 		},
+		showAuthenticationModal(){
+			this.$emit('act_show_auth_modal', true);
+		},
 
 		shareComment() {
 			var vm = this;
+			if (this.user_logged_in == false){
+				this.showAuthenticationModal();
+				return 0;
+			}
 			if (this.hasSharedComment == false) {
 				vm.changeShareStateTo(true);
 				axios
@@ -174,7 +180,11 @@ export default {
 			}
 		},
 		addReply(){
-		this.intent = "toReplyComment";
+			if (this.user_logged_in == false){
+				this.showAuthenticationModal();
+				return 0;
+			}
+			this.intent = "toReplyComment";
 		},
 		unshareComment() {
 			var vm = this;
@@ -223,6 +233,10 @@ export default {
 		},
 		
 		share() {
+			if (this.user_logged_in == false){
+				this.showAuthenticationModal();
+				return 0;
+			}			
 			if (this.hasSharedComment) {
 				this.unshareComment();
 			} else {
@@ -232,7 +246,10 @@ export default {
  
 		agree() {
 			var vm = this;
-			
+			if (this.user_logged_in == false){
+				this.showAuthenticationModal();
+				return 0;
+			}			
 			//if origin of comment is a poll
 			if (this.origin == "poll") {
 				axios.post("" + "/agree", {

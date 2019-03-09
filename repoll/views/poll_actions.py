@@ -438,7 +438,7 @@ def view_poll(request):
         user = request.dbsession.query(User).filter(User.id==request.user.id).first()
     
     dictt = compile_poll_details(request, poll, user)
-    dictt['userLoggedIn'] = True if request.user else False
+    dictt['userLoggedIn'] = True if request.user is not None else False
     return dictt
 
 

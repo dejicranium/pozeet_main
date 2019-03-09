@@ -3,7 +3,7 @@
     	<div>
         	<div class="feed-container">
 				<div class="feed-card">
-					<div class="avatar">
+					<div class="avatar" @click="openUserProfile">
                          <img style="color:darkgrey; font-size:12px;"
 						  	v-if='!poll.userPic' src="https://www.w3schools.com/howto/img_avatar.png"/>
 						 <img v-else :src='poll.userPic'>
@@ -11,7 +11,7 @@
 				
                     <div class="beside-avatar-box">
 
-                        <div class="author-details">
+                        <div class="author-details" @click="openUserProfile">
                             <p class="name" style='color;black; font-weight:bold; font-size:12px;'>{{poll.userName}}</p>
                             <p class="username"></p>
 							<p class='time-added' style='color:darkgrey; font-size: 12px'>{{poll.timeAddedd}}</p>
@@ -68,9 +68,21 @@
             <!--COMMENT COMPONENT-->
 			<comment v-for='comment in sortedComments'
 				:origin="'opinion'"
-				@change_can_agree_state='changeCanAgreeWithCommentsState' :comment='comment' :can_agree_to_comments='canAgreeToComments'></comment>
-
+				@change_can_agree_state='changeCanAgreeWithCommentsState' 
+				:comment='comment' 
+				:can_agree_to_comments='canAgreeToComments'
+				:user_logged_in="userLoggedIn"
+				@act_show_auth_modal="mShowAuthenticationModal"></comment>
+			
 		</div>
+
+		<!-- AUTHENTICATION COMPONENT -->
+		<authentication-modal
+          :activity_to_refer="poll"
+          :categories="_sortCategoryList"
+          :show_authentication_modal="showAuthenticationModal"
+          @close_auth_modal="closeModal"
+        ></authentication-modal>
 	</div>
 	
 </template>
@@ -82,6 +94,7 @@ var siteUrl = "";
 
     import axios from 'axios';
 	import Comment from './home-components/Comment.vue'
+	import AuthenticationModal from './home-components/AuthenticationModal.vue'
 
     export default {
         name: 'ViewOpinion', 
@@ -93,6 +106,8 @@ var siteUrl = "";
 			return{
             	some: 'deji',
 				loading: true,
+				userLoggedIn: null,
+				categories: [],
             	poll: {}, //it'a list because we want it to be reactive.
 				chosenOption: 0,
 				user_logged_in: false,
@@ -104,19 +119,51 @@ var siteUrl = "";
 				chosenOptionName: '',
 				canAgreeToComments: false, //this will make us know whether user can press agree on another comment
 				commentToAgreeWith: 0, 
+				showAuthenticationModal: false,
 			}
              
-        },
+		},
+		
+		watch: {
+			// if authentication modal is shown
+			showAuthenticationModal: function(newValue) {
+				if (newValue == true) {
+					//load list of categories to subscribe to.
+					this.loadCategories();
+					
+				}
+			}
+		},
 
+		computed: {
+			sortedCategoriesList() {
+      			var sortedCategories = this._sortCategoryList(this.categories);
+      			return sortedCategories;
+			},
+
+		},
 
         methods:{
-
-
+			_sortCategoryList(list) {
+				list.sort(function(a, b) {
+					if (a.categoryName < b.categoryName) return -1;
+					if (a.categoryName > b.categoryName) return 1;
+				});
+				return list;
+			},
+			//only authentication modal for now
+			closeModal(){
+				this.showAuthenticationModal = false;
+			},
+			//shows authentication modal, "m" means method.
+			mShowAuthenticationModal(){
+				this.showAuthenticationModal = true;
+			},
+			openUserProfile() {
+     	 		window.open("" + "/profile/" + this.poll.userId + "/" + this.poll.userSlug, "_self");
+			},
 			openBreakDownWindow(){
-
 				window.open("" + '/opinion/demographic-metrics/' + this.poll.id);
-			
-			
 			},
 			changeCanAgreeWithCommentsState(optionVotedFor){
 				this.canAgreeToComments = false;
@@ -130,6 +177,27 @@ var siteUrl = "";
 					}
 				}
 			},
+			loadCategories(){
+				// a recursion to make sure we get categories at all cost
+
+				//base case
+				if (this.categories.length != 0){
+					axios.get("" + "/categories").then(response => {
+						this.categories = response.data.categories;
+					}).then(response=> {
+						//return
+						return 0;
+					}).catch(error=>{
+						//start recursion
+						this.loadCategories();
+					});
+				}
+				else {
+					return 0; // return nothing
+				}
+				
+			},
+
 			autoResize(event){
 				event.preventDefault();
 				var textarea = event.target;
@@ -170,11 +238,9 @@ var siteUrl = "";
 
 			},
 
-
-
 			vote(){
 				var vm = this;
-				if (this.user_logged_in == false){
+				if (this.userLoggedIn == false){
 					return 0;
 				}
 
@@ -203,10 +269,11 @@ var siteUrl = "";
 			},
 
 			addComment(optionName){
-				if (this.user_logged_in == false){
+				if (this.userLoggedIn == false){
+					this.mShowAuthenticationModal();
 					return 0;
-					
 				}
+				 
 				this.chosenOptionName = optionName;
 				this.intent = 'toComment';
 
@@ -281,10 +348,14 @@ var siteUrl = "";
             .then(function(response){
 				vm.user_logged_in = response.data.user_logged_in;
                 vm.changePollData('opinion', response.data.opinion);
-                vm.changePollData('userName', response.data.userName);
+				vm.changePollData('userName', response.data.userName);
+				vm.changePollData('username', response.data.username);
+				vm.changePollData('timeAdded', response.data.timeAdded);
                 vm.changePollData('type', response.data.type);
                 vm.changePollData('id', response.data.id);
-                vm.changePollData('userPic', response.data.userPic);
+				vm.changePollData('userPic', response.data.userPic);
+				vm.changePollData('userSlug', response.data.userSlug);
+				vm.changePollData('userId', response.data.userId);
                 vm.changePollData('totalVotes', response.data.numOfVotes);
 				vm.changePollData('numOfShares', response.data.numOfShares);
 				vm.changePollData('numOfLikes', response.data.numOfLikes);
@@ -295,8 +366,11 @@ var siteUrl = "";
 				vm.changePollData('userIsFollowing', response.data.userIsFollowing);
 				vm.changePollData('contextImage', response.data.contextImage);
 
-				//should users be allowed to agree to a comment?
-				//it all starts from knowing whether they have voted before.
+				// is user logged in?
+				vm.userLoggedIn = response.data.userLoggedIn;
+
+				// should users be allowed to agree to a comment?
+				// it all starts from knowing whether they have voted before.
 				if (vm.poll.userHasVoted){
 					vm.canAgreeToComments == false;
 				}

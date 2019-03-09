@@ -1,8 +1,5 @@
 <template>
     <div class="card-container">
-        <div>
-            <img src="/repoll_static/rename.svg" v-show="listLoading"/>
-        </div>
         <div class="image">
             <img :src="user.userPic"/>
         </div>
@@ -28,6 +25,7 @@ var siteUrl = "";
         props: ['user'],
         data(){
             return {
+                listLoading: false,
             }
         },
         computed: {
@@ -84,8 +82,8 @@ var siteUrl = "";
             padding: 5px 5px;
         }
         .image img {
-            max-width: 44px;
-            max-height: 44px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
         }
 
@@ -112,9 +110,15 @@ var siteUrl = "";
             -ms-text-overflow: ellipsis;
             -o-text-overflow: ellipsis;
             overflow: hidden;
+            white-space: nowrap;
         }
         .detail .username {
             color: darkgrey;
+            text-overflow: ellipsis;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
         .follow {
             padding: 5px 5px;
@@ -124,15 +128,17 @@ var siteUrl = "";
         .follow button {
             border: 0; 
             border-radius: 3px; 
-            padding: 8px 8px;
             background-color: teal;
             color: white;
+            height: 30px;
+            width: 59px;
         }
 
         .follow .unfollow-btn {
             border: 0.5px solid grey;
             border-radius: 3px; 
-            padding: 8px 8px;
+            height: 30px;
+            width: 59px;            
             background-color: white;
             color: black;
         }

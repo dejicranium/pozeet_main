@@ -147,7 +147,10 @@ def view_opinion(request):
     if request.user:
         user  = request.dbsession.query(User).filter(User.id==request.user.id).first()
     
-    dictt = {'id': opinion.id,
+    dictt = {
+        # check if user is logged in
+        'userLoggedIn': True if request.user is not None else False,
+        'id': opinion.id,
                 'type': 'opinion',
                 'userId': opinion.added_by.id,
                 'userName': opinion.added_by.full_name,

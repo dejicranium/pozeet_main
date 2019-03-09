@@ -21,8 +21,11 @@
 				<div class="sidebar-content">
 					
 					<p @click="logout">Logout</p>
+					
+					<!---
+						meant for trending page
 					<p @click="openTrendingPage">Trending</p>
-
+					-->
 					
 					<p @click='openPollsVotedIn'>Polls Voted In </p>
 					<p @click="openOpinionsVotedIn">Opinions Voted In</p>
