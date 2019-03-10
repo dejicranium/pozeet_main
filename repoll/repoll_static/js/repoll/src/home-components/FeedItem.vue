@@ -890,47 +890,47 @@ export default {
         });
     },
     getPollMetrics() {
-      var main_focus = this.activity.main_focus;
-      var sub_focus = this.activity.sub_focus;
+    	var main_focus = this.activity.main_focus;
+      	var sub_focus = this.activity.sub_focus;
 
-      if (main_focus == "gender") {
-        var labels = ["Male", "Female"];
-        var data = [this.activity["M"].votes, this.activity["F"].votes];
+      	if (main_focus == "gender") {
+        	var labels = ["Male", "Female"];
+        	var data = [this.activity["M"].votes, this.activity["F"].votes];
 
-		  this.makePieChart(labels, data);
+		  	this.makePieChart(labels, data);
 		
-      } else if (main_focus == "age_range") {
-          var vm = this;
-          var data = []; //The data to be input in the pie chart
-          var labels = [];
-          this.activity.optionTitles.forEach(title => {
-            labels.push(title); //push the titles into the labels list;
+      	} else if (main_focus == "age_range") {
+          	var vm = this;
+          	var data = []; //The data to be input in the pie chart
+          	var labels = [];
+          	this.activity.optionTitles.forEach(title => {
+            	labels.push(title); //push the titles into the labels list;
         });
 
-        var ages = [];
+			var ages = [];
 
-        //determine the needed ages
-        var i = parseInt(this.activity.lowerBound);
-        var upperBound = parseInt(this.activity.upperBound) + 1;
-        while (i < upperBound) {
-            ages.push(i);
-            i++;
-        }
+			//determine the needed ages
+			var i = parseInt(this.activity.lowerBound);
+			var upperBound = parseInt(this.activity.upperBound) + 1;
+			while (i < upperBound) {
+				ages.push(i);
+				i++;
+			}
 
-        //loop through the optionTitles
-        this.activity.optionIds.forEach(id => {
-          //store the cumulative votes for each title
-          var titleVotes = 0;
-          //loop through each age, to get the votes for each title
-          ages.forEach(age => {
-            titleVotes += vm.activity[age][id].votes;
-          });
-          //push this to the data for the pie chart
-          data.push(titleVotes);
-        });
+			//loop through the optionTitles
+			this.activity.optionIds.forEach(id => {
+			//store the cumulative votes for each title
+			var titleVotes = 0;
+			//loop through each age, to get the votes for each title
+			ages.forEach(age => {
+				titleVotes += vm.activity[age][id].votes;
+			});
+			//push this to the data for the pie chart
+			data.push(titleVotes);
+			});
 
-        this.makePieChart(labels, data);
-      }
+        	this.makePieChart(labels, data);
+      	}
     },
 
     makePieChart(aLabels, aData) {

@@ -445,7 +445,7 @@ def get_activities_if_not_autheticated(request, page):
     comments = TrendingCommentsStorage().get_comments()
     opinions = TrendingOpinionsStorage().get_opinions()
 
-    #convert each entity to integer (each id is naturally a string in and of itself)
+    # convert each entity to integer (each id is naturally a string in and of itself)
     try:
         polls = [int(_id) for _id in polls]
     except:
@@ -458,19 +458,20 @@ def get_activities_if_not_autheticated(request, page):
         comments = [int(_id) for _id in comments]
     except: 
         pass
-    #choose only 5 polls
+
+    # choose only 5 polls
     poll_paginator = SqlalchemyOrmPage(polls, page=page, items_per_page=5, item_count=len(polls))
     polls = poll_paginator.items
 
-    #choose only 5 opinions
+    # choose only 5 opinions
     opinion_paginator = SqlalchemyOrmPage(opinions, page=page, items_per_page=5, item_count=len(opinions))
     opinions = opinion_paginator.items
 
-    #choose only 5 comments
+    # choose only 5 comments
     comments_paginator = SqlalchemyOrmPage(comments, page=page, items_per_page=5, item_count=len(comments))
     comments = comments_paginator.items
 
-    #compile opinions and add to list of activities
+    # compile opinions and add to list of activities
     for opinion_id in opinions:
         try:
             opinion = request.dbsession.query(Opinion).filter(Opinion.id==opinion_id).first()
@@ -482,7 +483,7 @@ def get_activities_if_not_autheticated(request, page):
     # for a third of the polls, we are going to the demographic distribution
     import random
     random_polls = random.sample(polls, int(len(polls)/3))
-    for poll in polls: 
+    for poll in random_polls:
         act_dictt['activities'].append(choose_random_demographic_insight(request, poll))
     
     #compile poll activity and append to the list of activities

@@ -36,7 +36,7 @@
 
 					<div class='register' v-else>
 							<p class='required' v-show='registrationError'>{{registrationErrorText}}</p>
-						
+							<p class v-show="registerStage == 'third'">Chosen: {{numOfChosenCategories}}</p>
 							<form id='register-form' name='register-form' enctype="multipart/form-data">
 							<div class='first-stage' v-if='registerStage == "first"'>
 								<div class='name-div'>
@@ -246,6 +246,9 @@
 					return [];
 				}
 			},
+			numOfChosenCategories(){
+				return this.chosenCategories.length;
+			}
 
 		},
 		methods:{
@@ -382,10 +385,13 @@
 				else if (stage == 'third'){
 					canMoveToNextStage = true; 
 
-					if (this.chosenCategories.length < 10){
+					if (this.numOfChosenCategories < 10){
 						canMoveToNextStage = false;
 						this.registrationError = true; 
 						this.registrationErrorText = 'Please choose at least 10 categories';
+					}
+					if (this.numOfChosenCategories== 10 || this.numOfChosenCategories > 10){
+						canMoveToNextStage = true;
 					}
 
 					if (canMoveToNextStage){

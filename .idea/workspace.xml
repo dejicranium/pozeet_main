@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/AuthenticationModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/AuthenticationModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/FeedItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/FeedItem.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/ShareToModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/ShareToModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repoll/services/feed_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/services/feed_service.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/repoll/services/feed_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="510" column="58" selection-start-line="510" selection-start-column="58" selection-end-line="510" selection-end-column="58" />
+            <state relative-caret-position="208">
+              <caret line="484" column="56" selection-start-line="484" selection-start-column="56" selection-end-line="484" selection-end-column="56" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -526,8 +528,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/repoll/services/feed_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="510" column="58" selection-start-line="510" selection-start-column="58" selection-end-line="510" selection-end-column="58" />
+        <state relative-caret-position="208">
+          <caret line="484" column="56" selection-start-line="484" selection-start-column="56" selection-end-line="484" selection-end-column="56" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>

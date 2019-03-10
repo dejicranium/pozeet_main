@@ -47,14 +47,14 @@ export default {
             if (site == "twitter"){
                 if (this.activity.type == "poll"){
                     var pollQuestion = this.activity.question;
-                    var goToUrl = siteUrl + "/poll/" + this.activity.id + "/";
+                    var goToUrl = siteUrl + "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543/poll/" + this.activity.id + "/";
                     var shareText = "Pozeet: " + pollQuestion + ". Contribute and see what people are saying.";
                 
                     window.open("https://twitter.com/intent/tweet?text=" + shareText + "&url=" + goToUrl, "_");
                 }
                 else if (this.activity.type == "opinion") {
                     var opinion  = this.activity.opinion;
-                    var goToUrl = siteUrl + "/opinion/" + this.activity.id + "/";
+                    var goToUrl = siteUrl + "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543/opinion/" + this.activity.id + "/";
                     var shareText = opinion + ".Pozeet: See what people are saying about this opinion";
                     window.open("https://twitter.com/intent/tweet?text=" + shareText + "&url=" + goToUrl, "_");
 
