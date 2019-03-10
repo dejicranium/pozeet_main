@@ -87,7 +87,7 @@ def get_activities_if_authenticated(request, user, page):
     user_pic = user.profile_picture
     dictt = {'user_logged_in': True, 'userName': user_full_name, 'userPic': user_pic, 'activities': []}
     
-    # activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
+    activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
     user_categories = []
     
     for each in user.subscriptions: 
@@ -95,14 +95,14 @@ def get_activities_if_authenticated(request, user, page):
         for category in categories:
             user_categories.append(category.id)
 
-    activities = get_feed(request, user, page)
+    #activities = get_feed(request, user, page)
     #activities = FeedManager(user.id).get_all_feeds()
-    # paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15, item_count=len(activities))
+    paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15)
     
     # activities = get_latest_activities(request, user.id, already_shown)
-    # activities = request.dbsession.query(Activity).filter(Activity.id.in_(paginator.items))
+    #activities = request.dbsession.query(Activity).filter(Activity.id.in_(paginator.items))
 
-    for activity in activities:
+    for activity in paginator.items:
         source = get_source(request, activity)
         source_id = activity.source_id
 
