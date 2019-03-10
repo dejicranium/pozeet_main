@@ -54,7 +54,7 @@ def get_feed(request, user, page):
     for category in five_random_categories:
         poll_category_map = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category)
         poll_category_paginator = SqlalchemyOrmPage(poll_category_map, page=page, items_per_page=1)
-        category_id = int(''.join([item.id for item in poll_category_paginator.items]))
+        category_id = int(''.join([item.category_id for item in poll_category_paginator.items]))
         poll = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category_id)\
             .first()
         poll_activity = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id == poll.id).first()
