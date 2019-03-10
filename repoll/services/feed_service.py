@@ -47,7 +47,7 @@ def get_feed(request, user, page):
     user_feed_activities = user_feed_paginator.items
     user_feed_activities = request.dbsession.query(Activity).filter(Activity.id.in_(user_feed_activities))
 
-    """
+
     # choose 5 random categories user is subscribed to
     five_random_categories = random.sample(subscriptions, 5)
 
@@ -60,7 +60,7 @@ def get_feed(request, user, page):
         poll_activity = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id == poll.id).first()
 
         category_activities.append(poll_activity)
-
+    """
     # choose 5 random categories user is subscribed to
     five_random_categories = random.sample(subscriptions, 5)
 
@@ -80,7 +80,7 @@ def get_feed(request, user, page):
 
     return all_activities
     """
-    return user_feed_activities
+    return user_feed_activities.extend(category_activities)
 
 def get_activities_if_authenticated(request, user, page):
     user_full_name = user.full_name
