@@ -80,7 +80,8 @@ def get_feed(request, user, page):
 
     return all_activities
     """
-    return user_feed_activities.extend(category_activities)
+    return user_feed_activities + category_activities
+
 
 def get_activities_if_authenticated(request, user, page):
     user_full_name = user.full_name
