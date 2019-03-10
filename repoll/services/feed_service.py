@@ -52,14 +52,14 @@ def get_feed(request, user, page):
     five_random_categories = random.sample(subscriptions, 5)
     # polls in subscribed activities:
     for category in five_random_categories:
-        poll_category_map = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category)
-        poll_category_paginator = SqlalchemyOrmPage(poll_category_map, page=page, items_per_page=1)
-        category_id = int(''.join([item.category_id for item in poll_category_paginator.items]))
-        poll = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category_id)\
-            .first()
-        poll_activity = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id == poll.id).first()
+        polls = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category).all()
+        # poll_category_paginator = SqlalchemyOrmPage(poll_category_map, page=page, items_per_page=1)
+        # category_id = int(''.join([item.category_id for item in poll_category_paginator.items]))
+        # poll = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category_id)\
+            # .first()
+        category_activities = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id.in_(poll.id for poll in polls))
 
-        category_activities.append(poll_activity)
+        #category_activities.append(poll_activity)
     """
     # choose 5 random categories user is subscribed to
     five_random_categories = random.sample(subscriptions, 5)
