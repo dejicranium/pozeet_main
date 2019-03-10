@@ -57,7 +57,7 @@ def get_feed(request, user, page):
         # category_id = int(''.join([item.category_id for item in poll_category_paginator.items]))
         # poll = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category_id)\
             # .first()
-        category_activities = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id.in_(poll.id for poll in polls))
+        category_activities = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id.in_(poll.poll_id for poll in polls))
 
         #category_activities.append(poll_activity)
     """
