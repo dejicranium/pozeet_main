@@ -45,6 +45,7 @@ def get_feed(request, user, page):
     user_feed_activities = FeedManager.get_all_feeds()
     user_feed_paginator = SqlalchemyOrmPage(user_feed_activities, page=page, items_per_page=10, item_count=len(user_feed_activities))
     user_feed_activities = user_feed_paginator.items
+    user_feed_activities = request.dbsession.query(Activity).filter(Activity.id.in_(user_feed_activities))
 
     # choose 5 random categories user is subscribed to
     five_random_categories = random.sample(subscriptions, 5)
@@ -55,7 +56,9 @@ def get_feed(request, user, page):
         poll_category_paginator = SqlalchemyOrmPage(poll_category_map, page=page, items_per_page=1)
         poll = request.dbsession.query(PollCategory).filter(PollCategory.category_id == poll_category_paginator.items)\
             .first()
-        category_activities.append(poll)
+        poll_activity = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id == poll.id).first()
+
+        category_activities.append(poll_activity)
 
     # choose 5 random categories user is subscribed to
     five_random_categories = random.sample(subscriptions, 5)
@@ -66,10 +69,13 @@ def get_feed(request, user, page):
         active_category_users.append(storage.get_random_users(1))
 
     # get latest opinions by users
-    active_users_activities = request.dbsession.query(Opinion).filter(Opinion.user_id.in_(active_category_users)).limit(1)
+    active_users_opinion = request.dbsession.query(Opinion).filter(Opinion.user_id.in_(active_category_users)).limit(1)
+    active_users_opinion_activity = request.query(Activity).filter(Activity.source_id == active_users_opinion.id, Activity.activity_type == "poll").first()
+    active_users_opinion_activities = []
+    active_users_opinion_activities.append(active_users_opinion_activity)
 
     all_activities = user_feed_activities.extend(category_activities)
-    all_activities = all_activities.extend(active_users_activities)
+    all_activities = all_activities.extend(active_users_opinion_activities)
 
     return all_activities
 
