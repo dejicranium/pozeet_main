@@ -45,7 +45,7 @@ def get_feed(request, user, page):
     user_feed_activities = FeedManager(request.user.id).get_all_feeds()
     user_feed_paginator = SqlalchemyOrmPage(user_feed_activities, page=page, items_per_page=10, item_count=len(user_feed_activities))
     user_feed_activities = user_feed_paginator.items
-    user_feed_activities = request.dbsession.query(Activity).filter(Activity.id.in_(user_feed_activities))
+    user_feed_activities = request.dbsession.query(Activity).filter(Activity.id.in_(user_feed_activities)).all()
 
 
     # choose 5 random categories user is subscribed to
@@ -57,7 +57,7 @@ def get_feed(request, user, page):
         # category_id = int(''.join([item.category_id for item in poll_category_paginator.items]))
         # poll = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category_id)\
             # .first()
-        category_activities = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id.in_(poll.poll_id for poll in polls))
+        category_activities = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id.in_(poll.poll_id for poll in polls)).limit(5).all()
 
         #category_activities.append(poll_activity)
     """
@@ -80,7 +80,7 @@ def get_feed(request, user, page):
 
     return all_activities
     """
-    return user_feed_activities + category_activities
+    return user_feed_activities.extend(category_activities)
 
 
 def get_activities_if_authenticated(request, user, page):
