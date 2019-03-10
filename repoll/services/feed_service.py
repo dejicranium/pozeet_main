@@ -42,7 +42,7 @@ def get_feed(request, user, page):
     subscriptions = return_categories_subscribed_to(request, user)
 
     # activities by user's followers
-    user_feed_activities = FeedManager.get_all_feeds()
+    user_feed_activities = FeedManager(request.user.id).get_all_feeds()
     user_feed_paginator = SqlalchemyOrmPage(user_feed_activities, page=page, items_per_page=10, item_count=len(user_feed_activities))
     user_feed_activities = user_feed_paginator.items
     user_feed_activities = request.dbsession.query(Activity).filter(Activity.id.in_(user_feed_activities))
