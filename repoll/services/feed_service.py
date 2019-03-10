@@ -47,6 +47,7 @@ def get_feed(request, user, page):
     user_feed_activities = user_feed_paginator.items
     user_feed_activities = request.dbsession.query(Activity).filter(Activity.id.in_(user_feed_activities))
 
+    """
     # choose 5 random categories user is subscribed to
     five_random_categories = random.sample(subscriptions, 5)
 
@@ -78,7 +79,7 @@ def get_feed(request, user, page):
     all_activities = all_activities.extend(active_users_opinion_activities)
 
     return all_activities
-
+    """
 
 def get_activities_if_authenticated(request, user, page):
     user_full_name = user.full_name
