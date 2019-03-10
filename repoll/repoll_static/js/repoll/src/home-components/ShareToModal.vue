@@ -4,11 +4,11 @@
             <div class="modal-container" @click.stop> 
                 <div class="content">
                     <div class="twitter social" @click="shareToTwitter">
-                        <img @click="share('twitter')" src="/static/img/twitter-logo.svg" class="twitter_logo social_logo"/>
+                        <img @click="share('twitter')" src="https://s3.us-east-2.amazonaws.com/pozeet-static/twitter_logo.png" class="twitter_logo social_logo"/>
                         <p @click="shareToTwitter" class="content_icon">Twitter</p>
                     </div>
                     <div class="whatsapp social" @click="shareToTwitter">
-                        <img @click="share('whatsapp')" src="/static/img/whatsapp_logo.png" class="whatsapp_logo social_logo"/>
+                        <img @click="share('whatsapp')" src="https://s3.us-east-2.amazonaws.com/pozeet-static/whatsapp_logo.png" class="whatsapp_logo social_logo"/>
                         <p @click="shareToTwitter" class="content_icon">Whatsapp</p>
                     </div>
                 </div>

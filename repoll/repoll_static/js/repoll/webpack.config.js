@@ -3,13 +3,13 @@ var webpack = require("webpack");
 
 module.exports = {
   entry: {
-    //main: "./src/main.js",
+    main: "./src/main.js",
     
     
     view_poll: "./src/view_poll.js",
   
     view_opinion: './src/view_opinion.js',
-    /*
+    
     view_conversation: "./src/view_conversation.js",
     
     show_opinion_metrics: './src/show_opinion_metrics.js',

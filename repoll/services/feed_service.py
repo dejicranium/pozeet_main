@@ -488,6 +488,7 @@ def get_activities_if_not_autheticated(request, page):
     #compile poll activity and append to the list of activities
     for poll_id in polls:
         poll = request.dbsession.query(Poll).filter(Poll.id ==poll_id).first()
+        options_with_image = [option for option in poll.options if option.image_link is not None]
         try:
             poll_dictt = {
                 'type': 'poll',
@@ -507,6 +508,7 @@ def get_activities_if_not_autheticated(request, page):
                 'infoPageTitle': poll.info_link_title,
                 'infoPageDescription': poll.info_link_desc,
                 'userHasVoted': False,
+                'isPicturePoll': options_with_image != [],
                 'hasEnded': poll.has_ended,
                 'options': [
                     {

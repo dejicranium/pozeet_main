@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/ShareToModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/ShareToModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/webpack.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repoll/services/feed_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/services/feed_service.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -56,8 +58,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/repoll/services/feed_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="104" column="35" selection-start-line="104" selection-start-column="35" selection-end-line="104" selection-end-column="35" />
+            <state relative-caret-position="489">
+              <caret line="510" column="58" selection-start-line="510" selection-start-column="58" selection-end-line="510" selection-end-column="58" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -77,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/utils/compile_util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+            <state relative-caret-position="108">
+              <caret line="115" column="54" selection-start-line="115" selection-end-line="116" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
               </folding>
@@ -133,8 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_in</find>
-      <find>in_</find>
       <find>compile_poll_details</find>
       <find>get_trending</find>
       <find>view_opinion</find>
@@ -163,6 +163,8 @@
       <find>activity</find>
       <find>subscribed_to</find>
       <find>return_categories_subscribed_to</find>
+      <find>not_authetica</find>
+      <find>isPicture</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -241,7 +243,7 @@
               <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
               <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
               <item name="repoll" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
@@ -514,8 +516,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/repoll/utils/compile_util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+        <state relative-caret-position="108">
+          <caret line="115" column="54" selection-start-line="115" selection-end-line="116" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
           </folding>
@@ -524,8 +526,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/repoll/services/feed_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="104" column="35" selection-start-line="104" selection-start-column="35" selection-end-line="104" selection-end-column="35" />
+        <state relative-caret-position="489">
+          <caret line="510" column="58" selection-start-line="510" selection-start-column="58" selection-end-line="510" selection-end-column="58" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
