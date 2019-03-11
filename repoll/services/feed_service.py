@@ -53,8 +53,7 @@ def get_feed(request, user, page):
     # polls in subscribed activities:
     for category in five_random_categories:
         polls = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category).all()
-        paginator = SqlalchemyOrmPage(polls, items_per_page=1, page=page, item_count=len(polls))
-        poll = paginator.items[0]
+        poll = polls[int(page)]
         poll = request.dbsession.query(Poll).filter(Poll.id == poll.poll_id).first()
         category_activities.append(request.dbsession.query(Activity.source_id == poll.id, Activity.activity_type == "poll").first())
 
