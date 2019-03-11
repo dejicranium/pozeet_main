@@ -14,11 +14,7 @@
             <li
               @click="toggleAuthModal('login')"
               style="color:teal; margin-right:16px; color:teal; font-size:14px; "
-            >Login</li>
-            <li
-              @click="toggleAuthModal('register')"
-              style="color:teal; margin-right:16px; color:teal; font-size:14px;"
-            >Sign up</li>
+            >Sign in / Register</li>
           </ul>
           <!-- if user is logged in -->
           <ul v-if="userLoggedIn">

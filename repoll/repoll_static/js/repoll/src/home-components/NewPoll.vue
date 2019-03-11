@@ -433,7 +433,7 @@ var siteUrl = "";
 				//if the category has already been checked, remove it from the list
 					if (this.chosenCategories[i] == categoryId){
 						let categoryIndex = this.chosenCategories.indexOf(categoryId);
-						this.chosenCategories.splice(categoryIndex);
+						this.chosenCategories.splice(categoryIndex, 1);
 						document.getElementById('checkbox_category_' + categoryId).checked = false;
 
 						return 0;

@@ -36,9 +36,10 @@
 
 					<div class='register' v-else>
 							<p class='required' v-show='registrationError'>{{registrationErrorText}}</p>
-							<p class v-show="registerStage == 'third'">Chosen: {{numOfChosenCategories}}</p>
 							<form id='register-form' name='register-form' enctype="multipart/form-data">
-							<div class='first-stage' v-if='registerStage == "first"'>
+							<p style="font-size:12px;" class v-show="registerStage == 'third'">Chosen: {{numOfChosenCategories}}</p>
+
+							<div class='stage first-stage' v-if='registerStage == "first"'>
 								<div class='name-div'>
 									<div class='first-name-div' >
 										<label for="first-name" class='form-label'>First Name <span class='required'>*</span></label><br>
@@ -53,11 +54,12 @@
 								</div>
 
 								<label for="username" class="form-label">Username <span class='required'>*</span></label> 
+								<p class='required'>{{usernameErrorText}}</p>
 								<input v-model='userName' id='username' class='form-control' type='text' name='uername' required/>
 
 								<label for="password" class="form-label">Password <span class='required'>*</span></label> 
 								<span style='font-size:10px; color:teal'> 8 or more characters</span>
-								<input v-model='password' id='password' class='form-control' type='password' name='assword' required/>
+								<input v-model='password' id='password' class='form-control' type='text' name='password' required/>
 						
 
 								<label for="email" class='form-label'>Email Address <span class='required'>*</span></label> 
@@ -66,11 +68,13 @@
 								<label for="phone" class="form-label">Phone Number <span class='required'>*</span></label> 
 								<input v-model='phone' id='phone' class='form-control final-input' type='text' name='pone' required/>
 								
-								<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
+								<div class="action-container">
+									<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
+								</div>
 
 						</div>
 
-						<div class='second-stage' v-else-if="registerStage =='second'">
+						<div class='stage second-stage' v-else-if="registerStage =='second'">
 						
 							<div style='margin-bottom:10px'>
 								<span class='' style='text-align: justify; font-size:12px; color:teal'>Please Note: We'll never, EVER, show any of these information in your profile except at your request</span>
@@ -128,27 +132,31 @@
 
 								</div>
 							</div>
+							<div class="action-container">
+								<button @click='previousRegistrationPage' type='button' class="previous-button">Previous</button>
 
-							<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
-
+								<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
+							</div>
 						</div>
 					
-						<div class='third-stage' v-if="registerStage =='third'">
+						<div class='stage third-stage' v-if="registerStage =='third'">
 							<label class='form-label' style='font-weight:bold;margin-bottom:10px;'>Subscribe to (at least 10): </label>
 							<div class='registration-categories-selection' style='margin-top:10px;'>
-								<label v-for='category in categories' :category='category' @click='toggleChooseCategory(category.categoryId)'>
-									<input type='checkbox' value='category.categoryId' @click.stop/> {{category.categoryName}}
+								<label v-for='category in categories' :category='category' @click='toggleChooseCategory(category.categoryId, $event)'>
+									<input :id="'checkbox_category_' + category.categoryId" type='checkbox' value='category.categoryId' @click.stop disabled/> {{category.categoryName}}
 									<span class='checkmark' @click.stop></span>
 								</label>
 
 							</div>
-							<div class="proceed-container">
-								<button type='button' @click='nextRegistrationStage' class="proceed-button">Proceed</button>
+							<div class="action-container">
+								<button @click='previousRegistrationPage' type='button' class="previous-button">Previous</button>
+
+								<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
 							</div>
 						</div>
 
 
-					<div class='final-stage' v-if="registerStage =='fourth'" style='display:flex; flex-direction: column; text-align:center'>
+					<div class='stage final-stage' v-if="registerStage =='fourth'" style='display:flex; flex-direction: column; text-align:center'>
 						<span style='color: teal; font-size: 14px; margin-bottom:5px;'>Choose Profile Picture</span>
 						
 						<div style='text-align:center;'>
@@ -158,8 +166,11 @@
                				accept="image/png, image/jpeg" />
 
 						</div>
-						<button class="proceed-button" type='button' @click='completeRegistration' > <i class="fa fa-circle-o-notch fa-spin" v-if=''></i>Register</button>
+							<div class="action-container">
+								<button @click='previousRegistrationPage' type='button' class="previous-button">Previous</button>
 
+								<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
+							</div>
 					</div>
 					</form>
 				</div>
@@ -185,6 +196,20 @@
 			return String(this).replace(/^\s+|\s+$/g, '');
 		};
 	}
+	const SPECIAL_CHARACTERS_FORMAT = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+	const monthDaysMapping= {'January' : 31,
+							'February': 29,
+							'March': 31, 
+							'April': 30,
+							'May': 31, 
+							'June': 30,
+							'July': 31,
+							'August': 31,
+							'September': 30,
+							'October': 31,
+							'November': 30,
+							'December': 31, 
+						}
 
 	import axios from 'axios';
 	export default { 
@@ -218,7 +243,8 @@
 				chosenCountry: 0,
 				subUnit: 0,
 
-				
+				// errors 
+				usernameErrorText: '',
 			}
 
 
@@ -249,21 +275,36 @@
 			numOfChosenCategories(){
 				return this.chosenCategories.length;
 			}
-
+			
 		},
 		methods:{
 
-			toggleChooseCategory(id){
+			toggleChooseCategory(id, event){
 				//check if the category is already there
-				var category = this.chosenCategories.filter(element=>element == id)[0];
-				if (category){
+				// var category = this.chosenCategories.filter(element=>element == id)[0];
+				// if (category){
 					//get the index, so we can remove it from the item.
-					var categoryIndex = this.chosenCategories.indexOf(id);
-					this.chosenCategories.splice(categoryIndex);
+				//	var categoryIndex = this.chosenCategories.indexOf(id);
+				//	this.chosenCategories.splice(categoryIndex);
+				//}
+				//else{
+				//	this.chosenCategories.push(id);
+				//}
+
+				// check whether it is already in the chosen categories
+				for (let i = 0; i < this.chosenCategories.length; i++){
+					if (this.chosenCategories[i] == id) {
+						let categoryIndex =  this.chosenCategories.indexOf(id);
+						this.chosenCategories.splice(categoryIndex, 1);
+
+						document.getElementById('checkbox_category_' + id).checked = false;
+						return 0;
+					}
 				}
-				else{
-					this.chosenCategories.push(id);
-				}
+
+				//	ELSE, just add
+				this.chosenCategories.push(id);
+				document.getElementById("checkbox_category_" + id).checked = true;
 			},
 
 			flattenCategories(){
@@ -280,9 +321,9 @@
 			},
 
 			emailIsEligible(){
-				  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  					return re.test(this.email);
-				
+					var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+					  var emailIsValid = re.test(this.email);
+					  return emailIsValid;
 			},
 
 
@@ -291,9 +332,40 @@
 			},
 
 			userNameIsEligible(){
-				return this.userName.length > 2;
-			},
+				var lengthIsGreaterThanTwo = this.userName.length > 2;
+				if (!lengthIsGreaterThanTwo){
+					this.usernameErrorText = "Username must be more than 2 letters";
+					return false;
+				}
+				
+				var specialCharactersExist = SPECIAL_CHARACTERS_FORMAT.test(this.userName.trim());
+				if (specialCharactersExist){
+					this.usernameErrorText = "Username cannot contain special characters except underscore _"
+					return false;
+				}
 
+				var whiteSpaceFormat = /\s/;
+				var whiteSpaceExists = whiteSpaceFormat.test(this.userName.trim());
+				if (whiteSpaceExists){
+					this.usernameErrorText = "Username cannot contain whitespace";
+					return false;
+				}
+				
+				// clear any errors
+				this.usernameErrorText = '';
+				return true; 
+			},
+			previousRegistrationPage(event) {
+				if (this.registerStage == "second") {
+					this.registerStage = "first";
+				}
+				else if (this.registerStage == "third"){
+					this.registerStage = "second";
+				}
+				else if (this.registerStage == "fourth") {
+					this.registerStage = "third";
+				}
+			},
 			nextRegistrationStage(event){
 				event.preventDefault();
 				var stage = this.registerStage;
@@ -315,14 +387,13 @@
 					else if(!this.emailIsEligible){
 						canMoveToNextStage = false;
 						this.registrationError = true;
-						this.registrationErrorText = 'Email address is not a valid';
+						this.registrationErrorText = 'Email address is not a valid one';
 					}
 
 
 					else if (!userNameIsAcceptable){
 						canMoveToNextStage = false;
 						this.registrationError = true;
-						this.registrationErrorText = "Username must be more than 2 characters"
 					}
 
 					else if (!passwordIsAcceptable){
@@ -367,6 +438,12 @@
 						canMoveToNextStage = false;
 						this.registrationError = true; 
 						this.registrationErrorText = "Your birthday looks incorrect";
+					}
+					// if user inputs day that exceeds the acceptable number of days in a month
+					else if(parseInt(this.birthDate) > monthDaysMapping[this.birthMonth]) {
+						canMoveToNextStage = false;
+						this.registrationError = true; 
+						this.registrationErrorText = this.birthMonth + " has only " + monthDaysMapping[this.birthMonth] + " days";
 					}
 
 					//else if(this.birthYear.length < 4 || this.birthYear > 4){
@@ -515,13 +592,17 @@
 					if (request.readyState == XMLHttpRequest.DONE){
 						if(request.status == 200){
 								vm.$emit('close_auth_modal', false);
+								var jsonResponse = JSON.parse(request.responseText);
+								if (jsonResponse.status == "picture uploading failed"){
+									vm.showSnackBar("Picture uploading failed, but continued with registration");
+								}
 								window.location.reload();
 								vm.changeButtonContent(event.target, 'Register');
 								event.target.disabled = false;
 						}
 						else {
 							vm.changeButtonContent(event.target, 'Register');
-							alert("somethign went wrong");
+							alert("something went wrong");
 							event.target.disabled = false;
 						}
 					}
@@ -554,11 +635,11 @@
 	.modal-container .modal-body .final-input{
 		margin-bottom: 30px;
 	}
-	.modal-container .modal-body button{
-		position: absolute;
-		right: 0; 
-		bottom: 0;
-		margin-right: 20px; 
+
+	.stage {
+		display: flex; 
+		flex-direction: column;
+		justify-content: space-between;
 	}
 	.third-stage {
 		display: flex;
@@ -570,22 +651,20 @@
 		justify-content: center;
 	}
 
-	.final-stage button{
-		position: relative; 
-		margin-right: 0;
-	}
-	
-	.proceed-container {
+	.action-container {
 		display: flex;
+		width: 100%;  
+		justify-content: space-between;
+	}
+	.action-container button{
+		border-radius: 5px;
+	}
+	.proceed-button {
 		justify-self: flex-end;
 	}
-	.proceed-container .proceed-button {
-		justify-self: flex-end;
-		position: relative;
-	}
-	.proceed-container .previous-button {
+	.previous-button {
 		justify-self: flex-start;
-		position: relative;
+		background-color: red;
 	}
 
 

@@ -13,7 +13,7 @@ from sqlalchemy import (Table,
     ForeignKey)
 from sqlalchemy.schema import UniqueConstraint
 
-from repoll.utils import age_util
+from ..utils import age_util
 from dateutil import relativedelta
 
 from sqlalchemy.orm import relationship, backref
@@ -34,10 +34,10 @@ MONTH_MAPPING = {
                 '11': 'Nov',
                 '12': 'Dec'}
 
+
 def compute_time_difference(date1, date2, suffix='ago'):
-    
     difference = relativedelta.relativedelta(date1, date2)
-    #if the time now is different higher than the scheduled time for ending, just return "Ended"
+    # if the time now is different higher than the scheduled time for ending, just return "Ended"
     if suffix == "remaining":
         difference = relativedelta.relativedelta(date2, date1)
         if date1 > date2:
@@ -64,7 +64,7 @@ def compute_time_difference(date1, date2, suffix='ago'):
         if suffix == "ago":
             return "{}m".format(str(minutes_d))
         else: 
-            return "{}{} remaining".format(str(minutes_d), unit)
+            return "{}{} remaining".format(str(minutes_d))
 
     elif (hours_d == 1 or hours_d > 1) and days_d < 1:
         if suffix == "ago":
@@ -264,6 +264,7 @@ class OpinionVotes(Base):
 class Opinion(Base):
     __tablename__ = 'opinions'
     id = Column(Integer, primary_key=True)
+    # this will be revised to 1000
     opinion = Column(Unicode(255), nullable=False)
     options = relationship("Option")
     comments = relationship("Comment", backref='opinion')

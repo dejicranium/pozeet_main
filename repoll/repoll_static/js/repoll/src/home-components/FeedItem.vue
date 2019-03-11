@@ -319,7 +319,7 @@
             v-for="image in activity.contextImage"
             :image="image"
             :src="image.imgLink"
-            style="max-width:100%; max-height:200px; border-radius:5px;"
+            style="max-width:100%; max-height:200px; border-radius:5px; margin-bottom: 5px;"
           >
         </div>
 
@@ -1132,7 +1132,7 @@ export default {
 
 .time-added {
 	margin-right: 5px;
-  	max-width: 5%;
+  	max-width: 10%;
  	overflow: hidden; 
 	text-overflow: ellipsis;
 	white-space: nowrap;

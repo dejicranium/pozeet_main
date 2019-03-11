@@ -182,13 +182,11 @@ def register_through_xhr(request):
         sub_unit = req_body.get('subUnit')
         profile_pic = req_body.get('profilePic', None)
         categories = req_body.get('categories', None)
-        new_user = None
     except:
         return {'status': 'fail'}
         
     categories_list = categories.split(',')
-    category_subs = []
-    
+
     try:
         new_user = User()
         new_user.first_name = first_name
@@ -210,9 +208,10 @@ def register_through_xhr(request):
                     pic_name = "{}".format(uuid.uuid4())
                     uploaded_pic = upload_profile_picture(pic_file, pic_name)
                     new_user.profile_picture = uploaded_pic['secure_url']
-            except:
-                request.response.status = "400"
-                return {"status": "fail"}
+
+            except Exception as e:
+                request.response.status = "200"
+                return {"status": "picture uploading failed"}
         else:
             create_gender_based_profile_pic(new_user)
         request.dbsession.add(new_user)
@@ -225,7 +224,7 @@ def register_through_xhr(request):
             new_sub.user_id = new_user.id
 
             new_user.subscriptions.append(new_sub)
-            #redis
+            # redis
             redis_category_subscription = CategorySubscription(int(category))
             redis_category_subscription.add_subscriber(new_user.id)
 
@@ -234,11 +233,11 @@ def register_through_xhr(request):
         request.response.status = '400' 
         return {'status': e}
     else:
-        #try to login user
+        # try to login user
         request.dbsession.flush()
         return login_after_registration(request, new_user.email, password)
         
-        #this won't be reached eventually
+        # this won't be reached eventually
         request.response.status = '200'
         return {'success': 'success'}
 

@@ -139,6 +139,13 @@ def homepage_mobile_view(request):
 
 """
 
+
+@view_config(route_name="home")
+def home(request):
+    home_url = request.route_url('mobile_feed')
+    return HTTPFound(location=home_url)
+
+
 @view_config(route_name='add_cat', renderer='../templates/show_categories.jinja2',)
 def add_categories(request):
    
