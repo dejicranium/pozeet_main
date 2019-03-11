@@ -53,11 +53,10 @@ def get_feed(request, user, page):
     # polls in subscribed activities:
     for category in five_random_categories:
         polls = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category).all()
-        # poll_category_paginator = SqlalchemyOrmPage(poll_category_map, page=page, items_per_page=1)
-        # category_id = int(''.join([item.category_id for item in poll_category_paginator.items]))
-        # poll = request.dbsession.query(PollCategory).filter(PollCategory.category_id == category_id)\
-            # .first()
-        category_activities = request.dbsession.query(Activity).filter(Activity.activity_type == "poll", Activity.source_id.in_(poll.poll_id for poll in polls)).limit(5).all()
+        paginator = SqlalchemyOrmPage(polls, items_per_page=1, page=page, item_count=len(polls))
+        poll = paginator.items[0]
+        poll = request.dbsession.query(Poll).filter(Poll.id == poll.poll_id).first()
+        category_activities.append(request.dbsession.query(Activity.source_id == poll.id, Activity.activity_type == "poll").first())
 
         #category_activities.append(poll_activity)
     """
@@ -80,14 +79,15 @@ def get_feed(request, user, page):
 
     return all_activities
     """
-    return user_feed_activities
+    return user_feed_activities.extend(category_activities)
 
 def get_activities_if_authenticated(request, user, page):
     user_full_name = user.full_name
     user_pic = user.profile_picture
     dictt = {'user_logged_in': True, 'userName': user_full_name, 'userPic': user_pic, 'activities': []}
     
-    activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
+    # activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
+    activities = get_feed(request, user, page)
     user_categories = []
     
     for each in user.subscriptions: 
@@ -97,12 +97,12 @@ def get_activities_if_authenticated(request, user, page):
 
     #activities = get_feed(request, user, page)
     #activities = FeedManager(user.id).get_all_feeds()
-    paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15)
+    # paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15)
     
     # activities = get_latest_activities(request, user.id, already_shown)
     #activities = request.dbsession.query(Activity).filter(Activity.id.in_(paginator.items))
 
-    for activity in paginator.items:
+    for activity in activities:
         source = get_source(request, activity)
         source_id = activity.source_id
 

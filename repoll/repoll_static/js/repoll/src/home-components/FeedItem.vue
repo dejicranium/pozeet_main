@@ -528,7 +528,7 @@ export default {
         window.open("" + "/poll/" + this.activity.poll.id + "/", "_self");
         return 0;
       }
-      window.open(sietUrl + "/poll/" + this.activity.id + "/", "_self");
+      window.open( "/poll/" + this.activity.id + "/", "_self");
     },
 
     openViewConversationPage() {
