@@ -64,7 +64,7 @@ def compute_time_difference(date1, date2, suffix='ago'):
         if suffix == "ago":
             return "{}m".format(str(minutes_d))
         else: 
-            return "{}{} remaining".format(str(minutes_d))
+            return "{}m remaining".format(str(minutes_d))
 
     elif (hours_d == 1 or hours_d > 1) and days_d < 1:
         if suffix == "ago":
