@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/repoll/services/feed_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/services/feed_service.py" afterDir="false" />
-    </list>
+    <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/repoll/services/feed_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="75" column="67" selection-start-line="75" selection-start-column="67" selection-end-line="75" selection-end-column="67" />
+            <state relative-caret-position="337">
+              <caret line="78" column="83" selection-start-line="78" selection-start-column="74" selection-end-line="78" selection-end-column="83" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -598,8 +596,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/repoll/services/feed_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="75" column="67" selection-start-line="75" selection-start-column="67" selection-end-line="75" selection-end-column="67" />
+        <state relative-caret-position="337">
+          <caret line="78" column="83" selection-start-line="78" selection-start-column="74" selection-end-line="78" selection-end-column="83" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
