@@ -78,7 +78,7 @@ def get_activities_if_authenticated(request, user, page):
     # activities = get_latest_activities(request, user.id, already_shown)
     # activities = request.dbsession.query(Activity).filter(Activity.id.in_(paginator.items))
 
-    for activity in activities  :
+    for activity in paginator.items  :
         source = get_source(request, activity)
         source_id = activity.source_id
 
