@@ -140,7 +140,10 @@ def homepage_mobile_view(request):
 """
 
 
-@view_config(route_name="home")
+@view_config(route_name="home", renderer="../templates/home.jinja2")
+def desk_home(request):
+    return {}
+
 def home(request):
     home_url = request.route_url('mobile_feed')
     return HTTPFound(location=home_url)
@@ -222,7 +225,3 @@ def activities(request):
 
     return {'sources': sources}
 
-
-@view_config(route_name="home", renderer="json")
-def home(request):
-    return {'status': "home"}

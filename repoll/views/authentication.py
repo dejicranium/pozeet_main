@@ -29,13 +29,13 @@ def register_user_to_redis(id, details):
     storage = UserInfoStorage()
     storage.create_user(id, details)
 
+
 @view_config(route_name="xhr_login", renderer='json')
 def login_through_xhr(request):
     next_url = request.referrer
 
     xhr_login_email = request.params.get('email')
     xhr_login_password = request.params.get('password')
-    
     
     if xhr_login_email and xhr_login_password: 
         from pyramid.response import Response
@@ -160,9 +160,11 @@ def login_after_registration(request, email, password, next_url=None):
         request.response.status = '400'
         return {'could not verify': True} 
 
+
 @view_config(route_name='register')
 def register(request):
     return HTTPFound(location=request.route_url("mobile_feed"))
+
 
 @view_config(route_name='xhr_register', renderer='json')
 def register_through_xhr(request):
@@ -240,6 +242,7 @@ def register_through_xhr(request):
         # this won't be reached eventually
         request.response.status = '200'
         return {'success': 'success'}
+
 
 @view_config(route_name='login', renderer='../templates/login.jinja2')
 def login(request):

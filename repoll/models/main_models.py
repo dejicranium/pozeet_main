@@ -9,6 +9,7 @@ from sqlalchemy import (Table,
     UnicodeText,
     DateTime,
     Float,
+    Boolean,
     String,
     ForeignKey)
 from sqlalchemy.schema import UniqueConstraint
@@ -22,7 +23,7 @@ from passlib.apps import custom_app_context
 
 MONTH_MAPPING = {
     '1': 'Jan',
-                '2': 'Feb',
+    '2': 'Feb',
                 '3': 'Mar',
                 '4': 'Apr',
                 '5': 'May',
@@ -366,6 +367,8 @@ class User(Base):
         backref='subscribers',
         primaryjoin=id==CategorySubscriber.user_id)
 
+    # let us know whether the user is absolutely new. This becomes false when user logs in for the first time
+    new_user = Column(Boolean, default=True)
     slug = Column(Unicode(255), nullable=True)
 
     def follow(self, user):

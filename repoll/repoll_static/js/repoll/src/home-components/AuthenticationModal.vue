@@ -168,8 +168,8 @@
 						</div>
 							<div class="action-container">
 								<button @click='previousRegistrationPage' type='button' class="previous-button">Previous</button>
-
-								<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
+								<button @click="completeRegistration" type="button" class="proceed-button skip">Skip</button>
+								<button @click='completeRegistration' type='button' class="proceed-button">Proceed</button>
 							</div>
 					</div>
 					</form>
@@ -407,6 +407,10 @@
 						this.registrationError = false;
 						this.registrationErrorText ='';
 
+						// show that it is checking something in the database
+						this.changeButtonContent(event.target, '...');
+						// disable the button
+						event.target.disabled = true;
 						axios.post("" + '/verify_first_register', {
 							stage: '1', //sends this to server
 							email: vm.email,
@@ -416,9 +420,16 @@
 						}).then(response=>{
 							//go to the next stage;
 							vm.registerStage = 'second';
+						
+							this.changeButtonContent(event.target, 'Proceed');
+							// disable the button
+							event.target.disabled = false;
 						}).catch(error=>{
 							vm.registrationError = true;
 							vm.registrationErrorText = error.response.data['error'];
+							this.changeButtonContent(event.target, 'Proceed');
+							// disable the button
+							event.target.disabled = false;
 						});
 					}
 
@@ -568,8 +579,25 @@
 
 				vm.changeButtonContent(event.target, '...');
 				event.target.disabled = true;
-				var form = document.getElementById('register-form');
-				var formData = new FormData(form);
+
+				var formData = null;
+
+				// check whether it was the skip button that was pressed
+				// if the skip button was pressed, then we don't have to make our FormData wrap around register-form, which contains profile picture
+				// that is, the user is not interested in putting a profile picture up for display;
+				
+				// get button clicked class name
+				const buttonClassNames = event.target.classList;
+				// does it contain the skipped class?
+				var buttonIsSkip = buttonClassNames.contains('skip');
+				// if skip is in the class of the button that was clicked;
+				if (!buttonIsSkip){
+					var form = document.getElementById('register-form');
+					formData = new FormData(form);
+				}
+				else {
+					formData = new FormData();
+				}
 
 				formData.append('firstName', this.firstName);
 				formData.append('lastName', this.lastName);
@@ -592,18 +620,27 @@
 					if (request.readyState == XMLHttpRequest.DONE){
 						if(request.status == 200){
 								vm.$emit('close_auth_modal', false);
-								var jsonResponse = JSON.parse(request.responseText);
-								if (jsonResponse.status == "picture uploading failed"){
-									vm.showSnackBar("Picture uploading failed, but continued with registration");
-								}
 								window.location.reload();
-								vm.changeButtonContent(event.target, 'Register');
+								if (!buttonIsSkip){
+									vm.changeButtonContent(event.target, 'Register');
+								}
+								else {
+									vm.changeButtonContent(event.target, 'Skip');
+
+								}
 								event.target.disabled = false;
 						}
 						else {
 							vm.changeButtonContent(event.target, 'Register');
-							alert("something went wrong");
-							event.target.disabled = false;
+								if (!buttonIsSkip){
+									vm.changeButtonContent(event.target, 'Register');
+								}
+								else {
+									vm.changeButtonContent(event.target, 'Skip');
+
+								}						
+								alert("Something went wrong");	
+								event.target.disabled = false;
 						}
 					}
 				}

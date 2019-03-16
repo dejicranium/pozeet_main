@@ -62,7 +62,7 @@ def get_activities_if_authenticated(request, user, page):
     
     activities = request.dbsession.query(Activity).order_by(Activity.created.desc())
 
-    #activities = get_feed(request, user, page)
+    # activities = get_feed(request, user, page)
     user_categories = []
     
     for each in user.subscriptions: 
@@ -70,8 +70,8 @@ def get_activities_if_authenticated(request, user, page):
         for category in categories:
             user_categories.append(category.id)
 
-    #activities = get_feed(request, user, page)
-    #activities = FeedManager(user.id).get_all_feeds()
+    # activities = get_feed(request, user, page)
+    # activities = FeedManager(user.id).get_all_feeds()
 
     paginator = SqlalchemyOrmPage(activities, page=page, items_per_page=15)
     
