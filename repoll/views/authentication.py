@@ -307,12 +307,11 @@ def login(request):
   
 
     
-    return dict(                                        #else, request method is GET
+    return dict(
+        # else, request method is GET
         error = error,
         url = request.route_url('login'),
        )
-    
-
     
 
 @view_config(route_name='logout')

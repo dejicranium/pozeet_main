@@ -66,7 +66,7 @@
 								<input v-model='email' id='email' class='form-control' type='text' name='eail' required/>
 
 								<label for="phone" class="form-label">Phone Number <span class='required'>*</span></label> 
-								<input v-model='phone' id='phone' class='form-control final-input' type='text' name='pone' required/>
+								<input v-model='phone' type="number" id='phone' class='form-control final-input' type='text' name='pone' required/>
 								
 								<div class="action-container">
 									<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
@@ -133,7 +133,7 @@
 								</div>
 							</div>
 							<div class="action-container">
-								<button @click='previousRegistrationPage' type='button' class="previous-button">Previous</button>
+								<button @click='previousRegistrationPage' type='button' class="previous-button">Back</button>
 
 								<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
 							</div>
@@ -149,7 +149,7 @@
 
 							</div>
 							<div class="action-container">
-								<button @click='previousRegistrationPage' type='button' class="previous-button">Previous</button>
+								<button @click='previousRegistrationPage' type='button' class="previous-button">Back</button>
 
 								<button @click='nextRegistrationStage' type='button' class="proceed-button">Proceed</button>
 							</div>
@@ -166,8 +166,8 @@
                				accept="image/png, image/jpeg" />
 
 						</div>
-							<div class="action-container">
-								<button @click='previousRegistrationPage' type='button' class="previous-button">Previous</button>
+							<div class="action-container" style="margin-top: 10px;">
+								<button @click='previousRegistrationPage' type='button' class="previous-button">Back</button>
 								<button @click="completeRegistration" type="button" class="proceed-button skip">Skip</button>
 								<button @click='completeRegistration' type='button' class="proceed-button">Proceed</button>
 							</div>
@@ -196,7 +196,7 @@
 			return String(this).replace(/^\s+|\s+$/g, '');
 		};
 	}
-	const SPECIAL_CHARACTERS_FORMAT = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+	const SPECIAL_CHARACTERS_FORMAT = /[!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]+/;
 	const monthDaysMapping= {'January' : 31,
 							'February': 29,
 							'March': 31, 
@@ -421,7 +421,7 @@
 							//go to the next stage;
 							vm.registerStage = 'second';
 						
-							this.changeButtonContent(event.target, 'Proceed');
+							//this.changeButtonContent(event.target, 'Proceed');
 							// disable the button
 							event.target.disabled = false;
 						}).catch(error=>{
