@@ -70,7 +70,7 @@ def change_profile_picture(request):
         return {'status': 'no attribute named file'}
     return {'status': 'profile pic is none'}
 
-@view_config(route_name='view_profile', renderer='../templates/profile_page_mobile.jinja2')
+@view_config(route_name='view_profile', renderer='../templates/profile_page_mobile.jinja2', user_agent="mobile")
 def view_profile(request):
     from repoll.services.follow_service import FollowService
     user_id = request.matchdict.get('user_id', -1)

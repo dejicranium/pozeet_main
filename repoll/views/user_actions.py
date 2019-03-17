@@ -17,7 +17,7 @@ def get_all_users(request):
 
 	#extract details
 	
-@view_config(route_name='edit_profile', renderer='../templates/edit_profile.jinja2')
+@view_config(route_name='edit_profile', renderer='../templates/edit_profile.jinja2', user_agent="mobile")
 def edit_profile(request):
 	if request.user:
 		if request.method == "GET":

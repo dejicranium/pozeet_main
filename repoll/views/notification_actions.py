@@ -29,7 +29,7 @@ def package_notif_url(object_type, object_id, conversation_id=None):
         url = "/view_conversation/conversation_id={}/reply_id={}".format(conversation_id, object_id)
     return url
 
-@view_config(route_name='notifications_page', renderer='../templates/notifications_mobile.jinja2')
+@view_config(route_name='notifications_page', renderer='../templates/notifications_mobile.jinja2', user_agent="mobile")
 def notifications_page(request):
     if request.user:
         user = request.dbsession.query(User).filter(User.id==request.user.id).first()
