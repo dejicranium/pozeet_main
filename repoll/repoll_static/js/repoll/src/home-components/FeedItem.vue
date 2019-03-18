@@ -11,20 +11,23 @@
 				<button class="follow-btn">Follow</button>
         	</div>
 
-			<div class="avatar" @click.stop @click.exact="openUserProfile">
-				<img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
-				<img v-if="activity.userPic != null" :src="activity.userPic">
-			</div>
 
-			<div class="beside-avatar-box">
-				<div class="author-details" @click.stop @click.exact="openUserProfile">
-					<p class="name" style="font-weight: bold; font-size:12px" @click="openUserProfile">{{activity.userName}}</p>
-					<p class="username">({{activity.username}})</p>
-					<p class="time-added">{{activity.timeAdded}}</p>
+			    <div class="avatar-and-details">
+                    <div class="avatar">
+                        <img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
+                        <img v-if="activity.userPic != null" :src="activity.userPic">                    
+                    </div>
 
-					<!--<p class="follow" style="color: teal; font-weight: bold;">Follow</p> -->
-				</div>
-			<!---<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
+                    <div class="details">
+                        <p class="name">{{activity.userName}}</p>
+                        <div class="flex">
+                            <p class="username">{{activity.username}}</p>
+                            <p class="middot">&middot;</p>
+                            <p class="time-added">{{activity.timeAdded}}</p>
+                        </div>
+                    </div>
+                </div>
+			    <!---<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
 												<p @click='followOrUnfollowUser' style='position:absolute; right: 0; margin-right:18px; color: teal;' v-if='!userIsFollowing'>Follow</p>
 				-->
 				<h6 class="poll-question">
@@ -51,162 +54,162 @@
         		</div>
 
           <!--if the poll has ended, just show the results already! -->
-        <template v-if="!pollHasEnded" @click.stop>
-            <!-- this is the default. Shows when the user has not voted -->
-            <template v-if="!isPicturePoll">
-              	<template v-if="!userHasVoted && !seenPollResults">
-                	<div class="options" v-for="option in activity.options" :option="option" :key="option.id + activity.id">
-                  	<label>
-                    	<input type="radio" @click="optionChosen(option.id)" name="option" :value="option.id">
-                    	<span class="checkmark"></span>
-            			{{option.option}}
-                  </label>
-                </div>
-              </template>
-              <!-- once the user has voted, this template will come up! -->
-              <!--<template v-else-if='userHasVoted && !isPicturePoll'>
-              -->
-              <template v-else-if="userHasVoted || seenPollResults" @click.stop>
-                <div class="options">
-                  <div
-                    class="ans-cnt"
-                    v-for="option in calculatedScores"
-                    :option="option"
-                    :key="option.id + activity.id"
-                  >
-                    <div class="ans">
-                      <div class="ans-voted">
-                        <span class="percent">{{option.percent}}</span>
-                        <span class="txt">{{option.option}}</span>
-                      </div>
-                      <span class="first-bg"></span>
-                      <span :class="{bg:true}" :style="{width: option.percent}"></span>
+                <template v-if="!pollHasEnded" @click.stop>
+                    <!-- this is the default. Shows when the user has not voted -->
+                    <template v-if="!isPicturePoll">
+                        <template v-if="!userHasVoted && !seenPollResults">
+                            <div class="options" v-for="option in activity.options" :option="option" :key="option.id + activity.id">
+                            <label>
+                                <input type="radio" @click="optionChosen(option.id)" name="option" :value="option.id">
+                                <span class="checkmark"></span>
+                                {{option.option}}
+                        </label>
+                        </div>
+                    </template>
+                    <!-- once the user has voted, this template will come up! -->
+                    <!--<template v-else-if='userHasVoted && !isPicturePoll'>
+                    -->
+                    <template v-else-if="userHasVoted || seenPollResults" @click.stop>
+                        <div class="options">
+                        <div
+                            class="ans-cnt"
+                            v-for="option in calculatedScores"
+                            :option="option"
+                            :key="option.id + activity.id"
+                        >
+                            <div class="ans">
+                            <div class="ans-voted">
+                                <span class="percent">{{option.percent}}</span>
+                                <span class="txt">{{option.option}}</span>
+                            </div>
+                            <span class="first-bg"></span>
+                            <span :class="{bg:true}" :style="{width: option.percent}"></span>
+                            </div>
+                        </div>
+                        </div>
+                    </template>
+                    </template>
+
+                    <template v-else @click.stop>
+                    <template v-if="!userHasVoted && !seenPollResults">
+                        <div class="picture-options">
+                        <label v-for="option in activity.options" :option="option">
+                            <input
+                            type="radio"
+                            @click="optionChosen(option.id)"
+                            name="option"
+                            :value="option.id"
+                            >
+                            <img :src="option.image">
+                            
+                            <span class="checkbox"></span>
+                            
+                            <span>{{option.option}}</span>
+                        </label>
+                        </div>
+                    </template>
+
+                    <template v-else-if="userHasVoted || seenPollResults" @click.stop>
+                        <div class="picture-options">
+                        <label v-for="option in calculatedScores" :option="option">
+                            <input
+                            type="radio"
+                            @click="optionChosen(option.id)"
+                            name="option"
+                            :value="option.id"
+                            >
+                            <img :src="option.image">
+
+                            <!--<span class='checkbox' style='opacity:0'></span>-->
+                            <label
+                            style="background-color: rgba(0, 0, 0, .1);"
+                            :style="{width:option.percent}"
+                            >
+                            <span style="color:black;font-weight:bold;">{{option.percent}}</span>
+                            </label>
+                        </label>
+                        </div>
+                    </template>
+                    </template>
+                </template>
+
+                <template v-else @click.stop>
+                    <template v-if="!isPicturePoll">
+                    <div class="options">
+                        <div class="ans-cnt" v-for="option in calculatedScores" :option="option">
+                        <div class="ans">
+                            <div class="ans-voted">
+                            <span class="percent">{{option.percent}}</span>
+                            <span class="txt">{{option.option}}</span>
+                            </div>
+                            <span class="first-bg"></span>
+                            <span :class="{bg:true}" :style="{width: option.percent}"></span>
+                        </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </template>
-            </template>
+                    </template>
 
-            <template v-else @click.stop>
-              <template v-if="!userHasVoted && !seenPollResults">
-                <div class="picture-options">
-                  <label v-for="option in activity.options" :option="option">
-                    <input
-                      type="radio"
-                      @click="optionChosen(option.id)"
-                      name="option"
-                      :value="option.id"
-                    >
-                    <img :src="option.image">
-                    
-                    <span class="checkbox"></span>
-                    
-                    <span>{{option.option}}</span>
-                  </label>
-                </div>
-              </template>
+                    <template v-else @click.stop>
+                    <div class="picture-options">
+                        <label v-for="option in calculatedScores" :option="option">
+                        <input
+                            type="radio"
+                            @click="optionChosen(option.id)"
+                            name="option"
+                            :value="option.id"
+                        >
+                        <img :src="option.image">
 
-              <template v-else-if="userHasVoted || seenPollResults" @click.stop>
-                <div class="picture-options">
-                  <label v-for="option in calculatedScores" :option="option">
-                    <input
-                      type="radio"
-                      @click="optionChosen(option.id)"
-                      name="option"
-                      :value="option.id"
-                    >
-                    <img :src="option.image">
-
-                    <!--<span class='checkbox' style='opacity:0'></span>-->
-                    <label
-                      style="background-color: rgba(0, 0, 0, .1);"
-                      :style="{width:option.percent}"
-                    >
-                      <span style="color:black;font-weight:bold;">{{option.percent}}</span>
-                    </label>
-                  </label>
-                </div>
-              </template>
-            </template>
-          </template>
-
-          <template v-else @click.stop>
-            <template v-if="!isPicturePoll">
-              <div class="options">
-                <div class="ans-cnt" v-for="option in calculatedScores" :option="option">
-                  <div class="ans">
-                    <div class="ans-voted">
-                      <span class="percent">{{option.percent}}</span>
-                      <span class="txt">{{option.option}}</span>
+                        <!--<span class='checkbox' style='opacity:0'></span>-->
+                        <label
+                            style="background-color: rgba(0, 0, 0, .1);"
+                            :style="{width:option.percent}"
+                        >
+                            <span style="color:black;font-weight:bold;">{{option.percent}}</span>
+                        </label>
+                        </label>
                     </div>
-                    <span class="first-bg"></span>
-                    <span :class="{bg:true}" :style="{width: option.percent}"></span>
-                  </div>
+                    </template>
+                </template>
+
+                <div style="display:flex; flex-direction='row'">
+                    <p class="votes" @click.stop @click.exact="seeVoters">{{totalVotes}} votes</p>
+                    <span class="middot">&middot;</span>
+                    <p class="votes" style="color:darkgrey;cursor:pointer;">{{activity.timeRemaining}}</p>
                 </div>
-              </div>
-            </template>
 
-            <template v-else @click.stop>
-              <div class="picture-options">
-                <label v-for="option in calculatedScores" :option="option">
-                  <input
-                    type="radio"
-                    @click="optionChosen(option.id)"
-                    name="option"
-                    :value="option.id"
-                  >
-                  <img :src="option.image">
-
-                  <!--<span class='checkbox' style='opacity:0'></span>-->
-                  <label
-                    style="background-color: rgba(0, 0, 0, .1);"
-                    :style="{width:option.percent}"
-                  >
-                    <span style="color:black;font-weight:bold;">{{option.percent}}</span>
-                  </label>
-                </label>
-              </div>
-            </template>
-          </template>
-
-          <div style="display:flex; flex-direction='row'">
-            <p class="votes" @click.stop @click.exact="seeVoters">{{totalVotes}} votes</p>
-            <span class="middot">&middot;</span>
-            <p class="votes" style="color:darkgrey;cursor:pointer;">{{activity.timeRemaining}}</p>
-          </div>
-
-          <button
-            @click.exact="vote"
-            @click.stop
-            v-show="!userHasVoted && !seenPollResults && !pollHasEnded"
-            id="vote-btn"
-          >
-            <i class="far fa-check-circle button-icon"></i>Vote
-          </button>
-          <button
-            @click.stop
-            v-on:click.exact="addComment"
-            v-show="!userHasVoted && !seenPollResults"
-            id="comment-btn"
-          >
-            <i class="far fa-comment button-icon"></i>Comment
-          </button>
-          <button
-            @click.stop
-            v-on:click,exact="seeResults"
-            v-show="!userHasVoted && !seenPollResults && !pollHasEnded"
-          >
-            <i class="far fa-chart-bar button-icon"></i>Results
-          </button>
-          <button @click.stop v-on:click.exact="share"><i class="fas fa-share-alt button-icon"></i>Share</button>
-          <!--	<button v-on:click='like' v-if='(userHasVoted || seenPollResults) && !activityIsAlreadyLiked'><i class="far fa-thumbs-up button-icon"></i>Like <span>((numOfLikes))</button> -->
-          <button
-            @click.stop
-            @click.exact="openBreakDownWindow"
-            v-show="userHasVoted || seenPollResults || pollHasEnded"
-          >
-            <i class="fas fa-chart-pie button-icon"></i>View Breakdown
-          </button>
+                <button
+                    @click.exact="vote"
+                    @click.stop
+                    v-show="!userHasVoted && !seenPollResults && !pollHasEnded"
+                    id="vote-btn"
+                >
+                    <i class="far fa-check-circle button-icon"></i>Vote
+                </button>
+                <button
+                    @click.stop
+                    v-on:click.exact="addComment"
+                    v-show="!userHasVoted && !seenPollResults"
+                    id="comment-btn"
+                >
+                    <i class="far fa-comment button-icon"></i>Comment
+                </button>
+                <button
+                    @click.stop
+                    v-on:click,exact="seeResults"
+                    v-show="!userHasVoted && !seenPollResults && !pollHasEnded"
+                >
+                    <i class="far fa-chart-bar button-icon"></i>Results
+                </button>
+                <button @click.stop v-on:click.exact="share"><i class="fas fa-share-alt button-icon"></i>Share</button>
+                <!--	<button v-on:click='like' v-if='(userHasVoted || seenPollResults) && !activityIsAlreadyLiked'><i class="far fa-thumbs-up button-icon"></i>Like <span>((numOfLikes))</button> -->
+                <button
+                    @click.stop
+                    @click.exact="openBreakDownWindow"
+                    v-show="userHasVoted || seenPollResults || pollHasEnded"
+                >
+                    <i class="fas fa-chart-pie button-icon"></i>View Breakdown
+                </button>                                 
           <!--	<p style='font-weight:bold; font-size:12px;' v-if='activityIsAlreadyLiked'> {{numOfLikes}} likes</p> -->
         </div>
 
@@ -1159,5 +1162,45 @@ export default {
     border: teal 1px solid;
 }
 
+    .avatar-and-details {
+        display: flex;
+        margin-right: 10px;
+         align-items: center;
+    }
 
+    .avatar {
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .avatar img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        vertical-align: middle;
+    }
+
+    
+    .details p {
+        height: 0px;
+        margin-block-start: 3px;
+        
+
+
+    }
+    .details .flex {
+        display: flex;
+    }
+
+    .details .name {
+        font-weight: bold;
+        font-size: 14px;
+        
+    }
+
+    .details .flex p {
+        font-size: 12px;
+        color: darkgrey;
+        margin-right: 2px;
+    }
 </style>

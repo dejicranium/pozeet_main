@@ -340,11 +340,7 @@ body{
     float: left;
 
 }
-.feed-container .feed-card .poll .avatar img{
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-}      
+
  .feed-container .feed-card .avatar img{
     width: 40px;
     height: 40px;
@@ -371,7 +367,7 @@ body{
 
 }
 
-.feed-container .feed-card .beside-avatar-box .author-details p{
+.feed-container .feed-card .author-details p{
     display: inline;
     /** font-family: Helvetica, sans-serif; **/
 
@@ -381,7 +377,7 @@ body{
     font-size: 12px;
 }
 
-.feed-container .feed-card .beside-avatar-box .author-details i{
+.feed-container .feed-card .author-details i{
     width:5px;
     height:10px;
     font-size: 13px;
@@ -407,7 +403,7 @@ body{
     color: darkgray;
 }
 
-.feed-container .feed-card .beside-avatar-box .poll-question{
+.feed-container .feed-card .poll-question{
     margin-top: 5px;
     margin-bottom:3px;
     font-size: 15px;
@@ -419,7 +415,7 @@ body{
 
 }
 
-.feed-container .feed-card .beside-avatar-box a{
+.feed-container .feed-card a{
     text-decoration:none;
     color: teal;
     letter-spacing: 0.5px;
@@ -427,7 +423,7 @@ body{
 }
 
 
-.feed-container .feed-card .beside-avatar-box .poll-info{
+.feed-container .feed-card .poll-info{
     font-size: 13px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -584,6 +580,7 @@ transition: width 5s;
     width:100%;
     max-height:150px;
     border-radius: 5px;
+
 }
 
 .picture-options input:checked ~ span{
