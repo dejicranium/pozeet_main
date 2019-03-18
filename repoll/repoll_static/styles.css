@@ -333,19 +333,7 @@ body{
     float: left;
 
 }
-.feed-container .feed-card .poll .avatar {
-    height: auto;
-    width: 5%;
-    margin-right: 10px;
-    float: left;
 
-}
-
- .feed-container .feed-card .avatar img{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
 
 
 .feed-container .feed-card .beside-avatar-box{
