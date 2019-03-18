@@ -1,8 +1,10 @@
 *{
     margin:0px;
     padding: 0px;
-  font-family: Helvetica, sans-serif;  
+    
+    /** font-family: Helvetica, sans-serif;  **/
     /**font-family: 'Merriweather Sans', sans-serif; **/
+    font-family: 'Source Sans Pro', sans-serif;
 
 
 }
