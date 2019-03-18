@@ -1066,7 +1066,6 @@ export default {
   color: black;
   padding: 10px;
   border-radius: 0px;
-  font-family: "Helvetica", Helvetica, Arial, sans-serif;
   display: block;
   border: 0.5px lightgray solid;
   border-left: 3px darkgrey solid;

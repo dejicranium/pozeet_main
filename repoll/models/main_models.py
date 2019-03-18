@@ -368,7 +368,7 @@ class User(Base):
         primaryjoin=id==CategorySubscriber.user_id)
 
     # let us know whether the user is absolutely new. This becomes false when user logs in for the first time
-    new_user = Column(Boolean, default=True)
+    # new_user = Column(Boolean, default=True)
     slug = Column(Unicode(255), nullable=True)
 
     def follow(self, user):
