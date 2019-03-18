@@ -343,12 +343,6 @@ body{
     width: 80%;
 }
 
-.feed-container .feed-card .poll .beside-avatar-box{
-    display:inline-block;
-    box-sizing: border-box;
-
-    width: 90%;
-}
 .feed-container .author-details{
     box-sizing: border-box;
     position:relative;
