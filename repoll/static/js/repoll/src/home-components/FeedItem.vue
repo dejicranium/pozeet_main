@@ -12,13 +12,13 @@
 				</div>
 
 
-				<div class="avatar-and-details" @click="openUserProfile">
-					<div class="avatar">
+				<div class="avatar-and-details">
+					<div class="avatar" @click="openUserProfile">
 						<img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
 						<img v-if="activity.userPic != null" :src="activity.userPic">                    
 					</div>
 
-					<div class="details">
+					<div class="details" @click="openUserProfile">
 						<p class="name">{{activity.userName}}</p>
 						<div class="flex">
 							<p class="username">{{activity.username}}</p>
@@ -26,6 +26,17 @@
 							<p class="time-added">{{activity.timeAdded}}</p>
 						</div>
 					</div>
+
+					<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
+						+
+					</div>
+
+					<div class="feed-card-option" style="display: flex; ">
+						<div class="option-dot"></div>
+						<div class="option-dot"></div>
+						<div class="option-dot"></div>
+					</div>
+
 				</div>
 					<!---<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
 													<p @click='followOrUnfollowUser' style='position:absolute; right: 0; margin-right:18px; color: teal;' v-if='!userIsFollowing'>Follow</p>
@@ -144,6 +155,9 @@
 					<p class="votes" @click.stop @click.exact="seeVoters">{{totalVotes}} votes</p>
 					<span class="middot">&middot;</span>
 					<p class="votes" style="color:darkgrey;cursor:pointer;">{{activity.timeRemaining}}</p>
+          <span class="middot">&middot;</span>
+          <p class="votes" style="color:darkgery;" @click="openPoll">View Comments</p>
+
 				</div>
 
 				<button @click.exact="vote" @click.stop v-show="!userHasVoted && !seenPollResults && !pollHasEnded" id="vote-btn">
@@ -180,19 +194,28 @@
 				<p style="color:darkgrey; font-size:11px;">{{activity.triggerActor}} {{activity.trigger}}</p>
 			</div>
 
-			<div class="avatar-and-details" @click="openUserProfile">
-				<div class="avatar">
+			<div class="avatar-and-details">
+				<div class="avatar" @click="openUserProfile">
 					<img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
 					<img v-if="activity.userPic != null" :src="activity.userPic">                    
 				</div>
 
-				<div class="details">
+				<div class="details" @click="openUserProfile">
 					<p class="name">{{activity.commenter}}</p>
 					<div class="flex">
 						<p class="username">{{activity.username}}</p>
 						<p class="">&middot;</p>
 						<p class="time-added">{{activity.timeAdded}}</p>
 					</div>
+				</div>
+
+				<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
+					+
+				</div>
+				<div class="feed-card-option" style="display: flex; ">
+					<div class="option-dot"></div>
+					<div class="option-dot"></div>
+					<div class="option-dot"></div>
 				</div>
 			</div>
 
@@ -240,19 +263,28 @@
 				<p style="color:darkgrey; font-size:11px;">{{activity.triggerActor}} {{activity.trigger}}</p>
 			</div>
 
-			<div class="avatar-and-details" @click="openUserProfile">
-				<div class="avatar">
+			<div class="avatar-and-details">
+				<div class="avatar" @click="openUserProfile">
 					<img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
 					<img v-if="activity.userPic != null" :src="activity.userPic">                    
 				</div>
 
-				<div class="details">
+				<div class="details" @click="openUserProfile">
 					<p class="name">{{activity.userName}}</p>
 					<div class="flex">
 						<p class="username">{{activity.username}}</p>
 						<p class="">&middot;</p>
 						<p class="time-added">{{activity.timeAdded}}</p>
 					</div>
+				</div>
+
+				<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
+					+
+				</div>
+				<div class="feed-card-option" style="display: flex; ">
+					<div class="option-dot"></div>
+					<div class="option-dot"></div>
+					<div class="option-dot"></div>
 				</div>
 			</div>  
 
@@ -293,19 +325,28 @@
 				<p style="color:darkgrey; font-size:11px;">{{activity.triggerActor}} {{activity.trigger}}</p>
 			</div>
 
-			<div class="avatar-and-details" @click="openUserProfile">
-				<div class="avatar">
+			<div class="avatar-and-details">
+				<div class="avatar" @click="openUserProfile">
 					<img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
 					<img v-if="activity.userPic != null" :src="activity.userPic">                    
 				</div>
 
-				<div class="details">
+				<div class="details" @click="openUserProfile">
 					<p class="name">{{activity.userName}}</p>
 					<div class="flex">
 						<p class="username">{{activity.username}}</p>
 						<p class="">&middot;</p>
 						<p class="time-added">{{activity.timeAdded}}</p>
 					</div>
+				</div>
+
+				<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
+					+
+				</div>
+				<div class="feed-card-option" style="display: flex; ">
+					<div class="option-dot"></div>
+					<div class="option-dot"></div>
+					<div class="option-dot"></div>
 				</div>
 			</div>
 
@@ -485,11 +526,17 @@ export default {
 
       	this.$emit("set_reply_activity_details", this.activity);
     },
-    followUser() {
-      	var vm = this;
+    followUser(event) {
+		var vm = this;
+		event.target.innerText = "..."
       	axios.post(activityPOSTURL + "/follow/" + this.activity.userId, {}).then(response => {
         	this.userJustFollowed = true;
-        	this.userIsFollowing = true;});
+			this.userIsFollowing = true;
+			event.target.style.display="none";
+		})
+		.catch(error=>{
+			event.target.innerText = "+";
+		});
     },
 	
 	unfollowUser() {
@@ -1048,8 +1095,9 @@ export default {
 
     .avatar-and-details {
         display: flex;
-        margin-right: 10px;
-         align-items: center;
+		padding-right: 10px;
+		align-items: center;
+		
     }
 
     .avatar {
@@ -1064,7 +1112,11 @@ export default {
         vertical-align: middle;
     }
 
-    
+    .details { 
+		width: 80%;
+	}
+
+
     .details p {
         margin-block-start: 3px;
         
@@ -1086,4 +1138,26 @@ export default {
         color: darkgrey;
         margin-right: 2px;
     }
+
+	.feed-card-option {
+		width: 20px; 
+		display: flex; 
+		justify-content: space-between;
+	}
+
+	.follow {
+		width: 20px; 
+		text-align: center; 
+		vertical-align: middle;
+		border-radius: 4px; 
+		color: white;
+		margin-right: 5px;
+		background-color: teal;
+	}
+	.feed-card-option .option-dot { 
+		width: 4px; 
+		height: 4px; 
+		background-color: lightgrey;
+		border-radius: 50%;
+	}
 </style>

@@ -89,6 +89,8 @@ class FollowService:
     @classmethod
     def get_followees_ids(cls, request, user):
         followings_ids = []
+        if isinstance(user, int):
+            user = request.dbsession.query(User).filter(User.id == user).first()
         for each in user.following:
             ffls = request.dbsession.query(User).filter_by(id=each.followed_id).all()
             for followees in ffls:

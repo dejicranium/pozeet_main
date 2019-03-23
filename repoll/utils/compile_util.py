@@ -1,6 +1,15 @@
 from ..models.main_models import Share, Reply, Category
 from .scraper_util import get_first_url, url_exists, get_page_thumb_title_desc, get_page_desc, get_page_thumb
+from greggo.storage.redis.user_followings_storage import FollowingsManager
+from ..services.follow_service import FollowService
 
+
+def user_is_following(request, user1_id, user2_id):
+	users_followees = FollowService.get_followees_ids(request, user1_id)
+	if user2_id in users_followees:
+		return True
+	else:
+		return False
 
 def normalize_redis_data(collection):
 	return [item.decode('utf-8') for item in collection]
@@ -89,7 +98,8 @@ def compile_reply_details(request, reply, user, recursive_replies=False, upward_
 
 	if request.user:
 		reply_dictt['userHasLiked'] = request.user.id in [like.user_id for like in reply.likes]
-	
+		reply_dictt['userIsFollowing'] = user_is_following(request, request.user.id, reply.added_by.id) or request.user.id == reply.added_by.id
+ 
 	if object_is_comment:
 		reply_dictt['comment'] = compile_comment_details(request, reply.comment, user)
 
@@ -112,10 +122,11 @@ def compile_reply_details(request, reply, user, recursive_replies=False, upward_
 			reply_dictt['replies'].append(compile_reply_details(request, reply.parent, user, upward_recursion=True))
 	return reply_dictt
 
-def compile_poll_details(request, poll, user):
-    options_with_image = [option for option in poll.options if option.image_link is not None]
 
-    dictt = {
+
+def compile_poll_details(request, poll, user):
+	options_with_image = [option for option in poll.options if option.image_link is not None]
+	dictt = {
         'type': 'poll', 
         'id': poll.id, 
         'userName': poll.added_by.full_name,
@@ -148,18 +159,20 @@ def compile_poll_details(request, poll, user):
             } for option in poll.options],
     } 
 	
-    if request.user:
-        dictt['userHasLiked'] = request.user.id in [like.user_id for like in poll.likes]
-        dictt['userHasVoted'] = poll.id in return_polls_voted_in(request, user) or poll.poser == request.user.id
-        dictt['userHasSeenResults']= poll.id in return_polls_results_seen_by_user(request, user)
-    else:
-        dictt['userHasLiked'] = False
-        dictt['userHasVoted'] = False
-        dictt['userHasSeenResults'] = False
-    return dictt  
+	if request.user:
+		dictt['userHasLiked'] = request.user.id in [like.user_id for like in poll.likes]
+		dictt['userHasVoted'] = poll.id in return_polls_voted_in(request, user) or poll.poser == request.user.id
+		dictt['userHasSeenResults']= poll.id in return_polls_results_seen_by_user(request, user)
+		dictt['userIsFollowing'] = user_is_following(request, request.user.id, poll.added_by.id) or request.user.id == poll.added_by.id
+	else:
+		dictt['userHasLiked'] = False
+		dictt['userHasVoted'] = False
+		dictt['userHasSeenResults'] = False
+		dictt['userIsFollowing'] = False
+	return dictt
 
 def compile_opinion_details(request, opinion, user):
-    opinion_dictt = {
+	opinion_dictt = {
 
 	    'id':  opinion.id,
 		'type': 'opinion',
@@ -191,13 +204,14 @@ def compile_opinion_details(request, opinion, user):
                 
 	}
 
-    if request.user:
-        opinion_dictt['userHasVoted'] =  opinion.id in return_opinions_voted_in(request, user) or opinion.user_id == request.user.id
-    else: 
-        opinion_dictt['userHasVoted'] = False
+	if request.user:
+		opinion_dictt['userHasVoted'] =  opinion.id in return_opinions_voted_in(request, user) or opinion.user_id == request.user.id
+		opinion_dictt['userIsFollowing'] = user_is_following(request, request.user.id, opinion.added_by.id) or request.user.id == opinion.added_by.id
+	else: 
+		opinion_dictt['userHasVoted'] = False
 
         
-    return opinion_dictt
+	return opinion_dictt
 
 def compile_comment_details(request, comment, user):
 	object_is_poll = False
@@ -238,4 +252,6 @@ def compile_comment_details(request, comment, user):
 	
 	if request.user: 
 		comment_dictt['hasSharedComment'] = comment.id in return_comments_shared(request, user)
+		comment_dictt['userIsFollowing'] = user_is_following(request, request.user.id, comment.added_by.id) or request.user.id == comment.added_by.id
+	
 	return comment_dictt

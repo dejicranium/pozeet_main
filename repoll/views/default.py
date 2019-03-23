@@ -28,7 +28,7 @@ def all_users(request):
     users = request.dbsession.query(User)
     users_dictt = []
     for user in users:
-        dictt = {'username': user.username}
+        dictt = {'username': user.username, 'name': user.full_name, 'id': user.id, 'slug': user.slug}
         users_dictt.append(dictt)
     return users_dictt
 
