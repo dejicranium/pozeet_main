@@ -24,8 +24,7 @@
       <button v-if="showCommentReplies" style="font-size:13px; color:teal; background-color:transparent;border:0;" @click="getCommentReplies">Hide Replies</button>
 
       <div class="action-buttons">
-        <button v-if="can_agree_to_comments" @click="agree">Agree
-        </button>
+        <button v-if="can_agree_to_comments" @click="agree">Agree</button>
 
         <button v-else style="background-color:transparent;">
           <span style="color:black; font-weight:bold;">{{comment.numOfAgrees}} agrees</span>

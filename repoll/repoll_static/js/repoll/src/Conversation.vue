@@ -2,19 +2,22 @@
     <div id="body-container">
     	<div class=''>
 			<div class='feed-container'>
-			<div class="feed-card">
-				<div class="avatar">
-                     <img v-if='!comment.userPic' src="https://www.w3schools.com/howto/img_avatar.png"/>
-					 <img v-else :src='comment.userPic'>
-                </div>
+				<div class="feed-card">
+					<div class="avatar-and-details">
+						<div class="avatar">
+							<img v-if="comment.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
+							<img v-if="comment.userPic != null" :src="comment.userPic">                    
+						</div>
 
-               <div class="beside-avatar-box">
-                    <div class="author-details">
-                        <p class="name" style='font-weight:bold;'>{{comment.userName}}</p>
-                        <p class="username">( {{comment.username}} )</p>
-                        <p class="time-added">{{comment.timeAdded}}</p>
-                    </div>
-
+						<div class="details">
+							<p class="name">{{comment.userName}}</p>
+							<div class="flex">
+								<p class="username">{{comment.username}}</p>
+								<p class="">&middot;</p>
+								<p class="time-added">{{comment.timeAdded}}</p>
+							</div>
+						</div>
+					</div>    			
 
                     <h2 class="chosen-option">{{comment.optionChosen}}</h2>
                     <p class="comment" style='white-space:;'>{{comment.comment}}</p>
@@ -69,13 +72,12 @@
 
 				</div>
 			</div>
-	</div>
-	</div>
+		</div>
 
 
 
 	<div id='snackbar'></div>
-    </div>
+</div>
 
 
 
@@ -241,20 +243,4 @@ export default {
 		padding-top: 50px;
 	}
 
-.quote {
-  border-left: 3px darkgrey solid;
-  font-size: 14px;
-  margin-top: 5px;
-  margin-left: 10px;
-  margin-bottom: 5px;
-  color: black;
-  padding: 10px;
-  border-radius: 0px;
-  font-family: "Helvetica", Helvetica, Arial, sans-serif;
-  display: block;
-  border: 0.5px lightgray solid;
-  border-left: 3px darkgrey solid;
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-}
 </style>

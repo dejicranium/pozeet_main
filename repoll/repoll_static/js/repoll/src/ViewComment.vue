@@ -1,83 +1,75 @@
 <template>
-  <div id="view-comment-container">
-    <div class="feed-container">
-      <div class="feed-card">
-        <div class="avatar">
-          <img v-if="!comment.userPic" src="https://www.w3schools.com/howto/img_avatar.png">
-          <img v-else :src="comment.userPic">
-        </div>
+	<div id="view-comment-container">
+    	<div class="feed-container">
+      		<div class="feed-card">
+		  		<div class="avatar-and-details">
+					<div class="avatar">
+						<img v-if="comment.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
+						<img v-if="comment.userPic != null" :src="comment.userPic">                    
+					</div>
 
-        <div class="beside-avatar-box">
-          <div class="author-details">
-            <p class="name" style="font-weight:bold;">{{comment.userName}}</p>
-            <p class="username"></p>
-            <p class="action"></p>
-          </div>
+					<div class="details">
+						<p class="name">{{comment.userName}}</p>
+						<div class="flex">
+							<p class="username">{{comment.username}}</p>
+							<p class="">&middot;</p>
+							<p class="time-added">{{comment.timeAdded}}</p>
+						</div>
+					</div>
+				</div>         
 
-          <h2 class="chosen-option">{{comment.optionChosen}}</h2>
-          <p class="comment" style="white-space:;">{{comment.comment}}</p>
+          		<h2 class="chosen-option">{{comment.optionChosen}}</h2>
+          		<p class="comment" style="white-space:;">{{comment.comment}}</p>
 
-          <div>
-            <div
-              class="comment-question quote"
-              @click="openQuoteLocation"
-              v-if="comment.poll"
-              tab-index="0"
-            >
-              <p class="author-name" style="font-weight:normal; color:teal;">Poll</p>
-							<div>
-								<p class='author-name' style='font-size:bold; margin-right:5px; display:inline;'>{{comment.poll.userName}}</p>
-								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">({{comment.poll.username}})</p>
-								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">{{comment.poll.timeAdded}}</p>
-							</div>	
-            </div>
+				<div class="comment-question quote" @click="openQuoteLocation" v-if="comment.poll" tab-index="0">
+					<p class="author-name" style="font-weight:normal; color:teal;">Poll</p>
+					<div>
+						<p class='author-name' style='font-size:bold; margin-right:5px; display:inline;'>{{comment.poll.userName}}</p>
+						<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">({{comment.poll.username}})</p>
+						<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">{{comment.poll.timeAdded}}</p>
+					</div>	
+				</div>
 
-            <div
-              class="comment-question quote"
-              @click="openQuoteLocation"
-              v-else-if="comment.opinion"
-              tab-index="0"
-            >
-              <p class="author-name" style="font-weight:normal; color:teal;">Opinion</p>
-              <p class="author-name" style="font-size:bold;">
-							<div>
-								<p class='author-name' style='font-size:bold; margin-right:5px; display:inline;'>{{comment.opinion.userName}}</p>
-								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">({{comment.opinion.username}})</p>
-								<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">{{comment.opinion.timeAdded}}</p>
-							</div>	
-            </div>
-          </div>
+				<div class="comment-question quote"  @click="openQuoteLocation" v-else-if="comment.opinion" tab-index="0" >
+					<p class="author-name" style="font-weight:normal; color:teal;">Opinion</p>
+					<p class="author-name" style="font-size:bold;">
+					<div>
+						<p class='author-name' style='font-size:bold; margin-right:5px; display:inline;'>{{comment.opinion.userName}}</p>
+						<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">({{comment.opinion.username}})</p>
+						<p style="color:lightgray; font-weight:normal; display: inline; margin-right:5px;">{{comment.opinion.timeAdded}}</p>
+					</div>	
+				</div>
 
-          <div v-if="comment.opinion">
-            <button @click="reply">
-              <i class="fas fa-reply button-icon"></i>Reply
-            </button>
-            <!--<button @click="share"><i class="far fa-share-square button-icon"></i>Share</button> -->
-          </div>
-        </div>
-      </div>
+				<div v-if="comment.opinion">
+					<button @click="reply">
+						<i class="fas fa-reply button-icon"></i>Reply
+					</button>
+				<!--<button @click="share"><i class="far fa-share-square button-icon"></i>Share</button> -->
+				</div>
+        	</div>
+    	</div>
 
-      <div class="addCommentBox" v-show="intent == 'toReply'">
-        <form id="comment-form">
-          <textarea
-            type="text"
-            placeholder="Reply"
-            v-model="replyText"
-            @click="autoResize"
-            name="reply"
-            id="comment-form"
-          ></textarea>
-          <button @click="replyComment">Reply</button>
-        </form>
-      </div>
+		<div class="addCommentBox" v-show="intent == 'toReply'">
+			<form id="comment-form">
+				<textarea
+				type="text"
+				placeholder="Reply"
+				v-model="replyText"
+				@click="autoResize"
+				name="reply"
+				id="comment-form"
+				></textarea>
+				<button @click="replyComment">Reply</button>
+			</form>
+		</div>
 
-      <div class="other-details">
-        <div id="innerReply">
-          <comment v-for="reply in replies" :reply="reply"></comment>
-        </div>
-      </div>
-    </div>
-  </div>
+		<div class="other-details">
+			<div id="innerReply">
+				<comment v-for="reply in replies" :reply="reply"></comment>
+			</div>
+		</div>
+
+	</div>
 </template>
 
 <script>
@@ -226,18 +218,6 @@ export default {
 </script>
 
 <style scoped>
-.quote {
-  border-left: 3px lightgrey solid;
-  font-size: 14px;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-bottom: 5px;
-  color: black;
-  padding: 10px;
-  border-radius: 0px;
-  font-family: "Helvetica", Helvetica, Arial, sans-serif;
-  display: block;
-}
 
 .tab-header {
   border-bottom: 1px solid grey;

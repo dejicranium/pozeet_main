@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/repoll/views/authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/authentication.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/greggo/notification_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/Conversation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/Conversation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/ViewComment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/ViewComment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/ViewOpinion.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/ViewOpinion.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/ViewPoll.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/ViewPoll.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/FeedItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/js/repoll/src/home-components/FeedItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/repoll_static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/repoll_static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/services/feed_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/services/feed_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/services/notification_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/services/notification_service.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,31 +25,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/models/main_models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="66" column="14" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
+            <state relative-caret-position="124">
+              <caret line="103" column="22" selection-start-line="103" selection-start-column="10" selection-end-line="103" selection-end-column="22" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/greggo/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="5" selection-start-column="5" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/repoll/views/opinion_actions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2055">
-              <caret line="159" column="23" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,7 +85,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/views/authentication.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="475">
@@ -104,6 +93,24 @@
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/repoll/services/notification_service.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="125" selection-start-line="125" selection-end-line="125" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/greggo/notification_manager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="33" column="12" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -128,7 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>replies</find>
       <find>get</find>
       <find>get_comment_replies</find>
       <find>get_activit</find>
@@ -158,6 +164,7 @@
       <find>driver</find>
       <find>logout</find>
       <find>opinion(ba</find>
+      <find>Notification</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,10 +197,12 @@
         <option value="$PROJECT_DIR$/repoll/models/main_models.py" />
         <option value="$PROJECT_DIR$/repoll/services/feed_service.py" />
         <option value="$PROJECT_DIR$/repoll/views/authentication.py" />
+        <option value="$PROJECT_DIR$/repoll/services/notification_service.py" />
+        <option value="$PROJECT_DIR$/greggo/notification_manager.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="811" />
@@ -213,36 +222,12 @@
             <path>
               <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
               <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
-              <item name="alembic" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
-              <item name="alembic" type="462c0819:PsiDirectoryNode" />
-              <item name="versions" type="462c0819:PsiDirectoryNode" />
+              <item name="greggo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
               <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
               <item name="repoll" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
-              <item name="repoll" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
-              <item name="repoll" type="462c0819:PsiDirectoryNode" />
-              <item name="predicates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
-              <item name="repoll" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -273,6 +258,34 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="notification_manager" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pozeet_main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/greggo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/greggo/notification_manager.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.notification_manager" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -287,15 +300,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="811" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="807" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24242425" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32587412" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -516,16 +528,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/models/main_models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="66" column="14" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/greggo/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -598,6 +600,30 @@
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/services/notification_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="125" selection-start-line="125" selection-end-line="125" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/models/main_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="103" column="22" selection-start-line="103" selection-start-column="10" selection-end-line="103" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/greggo/notification_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="12" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
         </state>
       </provider>
     </entry>

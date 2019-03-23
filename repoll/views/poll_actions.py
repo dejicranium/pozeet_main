@@ -526,12 +526,14 @@ def get_voters_on_poll(request):
     if poll_id: 
         user_votes = request.dbsession.query(PollVotes).filter(PollVotes.poll_id==poll_id)
     for vote in user_votes: 
+        if vote.added_by.id == request.user.id:
+            continue
         user_dict = {}
         user_dict['userId'] = vote.added_by.id
         user_dict['userName'] = vote.added_by.full_name
         user_dict['username'] = vote.added_by.username
         user_dict['userPic'] = vote.added_by.profile_picture
-        user_dict['userIsFollowing'] = vote.added_by.id in user_followees
+        user_dict['userIsFollowing'] = vote.added_by.id in user_followees or vote.added_by.id == request.id
         voters.append(user_dict)
     return voters
 

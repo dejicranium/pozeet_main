@@ -123,25 +123,3 @@ class NotificationService:
         self.request.dbsession.add(notification)
 
 
-class Notif:
-    def get_unseen_notifications(request, user):
-        notifs = request.dbsession.query(Notification).query(Notification.status =='unseen')
-
-    def get_seen_notifications(request, user):
-        notifs = request.dbsession.query(Notification).query(Notification.status=='seen')
-
-    def get_read_notifications(request, user):
-        notifs = request.dbsession.query(Notification).query(Notification.status=='read')
-
-
-    def get_latest_notifications(request, user):
-        pass
-
-    def aggregate_notifications(notifs):
-        user = self.user
-        notif_objects = [notif.object_id for notif in notifs]
-        unique_notif_objects = set(notif_objects)
-        reviewed_notifs = []
-        reviewed_notifs = {}
-        notifs = None
-

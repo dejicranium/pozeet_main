@@ -311,8 +311,8 @@ body{
     background-color: white;
     padding-top: 10px;
     padding-left: 10px;
-    padding-bottom: 10px;
-    box-shadow: lightgrey 1px;
+    padding: 10px;
+     box-shadow: lightgrey 1px;
     border-radius: 2px;
     border: 0.3px solid lightgray;
     box-sizing: border-box;
@@ -387,10 +387,11 @@ body{
 
 .feed-container .feed-card .poll-question{
     margin-top: 5px;
-    margin-bottom:3px;
+    margin-bottom:5px;
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
     color: teal;
     letter-spacing: 0.5px;
     line-height: 2ch;
@@ -401,7 +402,6 @@ body{
     text-decoration:none;
     color: teal;
     letter-spacing: 0.5px;
-
 }
 
 
@@ -893,6 +893,7 @@ background-color:white;
 box-shadow: 0 4px 2px -2px lightgray;
 padding: 20px; 
 color: black;
+
 }
 
 .modal-container .modal-header h5{
@@ -1342,18 +1343,18 @@ isActive{
 
 
 #snackbar {
-visibility: hidden; /* Hidden by default. Visible on click */
-width:100%; /* Set a default minimum width */
-/* Divide value of min-width by 2 */
-background-color: #333; /* Black background color */
-color: #fff; /* White text color */
-text-align:center;; /* Centered text */
-border-radius: 2px; /* Rounded borders */
-padding: 5px; /* Padding */
-position: fixed; /* Sit on top of the screen */
-z-index: 100; /* Add a z-index if needed */
-/* Center the snackbar */
-bottom: 0px; /* 30px from the bottom */
+    visibility: hidden; /* Hidden by default. Visible on click */
+    width:100%; /* Set a default minimum width */
+    /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align:center;; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 5px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 100; /* Add a z-index if needed */
+    /* Center the snackbar */
+    bottom: 0px; /* 30px from the bottom */
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -1385,3 +1386,152 @@ to {bottom: 0; opacity: 0;}
 from {bottom: 0px; opacity: 1;}
 to {bottom: 0; opacity: 0;}
 }
+
+
+
+
+.chosen-option {
+    font-size: 12px;
+  }
+  
+  .name {
+      font-weight: bold;
+  }
+  
+  .username {
+      color: darkgrey;
+  }
+  
+  .votes {
+    margin-right: 0px;
+    cursor: pointer;
+  }
+  .middot {
+    color: grey;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+  .quote {
+    border-left: 3px darkgrey solid;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    color: black;
+    padding: 10px;
+    padding-left: 46px;
+    border-radius: 4px;
+    display: block;
+    border-left: 3px darkgrey solid;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  
+  .quote img {
+      height: 26px; 
+      width: 26px;
+  }
+  .comment {
+    box-sizing: border-box;
+    word-wrap: break-word;
+    padding-bottom: 2px;
+    width: 100%;
+    border-radius: 0;
+    margin-top: 0;
+    margin-bottom: 5px;
+    white-space: pre-wrap;
+  }
+  
+  
+  .showTooMuchText {
+    height: auto;
+  }
+  
+  .top-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .author-details {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .author-name {
+  
+    display: flex;
+    flex-direction: row;
+  }
+  .follow-btn-container {
+    align-self: flex-end;
+  }
+  
+  .name, .username, .time-added, .action {
+    line-height: 1.0;
+  }
+  
+  
+  .follow-btn {
+    font-weight: bold;
+    border: 0; 
+    background-color: transparent;
+    padding: 1px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: 1px solid black; 
+  
+  }
+   
+  .follow-icon {
+      font-weight: bold; 
+      color: teal; 
+      font-size: 14px; 
+      text-align: center; 
+      padding: 2px 7px;
+      border-radius: 3px; 
+      border: teal 1px solid;
+  }
+  
+      .avatar-and-details {
+          display: flex;
+          margin-right: 10px;
+           align-items: center;
+      }
+  
+      .avatar {
+          margin-right: 10px;
+          vertical-align: middle;
+      }
+  
+      .avatar img {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          vertical-align: middle;
+      }
+  
+      
+      .details p {
+          margin-block-start: 3px;
+          
+  
+  
+      }
+      .details .flex {
+          display: flex;
+      }
+  
+      .details .name {
+          font-weight: bold;
+          font-size: 13px;
+          
+      }
+  
+      .details .flex p {
+          font-size: 12px;
+          color: darkgrey;
+          margin-right: 2px;
+      }

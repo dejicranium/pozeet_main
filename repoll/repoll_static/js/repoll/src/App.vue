@@ -482,6 +482,9 @@ export default {
       this.changeUserData("num_of_followed", response.data.num_of_followed);
       this.changeUserData("num_of_followers", response.data.num_of_followers);
     });
+    // since we have loaded the first page, we should make sure to increment the page by 1
+    this.xhrPageId += 1; 
+
 
     window.onscroll = () => {
       var loader = document.getElementById("loadingMoreContent");
@@ -497,20 +500,13 @@ export default {
       var pctScrolled = Math.floor((scrollTop / trackLength) * 100); // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
 
       if (pctScrolled == 95) {
-        this.loadingMoreContent = true;
+        if (!loadingMoreContent){
+          this.loadMoreContent();
 
-        axios
-          .get("" + "/get/latest/?page=" + this.xhrPageId)
-          .then(response => {
-            this.xhrPageId += 1;
-            this.loadingMoreContent = false;
-            response.data.activities.forEach(activity => {
-              this.activities.push(activity);
-            });
-          })
-          .catch(error => {
-            this.loadingMoreContentFailed = true;
-          });
+        }
+        this.loadingMoreContent = true;
+         
+          
         console.log(pctScrolled);
       }
     };

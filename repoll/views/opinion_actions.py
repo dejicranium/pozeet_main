@@ -203,7 +203,6 @@ def get_opinions_voted_in(request):
     opinions_voted_in = [opinion.id for opinion in opinions_voted_in]
 
     opinions = request.dbsession.query(Opinion).filter(Opinion.id.in_(opinions_voted_in)).all()
-
     for opinion in opinions:
 
         opinion_dictt = compile_opinion_details(request, opinion, user)
@@ -217,7 +216,6 @@ def get_opinions_voted_in(request):
 def get_voters_on_opinion(request):
     opinion_id = request.matchdict.get("opinion_id", None)
     voters = []
-
     if opinion_id:
         opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id).first()
         user = request.dbsession.query(User).filter(User.id == request.user.id).first()
@@ -225,6 +223,9 @@ def get_voters_on_opinion(request):
         user_votes = request.dbsession.query(OpinionVotes).filter(OpinionVotes.opinion_id==opinion_id)
         
     for vote in user_votes: 
+        # if the vote was added by user, pass
+        if vote.added_by.id == request.user.id:
+            continue
         user_dict = {}
         user_dict['userId'] = vote.added_by.id
         user_dict['userName'] = vote.added_by.full_name

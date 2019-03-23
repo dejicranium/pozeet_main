@@ -5,7 +5,7 @@ module.exports = {
   entry: {
     main: "./src/main.js",
     
-    /**
+    
     view_poll: "./src/view_poll.js",
   
     view_opinion: './src/view_opinion.js',

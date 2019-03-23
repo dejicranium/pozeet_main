@@ -47,14 +47,14 @@ export default {
             if (site == "twitter"){
                 if (this.activity.type == "poll"){
                     var pollQuestion = this.activity.question;
-                    var goToUrl = siteUrl + "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543/poll/" + this.activity.id + "/";
+                    var goToUrl = siteUrl + "pozeet.com/poll/" + this.activity.id + "/";
                     var shareText = "Pozeet: " + pollQuestion + ". Contribute and see what people are saying.";
                 
                     window.open("https://twitter.com/intent/tweet?text=" + shareText + "&url=" + goToUrl, "_");
                 }
                 else if (this.activity.type == "opinion") {
                     var opinion  = this.activity.opinion;
-                    var goToUrl = siteUrl + "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543/opinion/" + this.activity.id + "/";
+                    var goToUrl = siteUrl + "pozeet.com/opinion/" + this.activity.id + "/";
                     var shareText = opinion + ".Pozeet: See what people are saying about this opinion";
                     window.open("https://twitter.com/intent/tweet?text=" + shareText + "&url=" + goToUrl, "_");
 
@@ -64,7 +64,7 @@ export default {
             else if (site == "whatsapp"){
                 if (this.activity.type == "poll"){
                     var pollQuestion = this.activity.question;
-                    var goToUrl = siteUrl + "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543/poll/" + this.activity.id + "/";
+                    var goToUrl = siteUrl + "pozeet.com/poll/" + this.activity.id + "/";
                     var shareText = "Pozeet: " + pollQuestion + ". Contribute and see what people are saying.";
                 
                     window.open("whatsapp://send?text=" + shareText + " " + goToUrl, "_");
@@ -72,7 +72,7 @@ export default {
 
                 else if (this.activity.type == "opinion"){
                     var opinion = this.activity.opinion;
-                    var goToUrl = siteUrl + "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543/opinion/" + this.activity.id + "/";
+                    var goToUrl = siteUrl + "pozeet.com/opinion/" + this.activity.id + "/";
                     var shareText = opinion + ". Pozeet: See what people are saying about this opinion";
                     window.open("whatsapp://send?text=" + shareText + " " + goToUrl, "_");
                 }
@@ -83,10 +83,10 @@ export default {
     computed: {
         activityLink(){
             if (this.activity.type == "poll"){
-                return siteUrl + 'http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543/poll/' + this.activity.id + '/';
+                return siteUrl + 'pozeet.com/poll/' + this.activity.id + '/';
             }
             else if (this.activity.type == "opinion"){
-                return siteUrl + "http://ec2-18-218-17-23.us-east-2.compute.amazonaws.com:6543/opinion" + this.activity.id +'/';
+                return siteUrl + "pozeet.com/opinion" + this.activity.id +'/';
             }
         }
     }

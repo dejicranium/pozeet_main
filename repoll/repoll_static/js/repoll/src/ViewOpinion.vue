@@ -3,49 +3,53 @@
     	<div>
         	<div class="feed-container">
 				<div class="feed-card">
-					<div class="avatar" @click="openUserProfile">
-                         <img style="color:darkgrey; font-size:12px;"
-						  	v-if='!poll.userPic' src="https://www.w3schools.com/howto/img_avatar.png"/>
-						 <img v-else :src='poll.userPic'>
-                    </div>
-				
-                    <div class="beside-avatar-box">
 
-                        <div class="author-details" @click="openUserProfile">
-                            <p class="name" style='color;black; font-weight:bold; font-size:12px;'>{{poll.userName}}</p>
-                            <p class="username"></p>
-							<p class='time-added' style='color:darkgrey; font-size: 12px'>{{poll.timeAddedd}}</p>
-                        </div>
-
-                        <div class="comment" style='white-space:; font-size:13px; margin-bottom:5px;'>{{poll.opinion}}</div>
-						<div style='display:flex; flex-direction:row;'>
-							<img id='opinionContextImage' v-for='image in poll.contextImage' :image='image' :src='image.imgLink' style='max-width:60%; max-height:200px; border-radius:5px;'>
-
+					<div class="avatar-and-details" @click="openUserProfile">
+						<div class="avatar">
+							<img v-if="poll.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
+							<img v-if="poll.userPic != null" :src="poll.userPic">                    
 						</div>
-						<p class='votes'>{{poll.totalVotes}} reactions</p>
+
+						<div class="details">
+							<p class="name">{{poll.userName}}</p>
+							<div class="flex">
+								<p class="username">{{poll.username}}</p>
+								<p class="">&middot;</p>
+								<p class="time-added">{{poll.timeAdded}}</p>
+							</div>
+						</div>
+					</div>               
+
+					
+				
 
 
-
-						<button @click='addComment("Agree")'><i class="fa fa-check button-icon" aria-hidden="true"></i>Agree</button>
-						<button @click='addComment("Disagree")'><i class="far fa-thumbs-down button-icon"></i>Disagree</button>
-						<button  @click='openBreakDownWindow'><i class="fas fa-chart-pie button-icon"></i>View Breakdown</button>
+					<div class="comment" style='white-space:; font-size:13px; margin-bottom:5px;'>{{poll.opinion}}</div>
+					<div style='display:flex; flex-direction:row;'>
+						<img id='opinionContextImage' v-for='image in poll.contextImage' :image='image' :src='image.imgLink' style='max-width:60%; max-height:200px; border-radius:5px;'>
 
 					</div>
+					<p class='votes'>{{poll.totalVotes}} reactions</p>
+
+
+
+					<button @click='addComment("Agree")'><i class="fa fa-check button-icon" aria-hidden="true"></i>Agree</button>
+					<button @click='addComment("Disagree")'><i class="far fa-thumbs-down button-icon"></i>Disagree</button>
+					<button  @click='openBreakDownWindow'><i class="fas fa-chart-pie button-icon"></i>View Breakdown</button>
+
+				</div>
 			
-
-            </div>
-
 			<!--This div will be shown for poll activities --> 
-		</div>
+			</div>
 
-	</div>
-	<div class='addCommentBox' v-show="intent == 'toComment' && !poll.userHasVoted">
-		<form id='comment-form'>
-			<p class='chosenOption'>{{chosenOptionName}}</p>
-			<textarea type="text" placeholder='Reason' @click="autoResize" name='comment'></textarea>
-			<button @click='comment'>Comment</button>
-		</form>
-	</div>
+		</div>
+		<div class='addCommentBox' v-show="intent == 'toComment' && !poll.userHasVoted">
+			<form id='comment-form'>
+				<p class='chosenOption'>{{chosenOptionName}}</p>
+				<textarea type="text" placeholder='Reason' @click="autoResize" name='comment'></textarea>
+				<button @click='comment'>Comment</button>
+			</form>
+		</div>
 
 		<div class="other-details">
             <div class="tab-header">
@@ -72,7 +76,8 @@
 				:comment='comment' 
 				:can_agree_to_comments='canAgreeToComments'
 				:user_logged_in="userLoggedIn"
-				@act_show_auth_modal="mShowAuthenticationModal"></comment>
+				@act_show_auth_modal="mShowAuthenticationModal"
+			></comment>
 			
 		</div>
 
@@ -100,7 +105,7 @@ var siteUrl = "";
     export default {
         name: 'ViewOpinion', 
         components: {
-			'comment': Comment,
+				'comment': Comment,
 			'authentication-modal': AuthenticationModal,
         },
 		
@@ -256,6 +261,7 @@ var siteUrl = "";
 						break;
 					}
 				}
+
 				axios.post(activityPOSTURL + '/vote/',{
 					poll_id: vm.poll.id, 
 					option_id: vm.chosenOption,
@@ -264,10 +270,7 @@ var siteUrl = "";
 				}).catch(function(error){
 				
 				});
-
-				
-
-			
+	
 			},
 
 			addComment(optionName){
@@ -290,7 +293,6 @@ var siteUrl = "";
 					//make it the id of the option the chosen option
 					this.chosenOption = optionWithName[0].id;
 				}
-
 			},
 
 			comment(event){
@@ -314,6 +316,7 @@ var siteUrl = "";
 								this.poll.options[i].score += 1;
 								break;
 							}
+							
 							window.location.reload();				
 						}
 
@@ -408,7 +411,7 @@ var siteUrl = "";
 
 </script>
 
-<style scoped>
+<style>
 .comment {
 box-sizing: border-box;
 word-wrap: break-word;
