@@ -9,7 +9,7 @@ import random
 
 from greggo.storage.redis.trending_storage import *
 from repoll.utils.compile_util import *
-@view_config(route_name='mobile_feed', renderer='../templates/new.jinja2', user_agent=True)
+@view_config(route_name='mobile_feed', renderer='../templates/new.jinja2', user_agent='mobile')
 def home_feed(request):
 	if request.user:
 		user = request.dbsession.query(User).filter(User.id==request.user.id).first()
