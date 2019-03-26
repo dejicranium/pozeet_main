@@ -209,7 +209,7 @@
 					</div>
 				</div>
 
-				<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
+				<div class="follow" v-if='!activity.userIsFollowing' @click.stop @click.exact="followUser">
 					+
 				</div>
 				<div class="feed-card-option" style="display: flex; ">
@@ -533,6 +533,14 @@ export default {
         	this.userJustFollowed = true;
 			this.userIsFollowing = true;
 			event.target.style.display="none";
+
+			if (this.activity.userName){
+				vm.showSnackbar("Followed " + this.activity.userName);
+
+			}
+			else {
+				vm.showSnackbar("Followed " + this.activity.commenter);
+			}
 		})
 		.catch(error=>{
 			event.target.innerText = "+";

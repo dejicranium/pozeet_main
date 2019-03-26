@@ -142,7 +142,9 @@ def homepage_mobile_view(request):
 
 @view_config(route_name="home", renderer="../templates/home.jinja2")
 def desk_home(request):
-    return {}
+    home_url = request.route_url('mobile_feed')
+    return HTTPFound(location=home_url)
+    
 
 def home(request):
     home_url = request.route_url('mobile_feed')
@@ -151,7 +153,6 @@ def home(request):
 
 @view_config(route_name='add_cat', renderer='../templates/show_categories.jinja2',)
 def add_categories(request):
-   
     categories_from_file = []
     file = '/home/deji/Documents/repoll/repoll/views/categories.txt'
     with open(file) as fp:

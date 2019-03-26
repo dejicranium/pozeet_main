@@ -1,7 +1,6 @@
 from ..models.main_models import *
 from .activity_service import get_source
 import random
-from ..services.follow_service import FollowService
 from ..models.main_models import Opinion
 from ..utils.scraper_util import get_first_url, url_exists, get_page_thumb_title_desc, get_page_desc, get_page_thumb
 from ..utils.compile_util import (
@@ -24,12 +23,8 @@ from .paginate import Paginate
 from paginate_sqlalchemy import SqlalchemyOrmPage
 
 
-def user_is_following(request, user1_id, user2_id):
-	users_followees = FollowService.get_followees_ids(request, user1_id)
-	if user2_id in users_followees:
-		return True
-	else:
-		return False
+def user_is_following( user1_id, user2_id):
+    return FollowingsManager.user_is_following(user1_id, user2_id)
 
 
 def return_polls_results_seen_by_user(request, user):
@@ -121,7 +116,7 @@ def get_activities_if_authenticated(request, user, page):
                 'timeRemaining': a.time_remaining,
                 'numOfLikes': a.num_of_likes,
                 'userHasLiked': request.user.id in [like.user_id for like in a.likes],
-                'userIsFollowing': True if request.user.id == a.added_by.id else user_is_following(request, request.user.id, a.added_by.id),
+                'userIsFollowing': True if request.user.id == a.added_by.id else user_is_following(request.user.id, a.added_by.id),
                 'numOfComments': a.num_of_comments, 
                 'options': [
                     {
@@ -163,7 +158,7 @@ def get_activities_if_authenticated(request, user, page):
                 'timeAdded': a.time_added,
                 'numOfReplies': a.num_of_replies,
                 'option_chosen': a.option.title,
-                'userIsFollowing': user_is_following(request, request.user.id, a.added_by.id) or request.user.id == a.added_by.id,
+                'userIsFollowing': user_is_following(request.user.id, a.added_by.id) or request.user.id == a.added_by.id,
                 
                 # 'opinion': {'userName': a.opinion.added_by.full_name,
                 #			'opinion': a.opinio
@@ -219,7 +214,7 @@ def get_activities_if_authenticated(request, user, page):
                 'numOfLikes': a.num_of_likes,
                 'timeAdded': a.time_added,
                 'userHasVoted': a.id in return_opinions_voted_in(request, user) or a.user_id == request.user.id,
-                'userIsFollowing':  user_is_following(request, request.user.id, a.added_by.id) or request.user.id == a.added_by.id,
+                'userIsFollowing': user_is_following(request.user.id, a.added_by.id),
                 'contextImage': [
                     {'imgLink': img.image_link} for img in a.context_images
                     ]
