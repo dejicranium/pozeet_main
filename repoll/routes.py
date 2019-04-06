@@ -134,4 +134,8 @@ def includeme(config):
     config.add_route('change_profile_picture', "/change_profile_pic")
     config.add_route('update_bio', "/update_bio")
 
-    config.add_route('index', '/index') 
+    config.add_route('index', '/index')
+
+    # business page routes
+    config.add_route('create_page_page', '/create_page')
+    config.add_route('create_new_page', '/create_new_page')

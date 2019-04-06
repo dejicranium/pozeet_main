@@ -3,7 +3,7 @@
 			<div class="sidebar-container" @click.stop>
 				
 				<div class='profile-info'>
-					
+				<!--- User's profile picture -->
 					<img v-if='user.userPic' 
 						:src='user.userPic' 
 						class='avatar'
@@ -14,19 +14,13 @@
 					<div class='following-details'>
 						<p >{{user.num_of_followers}} followers</p> 
 						<p >{{user.num_of_followed}} following</p> 
-
 					</div>
 				</div>
 
-				<div class="sidebar-content">
-					
+				<!-- sidebar content -->
+				<div class="sidebar-content">	
 					<p @click="logout">Logout</p>
-					
-					<!---
-						meant for trending page
-					<p @click="openTrendingPage">Trending</p>
-					-->
-					
+					<p @click="createPage">Create Page</p>
 					<p @click='openPollsVotedIn'>Polls Voted In </p>
 					<p @click="openOpinionsVotedIn">Opinions Voted In</p>
 					
@@ -70,6 +64,11 @@ var siteUrl = "";
 		},
 
 		methods: {
+
+			createPage(){
+				window.open("" + "/create_page", "_self");
+			},
+
 			openTrendingPage(){
 				window.open(""+ "/trending");
 			},

@@ -28,15 +28,16 @@
 					</div>
 
 					<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
-						+
+            Follow
 					</div>
 
+    <!---
 					<div class="feed-card-option" style="display: flex; ">
 						<div class="option-dot"></div>
 						<div class="option-dot"></div>
 						<div class="option-dot"></div>
 					</div>
-
+  --->
 				</div>
 					<!---<i v-if='!userJustFollowed' class="fas fa-user-plus"></i>
 													<p @click='followOrUnfollowUser' style='position:absolute; right: 0; margin-right:18px; color: teal;' v-if='!userIsFollowing'>Follow</p>
@@ -155,9 +156,8 @@
 					<p class="votes" @click.stop @click.exact="seeVoters">{{totalVotes}} votes</p>
 					<span class="middot">&middot;</span>
 					<p class="votes" style="color:darkgrey;cursor:pointer;">{{activity.timeRemaining}}</p>
-          <span class="middot">&middot;</span>
-          <p class="votes" style="color:darkgery;" @click="openPoll">View Comments</p>
-
+					<span class="middot">&middot;</span>
+					<p class="votes" style="color:darkgery;" @click="openPoll">View Comments</p>
 				</div>
 
 				<button @click.exact="vote" @click.stop v-show="!userHasVoted && !seenPollResults && !pollHasEnded" id="vote-btn">
@@ -210,13 +210,14 @@
 				</div>
 
 				<div class="follow" v-if='!activity.userIsFollowing' @click.stop @click.exact="followUser">
-					+
+					Follow
 				</div>
+        <!---
 				<div class="feed-card-option" style="display: flex; ">
 					<div class="option-dot"></div>
 					<div class="option-dot"></div>
 					<div class="option-dot"></div>
-				</div>
+				</div>-->
 			</div>
 
 			<div>
@@ -279,14 +280,18 @@
 				</div>
 
 				<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
-					+
+					Follow
 				</div>
+        <!---
 				<div class="feed-card-option" style="display: flex; ">
 					<div class="option-dot"></div>
 					<div class="option-dot"></div>
 					<div class="option-dot"></div>
 				</div>
+
+        -->
 			</div>  
+
 
 			<div class="comment hideTooMuchText" style="white-space:">{{activity.opinion}}</div>
 			<div style="display:flex; flex-direction:row;">
@@ -341,14 +346,14 @@
 				</div>
 
 				<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
-					+
+					Follow
 				</div>
-				<div class="feed-card-option" style="display: flex; ">
+			<!--	<div class="feed-card-option" style="display: flex; ">
 					<div class="option-dot"></div>
 					<div class="option-dot"></div>
 					<div class="option-dot"></div>
 				</div>
-			</div>
+			</div> -->
 
 			<p class="comment" style="white-space:">{{activity.reply}}</p>
 
@@ -470,11 +475,13 @@ export default {
       return 0;
     },
     openPoll() {
-      if (this.activity.poll.id) {
-        window.open("" + "/poll/" + this.activity.poll.id + "/", "_self");
-        return 0;
-      }
-      window.open( "/poll/" + this.activity.id + "/", "_self");
+		// if the activity has poll as on object
+		// that is, if the activity type is comment 
+      	if (this.activity.poll) {
+        	window.open("" + "/poll/" + this.activity.poll.id + "/", "_self");
+        	return 0;
+      	}
+      	window.open( "/poll/" + this.activity.id + "/", "_self");
     },
 
     openViewConversationPage() {
@@ -527,12 +534,19 @@ export default {
       	this.$emit("set_reply_activity_details", this.activity);
     },
     followUser(event) {
-		var vm = this;
-		event.target.innerText = "..."
-      	axios.post(activityPOSTURL + "/follow/" + this.activity.userId, {}).then(response => {
-        	this.userJustFollowed = true;
-			this.userIsFollowing = true;
-			event.target.style.display="none";
+        var vm = this;
+        if (this.user_logged_in == false) {
+            this.$emit("change_activity_to_refer_to", this.activity);
+
+            this.$emit("show_auth_modal", true);
+        return 0;
+        } 
+        
+        event.target.innerText = "..."
+      	    axios.post(activityPOSTURL + "/follow/" + this.activity.userId, {}).then(response => {
+        	  this.userJustFollowed = true;
+			      this.userIsFollowing = true;
+			      event.target.style.display="none";
 
 			if (this.activity.userName){
 				vm.showSnackbar("Followed " + this.activity.userName);
@@ -1018,7 +1032,6 @@ export default {
   margin-left: 5px;
 }
 .quote {
-  border-left: 3px darkgrey solid;
   font-size: 14px;
   margin-top: 5px;
   margin-left: 0px;
@@ -1026,12 +1039,8 @@ export default {
   margin-right: 5px;
   color: black;
   padding: 10px;
-  padding-left: 20px;
-  border-radius: 4px;
   display: block;
-  border-left: 3px darkgrey solid;
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
+  border: 0.5px solid lightgrey;
 }
 
 .quote img {
@@ -1103,7 +1112,6 @@ export default {
 
     .avatar-and-details {
         display: flex;
-		padding-right: 10px;
 		align-items: center;
 		
     }
@@ -1154,13 +1162,14 @@ export default {
 	}
 
 	.follow {
-		width: 20px; 
-		text-align: center; 
+    padding: 5px 5px;
+    text-align: center; 
 		vertical-align: middle;
 		border-radius: 4px; 
-		color: white;
-		margin-right: 5px;
-		background-color: teal;
+		color: black;
+    font-weight: bold;
+    font-size: 12px;
+		background-color: lightgrey;
 	}
 	.feed-card-option .option-dot { 
 		width: 4px; 

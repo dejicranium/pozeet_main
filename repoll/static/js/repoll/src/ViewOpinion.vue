@@ -20,18 +20,12 @@
 						</div>
 					</div>               
 
-					
-				
-
-
 					<div class="comment" style='white-space:; font-size:13px; margin-bottom:5px;'>{{poll.opinion}}</div>
 					<div style='display:flex; flex-direction:row;'>
 						<img id='opinionContextImage' v-for='image in poll.contextImage' :image='image' :src='image.imgLink' style='max-width:60%; max-height:200px; border-radius:5px;'>
 
 					</div>
 					<p class='votes'>{{poll.totalVotes}} reactions</p>
-
-
 
 					<button @click='addComment("Agree")'><i class="fa fa-check button-icon" aria-hidden="true"></i>Agree</button>
 					<button @click='addComment("Disagree")'><i class="far fa-thumbs-down button-icon"></i>Disagree</button>
@@ -72,12 +66,12 @@
             <!--COMMENT COMPONENT-->
 			<comment v-for='comment in sortedComments'
 				:origin="'opinion'"
+				:key="comment.id"
 				@change_can_agree_state='changeCanAgreeWithCommentsState' 
 				:comment='comment' 
 				:can_agree_to_comments='canAgreeToComments'
 				:user_logged_in="userLoggedIn"
-				@act_show_auth_modal="mShowAuthenticationModal"
-			></comment>
+				@act_show_auth_modal="mShowAuthenticationModal"	></comment>
 			
 		</div>
 
@@ -158,20 +152,26 @@ var siteUrl = "";
 				});
 				return list;
 			},
+
 			//only authentication modal for now
 			closeModal(){
 				this.showAuthenticationModal = false;
 			},
+
 			//shows authentication modal, "m" means method.
 			mShowAuthenticationModal(){
 				this.showAuthenticationModal = true;
 			},
+
+			//opens the User Profile, as name implies
 			openUserProfile() {
      	 		window.open("" + "/profile/" + this.poll.userId + "/" + this.poll.userSlug, "_self");
 			},
+
 			openBreakDownWindow(){
 				window.open("" + '/opinion/demographic-metrics/' + this.poll.id);
 			},
+
 			changeCanAgreeWithCommentsState(optionVotedFor){
 				this.canAgreeToComments = false;
 				this.changePollData('userHasVoted', true);
@@ -316,7 +316,6 @@ var siteUrl = "";
 								this.poll.options[i].score += 1;
 								break;
 							}
-							
 							window.location.reload();				
 						}
 

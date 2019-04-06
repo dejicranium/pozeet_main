@@ -211,7 +211,7 @@ class ThoughtLeader(Base):
     
 
 
-class Activity(Base):
+class Activity(Base):   
     __tablename__ = 'activities'
     id = Column(Integer, primary_key=True)
 

@@ -451,7 +451,11 @@ export default {
   //this is what happens when you load the page.
   //automaticall
   created() {
+    
     this.getNoOfNewNotifications();
+
+    // show that content is loading;
+    this.loadingMoreContent = true;
 
     var vm = this;
     axios.get("" + "/get/latest/?page=" + vm.xhrPageId).then(response => {

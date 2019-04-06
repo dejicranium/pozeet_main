@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
+
+        <title> Create page
+        </title>
+
+    <style>
+        *{
+            padding: 0; 
+            margin: 0;
+        	font-family: Helvetica, sans-serif;
+
+		}
+
+		#body-container{
+			position:relative; 
+			box-sizing: border-box;
+			margin-top: 10px;
+
+		}
+		body{
+			background-color: #F7F7F7;
+		}
+
+		#container{
+			margin-top: 40px;
+            padding: 10px;
+		}
+
+        .body-card {
+            background-color: white;
+            padding: 10px;
+            
+        }
+        
+        .body-card label {
+            font-size: 13px; 
+            display: block;
+            margin-bottom:5px;
+        }
+
+        .body-card input[type="file"]{
+            margin-bottom: 10px;
+        }
+        .body-card input[type="text"] {
+            display: block;
+            height: 40px; 
+            width: 100%;
+            padding-left: 5px;
+            border: 0.5px solid lightgrey;
+            border-radius: 2px; 
+            margin-bottom: 10px;
+
+        }
+
+        .body-card textarea {
+            display: block;
+            padding-left: 5px;
+            height: 100px;
+            width: 100%;
+            border: 0.5px solid lightgrey;
+            border-radius: 2px; 
+            margin-bottom: 10px;            
+        }
+
+    </style>
+    </head>
+
+    <body>
+		{%include 'not_home_navbar_template.jinja2' %}
+        <div id="container">
+
+            <div class="body-card">
+                <label>Photo</label>
+                <input type="file"/>
+                <label>Name</label>
+                <input type="text" placeholder="eg. Pozeet"/>
+
+                <label>Description (Bio)</label>
+                <textarea></textarea>
+
+                <label>Categories</label>
+                <input type="text" placeholder="eg. Pozeet"/>
+
+            </div>
+        </div>
+    <body>
+</html>
