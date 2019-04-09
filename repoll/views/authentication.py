@@ -247,7 +247,7 @@ def register_through_xhr(request):
     else:
         # try to login user
         request.dbsession.flush()
-            return login_after_registration(request, new_user.email, password)
+        return login_after_registration(request, new_user.email, password)
         
         # this won't be reached eventually
         request.response.status = '200'
