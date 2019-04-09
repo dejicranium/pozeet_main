@@ -28,7 +28,7 @@
 					</div>
 
 					<div class="follow" v-if='!activity.userIsFollowing' @click="followUser">
-            Follow
+                       Follow
 					</div>
 
     <!---
@@ -111,9 +111,11 @@
 							<div class="picture-options">
 								<label v-for="option in calculatedScores" :option="option">
 									<input type="radio" @click="optionChosen(option.id)" name="option" :value="option.id">
-									<img :src="option.image">
-									<label style="background-color: rgba(0, 0, 0, .1);" :style="{width:option.percent}">
+									<img :src="option.image" style="min-height: 150px;">
+									<label style="background-color: white; width:100%; position:relative;">
 										<span style="color:black;font-weight:bold;">{{option.percent}} {{option.option}}</span>
+
+										<label style="background-color: rgba(0, 0, 0, .1); height:100%; position:absolute; top: 0; left: 0;" :style="{width:option.percent}"></label>
 									</label>
 								</label>
 							</div>
@@ -139,13 +141,18 @@
 
 					<template v-else @click.stop>
 						<div class="picture-options">
-							<label v-for="option in calculatedScores" :option="option">
+							<label v-for="option in calculatedScores" :option="option" :key="option.id">
 								<input type="radio" @click="optionChosen(option.id)" name="option" :value="option.id">
-								<img :src="option.image">
+								<img :src="option.image" style="min-height: 150px;">
 
 								<!--<span class='checkbox' style='opacity:0'></span>-->
-								<label style="background-color: rgba(0, 0, 0, .1);" :style="{width:option.percent}">
+								<label style="background-color: white; width:100%; position:relative;">
 									<span style="color:black;font-weight:bold;">{{option.percent}} {{option.option}}</span>
+
+									<label style="background-color: rgba(0, 0, 0, .1); height:100%; position:absolute; top: 0; left: 0;" :style="{width:option.percent}">
+
+									</label>
+									
 								</label>
 							</label>
 						</div>
@@ -181,7 +188,7 @@
 			</div>
 
 			<div v-show="activity.numOfComments > 0" style="margin-top:5px; padding:5px; text-align:center;vertical-align:middle; border-top:whitesmoke 0.6px solid;">
-			<span style="color:darkgrey" @click="viewComments">View Comments</span>
+				<span style="color:darkgrey" @click="viewComments">View Comments</span>
 			</div>
 		</div>
 		<!---
@@ -212,7 +219,7 @@
 				<div class="follow" v-if='!activity.userIsFollowing' @click.stop @click.exact="followUser">
 					Follow
 				</div>
-        <!---
+                 <!---
 				<div class="feed-card-option" style="display: flex; ">
 					<div class="option-dot"></div>
 					<div class="option-dot"></div>
@@ -325,6 +332,7 @@
 			</button>
 		</div>
 
+
 		<div class="feed-card" v-else-if="activity.type=='reply'" tabindex="0">
 			<div class="trigger" v-if="activity.trigger" style="margin-bottom: 5px; padding:10px; padding-left:20px; border-bottom: solid 0.3px lightgrey;">
 				<p style="color:darkgrey; font-size:11px;">{{activity.triggerActor}} {{activity.trigger}}</p>
@@ -354,7 +362,7 @@
 					<div class="option-dot"></div>
 				</div>
 			</div> -->
-
+			</div>
 			<p class="comment" style="white-space:">{{activity.reply}}</p>
 
 			<div class="comment-question quote" v-if="activity.comment" tab-index="0" @click="openComment">
@@ -369,7 +377,7 @@
 			</div>
 			<!-- <button><i class="far fa-thumbs-up button-icon" :id="[activityIsAlreadyLiked? 'activityIsAlreadyLikedClass' : '']" @click='like'></i>Like</button> -->
 			<button @click="reply">
-			<i class="fas fa-reply button-icon"></i> Reply
+				<i class="fas fa-reply button-icon"></i> Reply
 			</button>
 
 			<p style="text-decoration:; color:darkgrey; margin-top:5px; font-weight: bold; font-size:13px; text-decoration:;" @click="openViewConversationPage">View conversation</p>

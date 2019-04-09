@@ -1,29 +1,32 @@
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 import transaction
-from sqlalchemy.exc import DBAPIError
-from webhelpers2.text import urlify
-
-
-
 from ..services.auth_service import upload_profile_picture
-
-import os
 import uuid
-import shutil
-from ..form import PollCreateForm, LoginForm
+from pyramid.response import Response
 from ..models.main_models import *
-from ..form import RegistrationForm
 from pyramid.security import remember, forget
-
 from greggo.storage.redis.category_subscription import *
 
+
 def create_gender_based_profile_pic(new_user):
+    """
+    Creates profile picture for a user when he or she chooses to skip uploading a profile picture
+    while signing up to Pozeet.
+
+    :param new_user: The new user object that is being created
+    :type new_user: User
+
+    :returns null
+    :rtype: nothing
+    """
+    
     if new_user.sex == "F":
         new_user.profile_picture = "https://www.w3schools.com/w3images/avatar6.png"
     else:
+        # user is male
         new_user.profile_picture = "https://www.w3schools.com/howto/img_avatar.png"
+
 
 def register_user_to_redis(id, details):
     storage = UserInfoStorage()
@@ -32,17 +35,24 @@ def register_user_to_redis(id, details):
 
 @view_config(route_name="xhr_login", renderer='json')
 def login_through_xhr(request):
+    """
+    The
+    :param request: Pyramid request object
+    :return: HttpFound if successful or an error if unsuccessful
+    """
+
+    # where the request emanated from
     next_url = request.referrer
 
+    # fields passed by the form
     xhr_login_email = request.params.get('email')
     xhr_login_password = request.params.get('password')
     
-    if xhr_login_email and xhr_login_password: 
-        from pyramid.response import Response
+    if xhr_login_email and xhr_login_password:
+        # search for a user with the given email
         user = request.dbsession.query(User).filter_by(email=xhr_login_email).first()
-        if user and user.verify_password(xhr_login_password):
+        if user and user.verify_password(xhr_login_password):       # if user is found and decrypted password matches
             headers = remember(request, user.id)
-            response = Response
             request.response.status = "200"
             return HTTPFound(location=next_url, headers=headers)
         else:
@@ -237,7 +247,7 @@ def register_through_xhr(request):
     else:
         # try to login user
         request.dbsession.flush()
-        return login_after_registration(request, new_user.email, password)
+            return login_after_registration(request, new_user.email, password)
         
         # this won't be reached eventually
         request.response.status = '200'

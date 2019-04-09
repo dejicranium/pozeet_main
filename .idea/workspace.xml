@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/greggo/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/greggo/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/models/main_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/models/main_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/static/js/repoll/src/ViewOpinion.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/static/js/repoll/src/ViewOpinion.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repoll/static/js/repoll/src/home-components/FeedItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/static/js/repoll/src/home-components/FeedItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/static/js/repoll/src/home-components/Sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/static/js/repoll/src/home-components/Sidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/views/authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/authentication.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +30,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/services/follow_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
+            <state relative-caret-position="225">
               <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
@@ -49,13 +42,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/routes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
+            <state relative-caret-position="2100">
               <caret line="140" column="37" selection-start-line="140" selection-start-column="37" selection-end-line="140" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/views/page_actions.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
@@ -70,7 +63,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repoll/views/opinion_actions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
+            <state relative-caret-position="2055">
               <caret line="159" column="23" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
@@ -79,14 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/repoll/views/authentication.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4425">
-              <caret line="314" column="4" selection-start-line="314" selection-start-column="4" selection-end-line="314" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-5">
+              <caret line="1" column="30" lean-forward="true" selection-start-line="1" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -128,9 +118,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>return_opinions_voted_in</find>
-      <find>Opinion</find>
-      <find>return_opinions_vot</find>
       <find>agree_with_comment</find>
       <find>followers</find>
       <find>user_</find>
@@ -158,6 +145,9 @@
       <find>user_is_following</find>
       <find>or request</find>
       <find>or reque</find>
+      <find>login_after_registration</find>
+      <find>LOGIN_AFTER_REGISTRATION</find>
+      <find>remember</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -186,7 +176,6 @@
         <option value="$PROJECT_DIR$/alembic.ini" />
         <option value="$PROJECT_DIR$/repoll/views/default.py" />
         <option value="$PROJECT_DIR$/repoll/models/main_models.py" />
-        <option value="$PROJECT_DIR$/repoll/views/authentication.py" />
         <option value="$PROJECT_DIR$/repoll/services/notification_service.py" />
         <option value="$PROJECT_DIR$/greggo/notification_manager.py" />
         <option value="$PROJECT_DIR$/repoll/utils/compile_util.py" />
@@ -196,19 +185,21 @@
         <option value="$PROJECT_DIR$/repoll/services/follow_service.py" />
         <option value="$PROJECT_DIR$/repoll/routes.py" />
         <option value="$PROJECT_DIR$/repoll/views/page_actions.py" />
+        <option value="$PROJECT_DIR$/repoll/views/authentication.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="813" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -230,19 +221,12 @@
               <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
               <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
               <item name="repoll" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
-              <item name="repoll" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -309,8 +293,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="813" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="825" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24242425" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -589,12 +572,29 @@
     <entry file="file://$PROJECT_DIR$/repoll/services/location_service.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/views/authentication.py">
+    <entry file="file://$PROJECT_DIR$/repoll/services/follow_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4425">
-          <caret line="314" column="4" selection-start-line="314" selection-start-column="4" selection-end-line="314" selection-end-column="4" />
+        <state relative-caret-position="225">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#75#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2100">
+          <caret line="140" column="37" selection-start-line="140" selection-start-column="37" selection-end-line="140" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/views/opinion_actions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2055">
+          <caret line="159" column="23" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -619,33 +619,6 @@
     <entry file="file://$PROJECT_DIR$/repoll/utils/follow_util.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/services/follow_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#75#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/routes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="140" column="37" selection-start-line="140" selection-start-column="37" selection-end-line="140" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/views/opinion_actions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="159" column="23" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/repoll/views/page_actions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -653,6 +626,13 @@
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/views/authentication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5">
+          <caret line="1" column="30" lean-forward="true" selection-start-line="1" selection-end-line="2" />
         </state>
       </provider>
     </entry>
