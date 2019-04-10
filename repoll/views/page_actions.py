@@ -12,7 +12,6 @@ from ..models.main_models import (User,
     Poll,
     Option,
     Category,
-    TargetedPolls,
     PollCategory, Activity)
 
 from ..services.follow_service import FollowService
