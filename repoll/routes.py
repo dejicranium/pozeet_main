@@ -139,3 +139,10 @@ def includeme(config):
     # business page routes
     config.add_route('create_page_page', '/create_page')
     config.add_route('create_new_page', '/create_new_page')
+
+    # helper routes for interacting with redis
+    config.add_route('load_followers', '/load_followers-123')
+    config.add_route('load_followees', '/load_followees-123')
+    config.add_route('load_followees_activities', '/l_follow_acts')
+    config.add_route('add_new_follower_acts', '/add_new_follower_acts')
+    config.add_route('remove_followers_acts', '/remove_followers_acts')

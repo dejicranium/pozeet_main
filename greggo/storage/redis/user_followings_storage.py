@@ -1,6 +1,7 @@
 from greggo.storage.redis.structures.set import RedisSet
-from greggo.config import REDIS_SERVER
-#from repoll.services.activity_service import get_user_activities
+import requests
+import json
+from greggo.feed.base import UserFeed
 
 class BaseFollowings(RedisSet):
     def __init__(self, key, redis=None):
@@ -70,13 +71,71 @@ class FollowingsManager:
     def follow_user(cls, user_id, to_follow_id):
         UserFollowings(user_id).follow_user(to_follow_id)
         UserFollowers(to_follow_id).add_new_follower(user_id)
+        cls.add_new_follower_latest_activities(user_id, to_follow_id)
+
+    @classmethod
+    def add_new_follower_latest_activities(cls, user_id, to_follow_id):
+        """
+        (TESTED AND WORKS)
+
+        Adds new followers activities to user's feed
+
+        :param user_id: the id of user that is initiating the follow
+        :type user_id: int
+
+        :param to_follow_id: the id of the user to be followed
+        :type to_follow_id: int
+
+        :return: null
+        """
+
+        payload = {'user_id': user_id, 'to_follow_id': to_follow_id}
+        response = requests.get('http://localhost:6543/add_new_follower_acts', params=payload)
+        json_response = json.loads(response.text)
+        activities = json_response['activities']
+
+        # then add activities to user's feed
+
+        user_feed = UserFeed(user_id)
+        for activity in activities:
+            user_feed.add_activities(activity)
+
+
+
+
+    @classmethod
+    def delete_all_followers_activities(cls, user_id, to_unfollow_id):
+        """
+        (TESTED AND WORKED)
+
+        This removes every activity of someone who a user want's to unfollow from his or her feed.
+
+        :param user_id: user that wants to unfollow another user
+        :type user_id: int
+
+        :param to_unfollow_id: user that is to be unfollowed
+        :type user_id: int
+
+        :return: null
+        """
+        payload = {'user_id': user_id, 'to_unfollow_id': to_unfollow_id}
+        response = requests.get('http://localhost:6543/remove_followers_acts', params=payload)
+        json_data = json.loads(response.text)
+        to_unfollow_activities = json_data['activities']
+
+        user_feed = UserFeed(user_id)
+
+        # remove each activity
+        for activity in to_unfollow_activities:
+            user_feed.remove_activities(activity)
 
 
     @classmethod
     def unfollow_user(cls, request, user_id, to_unfollow_id):
         UserFollowings(user_id).unfollow_user(to_unfollow_id)
         UserFollowers(to_unfollow_id).remove_follower(user_id)
+        cls.delete_all_followers_activities(user_id, to_unfollow_id)
 
-        
 
-        
+if __name__ == "__main__":
+    print(FollowingsManager.delete_all_followers_activities(1, 1))
