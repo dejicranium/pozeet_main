@@ -12,6 +12,8 @@ class BaseVotersAgeStorage(RedisHash):
         return self.get_all(self.key)
 
     def increment_age(self, age):
+        # check the base class (RedisHash), you'll find an extra parameter meant to define
+        # what we should increment by. This parameter defaults to 1
         self.increment(self.key, age)
 
 

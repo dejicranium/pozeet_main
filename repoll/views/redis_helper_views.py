@@ -59,3 +59,17 @@ def remove_followers_acts(request):
 def load_followees_activities(request):
     users = request.dbsession.query(User)
     pass
+
+
+def resolve_voters_data(request):
+    activities = request.dbsession.query(Activity)
+
+    # first clear the whole redis cache
+    age_storage = PollVotersAgeStorage
+
+    for activity in activities:
+        source = get_source(request, activity)
+        if source == Poll:
+            source_id =  activity.source_id
+            voters_age_storage = PollVotersAgeStorage(source_id, REDIS_SERVER)
+    pass

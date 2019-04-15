@@ -277,7 +277,7 @@
 
 			openBreakDownWindow(){
 
-				window.open("" + '/opinion/demographic-metrics/' + this.poll.id, '_self');
+				window.open("" + '/poll/demographic-metrics/' + this.poll.id, '_self');
 			
 			
 			},
