@@ -16,8 +16,8 @@ def main(global_config, **settings):
     config.include('..greggo')
     #config.add_static_view('repoll_static', path='repoll:repoll_static')
     config.add_static_view(name='https://s3.us-east-2.amazonaws.com/pozeet-static/', path='repoll:repoll_static')
-    #config.add_static_view(name='https://s3.us-east-2.amazonaws.com/pozeet-static/js', path='repoll:js')
-    config.add_static_view(name='static/js/repoll/dist', path="repoll:js")
+    config.add_static_view(name='https://s3.us-east-2.amazonaws.com/pozeet-static/js', path='repoll:js')
+    #config.add_static_view(name='static/js/repoll/dist', path="repoll:js")
     
     #config.add_static_view('repoll_static/js/repoll/dist',path='repoll:js')
     config.scan()

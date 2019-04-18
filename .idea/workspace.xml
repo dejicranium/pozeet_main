@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/repoll/services/opinion_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repoll/services/poll_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alembic/versions/85861a2f27b7_add_new_user_column_to_users_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/alembic/versions/85861a2f27b7_add_new_user_column_to_users_table.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/repoll.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/models/main_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/models/main_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/scripts/initializedb.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/scripts/initializedb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/views/comment_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/comment_actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/views/opinion_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/opinion_actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/views/poll_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/poll_actions.py" afterDir="false" />
-    </list>
+    <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,7 +316,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="827" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24242425" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
