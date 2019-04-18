@@ -20,18 +20,15 @@ from ..services.metrics_service import MetricsAggregator, MetricsObject, Demogra
 from greggo.config import REDIS_SERVER
 from repoll.services.notification_service import NotificationService
 import datetime
-
-from ..utils.scraper_util import get_page_thumb_title_desc, url_exists, get_first_url
 from pyramid.response import Response
 from ..services.activity_service import ActivityService
 from ..services.follow_service import FollowService
 from ..services.auth_service import add_image_description
-from ..form import PollCreateForm
 import transaction
-from pyramid.httpexceptions import HTTPFound
 import uuid
 from repoll.utils.compile_util import compile_poll_details, return_categories_subscribed_to
 from webhelpers2.text import urlify
+from ..services.poll_service import map_user_poll_option
 
 
 @view_config(route_name='vote', renderer='json')
@@ -45,13 +42,11 @@ def vote(request):
     option = request.dbsession.query(Option).filter(Option.id == option_id)
     poll = request.dbsession.query(Poll).filter(Poll.id == poll_id)
 
-    new_user_vote = PollVotes()
-    new_user_vote.user_id = user.id
-    new_user_vote.poll_id = poll_id
-
     # store the vote
-    request.dbsession.add(new_user_vote)
-    request.dbsession.flush()
+    new_user_vote = map_user_poll_option(request, user.id, poll_id, option_id)
+
+    # register the user's option
+    map_user_poll_option(request, user.id, poll.id, option.id)
 
     # increment necessary details
     poll.update({'num_of_votes' : (Poll.num_of_votes + 1)})   

@@ -8,19 +8,28 @@ from ..models.main_models import (
 
 from greggo.storage.redis.voters_age_storage import OpinionVotersAgeStorage
 from greggo.storage.redis.voters_gender_storage import OpinionVotersGenderStorage
+
 from greggo.storage.redis.trending_storage import TrendingOpinionsStorage
 from greggo.storage.redis.active_categories_subscribers_storage import  ActiveCategoriesSubscribers
 
 from ..services.metrics_service import MetricsAggregator
-from ..utils.compile_util import return_polls_voted_in, return_opinions_voted_in
+from ..utils.compile_util import return_opinions_voted_in
+
 from ..utils.compile_util import compile_opinion_details
 from ..services.activity_service import ActivityService
-import transaction
-import uuid
+
 from ..services.auth_service import add_image_description
-from ..utils.compile_util import return_categories_subscribed_to
-from ..utils.scraper_util import url_exists, get_first_url, get_page_thumb_title_desc
 from ..services.follow_service import FollowService
+
+from ..services.opinion_service import map_user_opinion_option
+
+import transaction
+from ..utils.compile_util import return_categories_subscribed_to
+
+from ..utils.scraper_util import url_exists, get_first_url, get_page_thumb_title_desc
+import uuid
+
+
 
 
 @view_config(route_name='create_opinion', renderer='json')
@@ -86,10 +95,13 @@ def create_opinion(request):
     # since user has successfully created opinion activity, just add him to the list of active subscribers in
     # each category that he is subscribed to.
     # first, get activities subscribed to
-    subscriptions = return_categories_subscribed_to(request, user)
-    for subscription in subscriptions:
-        active_subscribers_storage = ActiveCategoriesSubscribers(key=subscription)
-        active_subscribers_storage.add_user(request.user.id)
+
+    #subscriptions = return_categories_subscribed_to(request, user)
+
+    #for subscription in subscriptions:
+     #   print("HERWERERWERWERWERWERWER")
+      #  active_subscribers_storage = ActiveCategoriesSubscribers(key=subscription)
+       # active_subscribers_storage.add_user(request.user.id)
 
     # return the freshly created opinion
     newly_created_opinion = compile_opinion_details(request, new_opinion, user)

@@ -1,13 +1,9 @@
 from pyramid.view import view_config
-from ..models.main_models import *
 import transaction
 from greggo.storage.redis.voters_age_storage import PollVotersAgeStorage, OpinionVotersAgeStorage
 from greggo.config import REDIS_SERVER
 from greggo.storage.redis.voters_gender_storage import PollVotersGenderStorage, OpinionVotersGenderStorage
-from ..services.activity_service import ActivityService
 from ..utils.compile_util import (
-                                return_polls_voted_in, 
-                                return_opinions_voted_in, 
                                 return_comments_shared,
                                 compile_poll_details,
                                 compile_opinion_details,
@@ -17,6 +13,8 @@ from ..utils.compile_util import compile_comment_details as compile_comment_for_
 from greggo.storage.redis.trending_storage import TrendingCommentsStorage, TrendingPollsStorage
 from repoll.services.notification_service import *
 from repoll.services.activity_service import ActivityService
+from ..services.poll_service import map_user_poll_option
+from ..services.opinion_service import map_user_opinion_option
 
 
 def compile_comments(request, comment):
@@ -63,9 +61,7 @@ def compile_comments(request, comment):
     elif is_opinion_comment:
         comment_dictt['opinion'] = compile_opinion_details(request, comment.opinion, user)
 
-    
     return comment_dictt
-
 
 
 @view_config(route_name='view_comments', renderer='json')
@@ -111,7 +107,8 @@ def add_comment(request):
                     new_comment.poll_id = poll_id
                 elif opinion_id:
                     new_comment.opinion_id = opinion_id
-                #create conversation
+
+                # create conversation
                 conversation = Conversation()
                 request.dbsession.add(conversation)
                 request.dbsession.flush()
@@ -119,7 +116,7 @@ def add_comment(request):
                 request.dbsession.add(new_comment)
                 request.dbsession.flush()
 
-                #add to the list of trending topics to see if it fits
+                # add to the list of trending topics to see if it fits
                 t = TrendingCommentsStorage()
                 t.add_comment(new_comment)
                 
@@ -127,20 +124,20 @@ def add_comment(request):
                 return {'problem': e}
 
             if poll_id:
+                # map the choice and the poll to the user
+                map_user_poll_option(request, user.id, poll_id, option_id)
+
                 poll = request.dbsession.query(Poll).filter(Poll.id == poll_id)
                 comment = request.dbsession.query(Comment).filter(Comment.id == new_comment.id)
-                #add vote
-                new_user_vote = PollVotes()
-                new_user_vote.user_id = user.id
-                new_user_vote.poll_id = poll_id
-                #see whether it fits in a set of trends
+
+
+                # see whether it fits in a set of trends
                 t = TrendingCommentsStorage()
                 t.add_comment(comment.first())
 
-                #store the vote
-                request.dbsession.add(new_user_vote)
-                request.dbsession.flush()
-                #add as a new activity
+
+
+                # add as a new activity
                 new_activity = Activity()
                 new_activity.user_id = request.user.id
                 new_activity.activity_type = 'comment'
@@ -150,8 +147,9 @@ def add_comment(request):
                 new_activity.object_name = 'poll'
                 activity_service =  ActivityService(request, 'comment', request.user, new_comment, poll.first())
                 activity_service.create_new_activity()
-                #create a notification
-                new_activity = activity_service.get_activity() #get back the just created activity as an object                
+
+                # create a notification
+                new_activity = activity_service.get_activity()  # get back the just created activity as an object
                 user_id = new_activity.object_owner_id
                 sender_id = request.user.id
                 activity_type = new_activity.activity_type
@@ -159,11 +157,12 @@ def add_comment(request):
                 _object = poll.first()
                 notification = NotificationService(request, user_id, sender_id, activity_type, source, _object)
                 notification.create_new_notification()
-                #increment necessary details
+
+                # increment necessary details
                 poll.update({"num_of_votes" : (Poll.num_of_votes + 1)})
                 option.update({"num_of_votes" : (Option.num_of_votes + 1)})
 
-                #save user's age in redis voters age storage
+                # save user's age in redis voters age storage
                 user_age = user.age
                 redis_store = PollVotersAgeStorage(poll_id, REDIS_SERVER)
                 redis_store.increment_age(str(user_age) + '::' + str(option_id))
@@ -183,16 +182,15 @@ def add_comment(request):
                 transaction.commit()
                 newly_created_comment = compile_comment_for_feed(request, new_comment, user)
                 return newly_created_comment
-            else:  #it is an opiion
+
+            else:  # it is an opinion
                 opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id)
 
-                new_user_vote = OpinionVotes()
-                new_user_vote.user_id = user.id
-                new_user_vote.opinion_id = opinion_id
+                # store votes
+                map_user_opinion_option(request, user.id, opinion_id, option_id)
 
-                #store the vote
-                request.dbsession.add(new_user_vote)
-                request.dbsession.flush()
+                # map the choice and the poll to the user
+                map_user_opinion_option(request, user.id, opinion_id, option_id)
 
                 activity_service =  ActivityService(request, 'comment', request.user, new_comment, opinion.first())
                 activity_service.create_new_activity()
@@ -209,7 +207,7 @@ def add_comment(request):
                 notification = NotificationService(request, user_id, sender_id, activity_type, source, _object)
                 notification.create_new_notification()
    
-                #increment necessary details
+                # increment necessary details
                 opinion.update({"num_of_votes" : (Opinion.num_of_votes + 1)})
                 opinion.update({"num_of_comments" : (Opinion.num_of_comments + 1)})
                 
@@ -220,14 +218,16 @@ def add_comment(request):
                     opinion.update({"num_of_agrees" : (Opinion.num_of_agrees + 1)})
                 elif option.title== "Disagree":
                     opinion.update({"num_of_disagrees": (Opinion.num_of_disagrees + 1)})
-                #save user's age in redis voters age storage
+
+                # save user's age in redis voters age storage
                 user_age = user.age
                 redis_store = OpinionVotersAgeStorage(opinion_id, REDIS_SERVER)
                 redis_store.increment_age(str(user_age) + '::' + str(option_id))
 
                 if user.sex:
                     redis_store = OpinionVotersGenderStorage(opinion_id, REDIS_SERVER)
-                    #increment gender_votes
+
+                    # increment gender_votes
                     if user.sex == 'Male':
                         redis_store.increment_gender_votes(str('M') + '::' + str(option_id))
                     else:
@@ -238,12 +238,9 @@ def add_comment(request):
                 return newly_created_comment
         else:
             if opinion_id:
-                new_user_vote = OpinionVotes()
-                new_user_vote.user_id = user.id
-                new_user_vote.opinion_id = opinion_id
+                map_user_opinion_option(request, user.id, opinion_id, option_id)
+
                 opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id)
-                
-                request.dbsession.add(new_user_vote)
                 opinion.update({"num_of_votes" : (Opinion.num_of_votes + 1)})
                 opinion.update({"num_of_comments" : (Opinion.num_of_comments + 1)})
                 option.update({"num_of_votes" : (Option.num_of_votes + 1)})
@@ -259,16 +256,13 @@ def add_comment(request):
 
                 if user.sex:
                     redis_store = OpinionVotersGenderStorage(opinion_id, REDIS_SERVER)
-                    #increment gender_votes
+                    # increment gender_votes
                     if user.sex == 'Male':
                         redis_store.increment_gender_votes(str('M') + '::' + str(option_id))
                     else:
                         redis_store.increment_gender_votes(str('F') + '::' + str(option_id))
-
-            
             
                 transaction.commit() 
-
 
     except Exception as e:
         request.response.status = '400'
@@ -318,14 +312,12 @@ def agree_with_comment(request):
     
     try:
         if poll_id:
-            # store the vote
-            poll = request.dbsession.query(Poll).filter(Poll.id == poll_id)
-            new_user_vote = PollVotes()
-            new_user_vote.user_id = user.id
-            new_user_vote.poll_id = poll_id
+
+            # register what user actually voted for in this poll
+            map_user_poll_option(request, user_id, poll_id, opinion_id)
 
             # store the vote
-            request.dbsession.add(new_user_vote)
+            poll = request.dbsession.query(Poll).filter(Poll.id == poll_id)
 
             # increment necessary details
             poll.update({"num_of_votes" : (Poll.num_of_votes + 1)})
@@ -354,12 +346,9 @@ def agree_with_comment(request):
         elif opinion_id:
             try:
                 opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id)
-                new_user_vote = OpinionVotes()
-                new_user_vote.user_id = user.id
-                new_user_vote.opinion_id = opinion_id
 
-                # store the vote
-                request.dbsession.add(new_user_vote)
+
+                new_user_vote = map_user_opinion_option(request, user_id, opinion_id, option_id)
 
                 # increment necessary details
                 opinion.update({"num_of_votes" : (Opinion.num_of_votes + 1)})

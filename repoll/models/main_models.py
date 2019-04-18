@@ -84,8 +84,24 @@ def compute_time_difference(date1, date2, suffix='ago'):
             return "{}w".format(str(weeks_d))
         else:
             return "{}w remaining".format(str(weeks_d))
-    
-    
+
+
+class UserPollVotes(Base):
+    __tablename__ = "user_poll_votes"
+    id = Column(Integer, primary_key=True)
+    poll_id = Column(Integer, ForeignKey('polls.id'))
+    option_id = Column(Integer, ForeignKey('options.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
+
+
+class UserOpinionVotes(Base):
+    __tablename__ = "user_opinion_votes"
+    id = Column(Integer, primary_key=True)
+    opinion_id = Column(Integer, ForeignKey('opinions.id'))
+    option_id = Column(Integer, ForeignKey('options.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
+
+
 class ContextImage(Base):
     __tablename__ = 'context_images'
     id = Column(Integer, primary_key=True)
@@ -254,6 +270,7 @@ class PollVotes(Base):
     __tablename__ = 'poll_votes'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
+    option_id = Column(Integer, ForeignKey('options.id'))
     poll_id = Column(Integer, ForeignKey('polls.id'))
     __table_args__ = (UniqueConstraint('user_id', 'poll_id', name='user_poll_uc'),)
 
@@ -261,6 +278,7 @@ class OpinionVotes(Base):
     __tablename__ = 'opinion_votes'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
+    option_id = Column(Integer, ForeignKey('options.id'))
     opinion_id = Column(Integer, ForeignKey('opinions.id'))
     __table_args__ = (UniqueConstraint('user_id', 'opinion_id', name='user_opinion_uc'),)
 

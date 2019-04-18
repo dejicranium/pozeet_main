@@ -53,6 +53,7 @@ def main(argv=sys.argv):
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
         from passlib.apps import custom_app_context
+        
         admin = User(first_name='Deji', 
             last_name='Atoyebi',
             email='itisdeji@gmail.com', 
@@ -90,7 +91,9 @@ def main(argv=sys.argv):
             slug='lara-atoyebi'
             )
 
+        dbsession.add_all([admin, grace, lara])
 
+"""
         with open(COUNTRIES_FILE, 'r') as countries:
             line = countries.readline()
             line = line.strip('\n')
@@ -135,6 +138,5 @@ def main(argv=sys.argv):
 
                     line = fl.readline()
                     
-            
+"""            
 
-        dbsession.add_all([admin, grace, lara])
