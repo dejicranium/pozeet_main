@@ -86,7 +86,7 @@ def create_opinion(request):
     trend.add_opinion(new_opinion)
 
     # get the categories that user has subscribed to
-    subscriptions = return_categories_subscribed_to(request, user)
+    #subscriptions = return_categories_subscribed_to(request, user)
 
     new_activity = ActivityService(request, 'opinion', request.user, new_opinion)
     new_activity.create_new_activity(subscriptions)
@@ -96,12 +96,12 @@ def create_opinion(request):
     # each category that he is subscribed to.
     # first, get activities subscribed to
 
-    #subscriptions = return_categories_subscribed_to(request, user)
+    subscriptions = return_categories_subscribed_to(request, user)
 
-    #for subscription in subscriptions:
-     #   print("HERWERERWERWERWERWERWER")
-      #  active_subscribers_storage = ActiveCategoriesSubscribers(key=subscription)
-       # active_subscribers_storage.add_user(request.user.id)
+    for subscription in subscriptions:
+        print("HERWERERWERWERWERWERWER")
+        active_subscribers_storage = ActiveCategoriesSubscribers(key=subscription)
+        active_subscribers_storage.add_user(request.user.id)
 
     # return the freshly created opinion
     newly_created_opinion = compile_opinion_details(request, new_opinion, user)

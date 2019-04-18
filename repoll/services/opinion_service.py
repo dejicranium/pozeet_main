@@ -16,8 +16,8 @@ def map_user_opinion_option(request, user_id, opinion_id, option_id):
     new_user_opinion_vote.option_id = option_id
 
     # add to database
-    request.dbession.add(new_user_opinion_vote)
-    request.dbession.flush()
+    request.dbsession.add(new_user_opinion_vote)
+    request.dbsession.flush()
 
     return new_user_opinion_vote
 
