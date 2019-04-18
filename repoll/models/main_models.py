@@ -101,7 +101,7 @@ class Conversation(Base):
     replies = relationship("Reply")
 
 
-class UserNotification(Base):
+class UserfA(Base):
     __tablename__ = 'user_notifications'
     user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
     notification_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
@@ -241,6 +241,9 @@ class Activity(Base):
     def __hash__(self):
         return hash(self.id)
 
+
+
+
 class CategorySubscriber(Base):
     __tablename__ = 'category_subscribers'
     category_id = Column(Integer, ForeignKey('categories.id'), primary_key=True)
@@ -267,16 +270,16 @@ class Opinion(Base):
     id = Column(Integer, primary_key=True)
     # this will be revised to 1000
     opinion = Column(Unicode(255), nullable=False)
-    options = relationship("Option")
-    comments = relationship("Comment", backref='opinion')
-    shares = relationship("Share", backref='opinion')
-    agrees = relationship("Agrees", backref='opinion')
-    context_images = relationship("ContextImage", backref='opinion')
+    options = relationship("Option", cascade="all,delete")
+    comments = relationship("Comment", backref='opinion', cascade="all,delete")
+    shares = relationship("Share", backref='opinion', cascade="all,delete")
+    agrees = relationship("Agrees", backref='opinion', cascade="all,delete")
+    context_images = relationship("ContextImage", backref='opinion', cascade="all,delete")
     context_page_title = Column(Unicode(255), nullable=True)
     context_page_thumb = Column(Unicode(255), nullable=True)
     context_page_description = Column(Unicode(255), nullable=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    voters = relationship("OpinionVotes", backref='opinion', primaryjoin=id==OpinionVotes.opinion_id)
+    voters = relationship("OpinionVotes", backref='opinion', primaryjoin=id==OpinionVotes.opinion_id, cascade="all,delete")
     num_of_votes = Column(Integer, default=0)
     num_of_replies = Column(Integer, default=0)
     num_of_comments = Column(Integer, default=0)
@@ -289,7 +292,6 @@ class Opinion(Base):
     @property
     def time_added(self):
         now = datetime.datetime.utcnow()
-
         return compute_time_difference(now, self.date_added)
 
 class Following(Base):
@@ -451,7 +453,7 @@ class Poll(Base):
 
     poser = Column(Integer, ForeignKey('users.id'), nullable=True)  #user
     business_poser = Column(Integer, ForeignKey('businesses.id'), nullable=True) #business
-    info_image_link = Column(Unicode(255), nullable=True)
+    info_image_link =  Column(Unicode(255), nullable=True)
     voters = Column(Integer, ForeignKey('users.id'), nullable=True)
     info = Column(Unicode(255))
     info_link_thumb =Column(Unicode(255), nullable=True)
@@ -469,19 +471,19 @@ class Poll(Base):
     slug = Column(Unicode(255))
 
     votes = relationship("Vote", backref='poll')
-    options = relationship("Option")
-    voters = relationship("PollVotes", backref='poll', primaryjoin=id==PollVotes.poll_id)
-    comments = relationship("Comment", backref='poll')
-    likes = relationship("Like", backref='poll')
-    shares = relationship("Share", backref='poll')
-    context_images = relationship("ContextImage", backref='poll')
+    options = relationship("Option", cascade="all, delete-orphan")
+    voters = relationship("PollVotes", backref='poll', primaryjoin=id==PollVotes.poll_id, cascade="all, delete-orphan")
+    comments = relationship("Comment", backref='poll', cascade="all, delete-orphan")
+    likes = relationship("Like", backref='poll', cascade="all, delete-orphan")
+    shares = relationship("Share", backref='poll', cascade="all, delete-orphan")
+    context_images = relationship("ContextImage", backref='poll', cascade="all, delete-orphan")
     targeted = Column(Integer, default=0)   #to say whether the poll is targeted
                                             #or not. 0 is for not targeted
                                             #1 is for targeted.
 
     end_time = Column(DateTime, nullable=True)
     categories = relationship("PollCategory", backref='polls',
-        primaryjoin=id == PollCategory.poll_id)
+        primaryjoin=id == PollCategory.poll_id, cascade="all, delete-orphan")
 
     in_channel = Column(Integer, ForeignKey('channels.id'))
     

@@ -86,7 +86,7 @@ export default {
                 return siteUrl + 'pozeet.com/poll/' + this.activity.id + '/';
             }
             else if (this.activity.type == "opinion"){
-                return siteUrl + "pozeet.com/opinion" + this.activity.id +'/';
+                return siteUrl + "pozeet.com/opinion/" + this.activity.id +'/';
             }
         }
     }

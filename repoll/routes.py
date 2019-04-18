@@ -146,3 +146,6 @@ def includeme(config):
     config.add_route('load_followees_activities', '/l_follow_acts')
     config.add_route('add_new_follower_acts', '/add_new_follower_acts')
     config.add_route('remove_followers_acts', '/remove_followers_acts')
+
+    # temporary
+    config.add_route('add_to_trending', '/add_to_trending')

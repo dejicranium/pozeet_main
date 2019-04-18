@@ -24,16 +24,20 @@
       <button v-if="showCommentReplies" style="font-size:13px; color:teal; background-color:transparent;border:0;" @click="getCommentReplies">Hide Replies</button>
 
       <div class="action-buttons">
+	<!-- you can only agree if you've not carried out an action on the opinion or poll-->
         <button v-if="can_agree_to_comments" @click="agree">Agree</button>
 
+	<!-- shows the number of agrees on a comment -->
         <button v-else style="background-color:transparent;">
           <span style="color:black; font-weight:bold;">{{comment.numOfAgrees}} agrees</span>
         </button>
-        
+	
+	<!---
         <button @click="share" v-bind:class="sharedOrNotClass">
           Share
           <span v-if="hasSharedComment">{{numOfShares}}</span>
         </button>
+	-->
 
         <!-- reply button for opinion comments -->
         <button v-if="origin == 'opinion'" @click="addReply"> Reply</button>
@@ -262,11 +266,11 @@ export default {
 
 				});
 			}
-			else {
+			else {	// if it is an opinion
 				axios.post("" + "/agree", {
 					comment_id: this.comment.id,
 					option_id: this.comment.optionId,
-					opinion_id: this.comment.opinion_id,
+					opinion_id: this.comment.opinion.id,
 				}).then(function(response) {
 					vm.numOfAgrees += 1;
 					vm.setCannotAgree();
@@ -278,8 +282,10 @@ export default {
 		},
 
 		setCannotAgree() {
-        	var option_voted_for = this.comment_optionId;
-        	vm.$emit("change_can_agree_state", option_voted_for);
+			var option_voted_for = this.comment.optionId;
+
+			// you can check change_can_agree_state in either ViewPoll.vue or ViewOpinion.vue
+			vm.$emit("change_can_agree_state", option_voted_for);
     	}
 		
     },

@@ -311,10 +311,11 @@ def agree_with_comment(request):
     option = request.dbsession.query(Option).filter(Option.id == option_id)
     comment = request.dbsession.query(Comment).filter(Comment.id == comment_id)
 
-    # we are aggreeing to an opinion
+    # we are aggreeing
     if comment_id and user_id and option_id: 
         new_agree = Agrees(comment_id=comment_id, user_id=user_id, option_id=option_id)
         request.dbsession.add(new_agree)    
+    
     try:
         if poll_id:
             # store the vote
@@ -391,7 +392,7 @@ def agree_with_comment(request):
         raise e
     else:
         request.response.status = '200' 
-        return {'status': 'success'}
+        return {'status': 'success', 'opinion_id': opinion_id}
     
 
 @view_config(route_name='view_opinion_comments', renderer='json')

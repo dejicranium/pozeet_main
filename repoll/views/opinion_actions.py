@@ -175,7 +175,7 @@ def view_opinion(request):
             ]
     }
     if request.user:
-        dictt['userHasVoted'] = int(opinion_id) in return_opinions_voted_in(request, user) or opinion.user_id == request.user.id
+        dictt['userHasVoted'] =  int(opinion_id) in return_opinions_voted_in(request, user) or opinion.user_id == request.user.id
     else:
         dictt['userHasVoted'] = False
     dictt['options'] = [{           

@@ -4,6 +4,7 @@ from ..models.main_models import *
 from greggo.storage.redis.voters_age_storage import PollVotersAgeStorage
 from greggo.storage.redis.voters_gender_storage import PollVotersGenderStorage
 from greggo.config import REDIS_SERVER
+from greggo.storage.redis.trending_storage import (TrendingPollsStorage, TrendingOpinionsStorage, TrendingCommentsStorage)
 
 from ..utils.scraper_util import get_page_thumb_title_desc, url_exists, get_first_url
 from ..utils.compile_util import compile_poll_details, compile_opinion_details
@@ -15,6 +16,15 @@ from sqlalchemy import or_, and_
 from ..services.activity_service import get_source
 from ..services.follow_service import FollowService
 from ..services.auth_service import upload_profile_picture
+
+
+
+def get_poll_voters_id(poll):
+    voter_ids = []
+    voters_queryset = poll.voters
+    for voter in voters_queryset:
+        voter_ids.append(voter.id)
+    return voter_ids
 
 
 @view_config(route_name="load_followers", renderer="json")
@@ -73,3 +83,97 @@ def resolve_voters_data(request):
             source_id =  activity.source_id
             voters_age_storage = PollVotersAgeStorage(source_id, REDIS_SERVER)
     pass
+
+
+@view_config(route_name="add_to_trending", renderer='json')
+def add_to_trending(request):
+
+    share = request.dbsession.query(Like)
+    share.delete()
+    share = request.dbsession.query(Share)
+    share.delete()
+    share = request.dbsession.query(Reply)
+    share.delete()
+    agrees = request.dbsession.query(Comment)
+    agrees.delete()
+    options = request.dbsession.query(Option)
+    options.delete()
+    polls = request.dbsession.query(Poll)
+    context_images = request.dbsession.query(ContextImage)
+    context_images.delete()
+    context_images = request.dbsession.query(SeenResults)
+    context_images.delete()
+    context_images = request.dbsession.query(OpinionVotes)
+    context_images.delete()
+    activities = request.dbsession.query(Notification)
+    activities.delete()
+
+
+    polls.delete()
+    """
+    for poll in polls:
+        try:
+            poll.delete()
+        except Exception as e:
+            return {'status': e} 
+
+    for opinion in opinions:
+        try: 
+            opinion.delete()
+        except Exception as e:
+            return {'status': e}
+    """
+    """
+    activities = request.dbsession.query(Activity).all()
+    for activity in activities: 
+        if activity:
+            try:
+                source = get_source(request, activity)
+                if source == Poll: 
+                    poll_id = activity.source_id
+                    poll = request.dbsession.query(Poll).filter(Poll.id == poll_id).first()
+                    # the redis trending poll storage
+                    trending_poll = TrendingPollsStorage()
+
+                    trending_poll.add_poll(poll)
+                elif source == Opinion:
+                    opinion_id = activity.source_id
+                    opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id).first()
+                    trending_opinion = TrendingOpinionsStorage()
+                    trending_opinion.add_opinion(opinion)
+
+                elif source == Comment:
+                    comment_id = activity.source_id
+                    comment = request.dbsession.query(Comment).filter(Comment.id == comment_id).first()
+                    trending_comment = TrendingCommentsStorage()
+                    trending_comment.add_comment(comment)
+            except Exception as e: 
+                return {'status': e}
+    """
+
+def populate_demographics(request):
+    activities = request.dbsession.query(Activity).all()
+    for activity in activities: 
+        if activity:
+            try:
+                source = get_source(request, activity)
+                if source == Poll: 
+                    poll_id = activity.source_id
+                    poll = request.dbsession.query(Poll).filter(Poll.id == poll_id).first()
+                    # the redis trending poll storage
+                    trending_poll = TrendingPollsStorage()
+
+                    trending_poll.add_poll(poll)
+                elif source == Opinion:
+                    opinion_id = activity.source_id
+                    opinion = request.dbsession.query(Opinion).filter(Opinion.id == opinion_id).first()
+                    trending_opinion = TrendingOpinionsStorage()
+                    trending_opinion.add_opinion(opinion)
+
+                elif source == Comment:
+                    comment_id = activity.source_id
+                    comment = request.dbsession.query(Comment).filter(Comment.id == comment_id).first()
+                    trending_comment = TrendingCommentsStorage()
+                    trending_comment.add_comment(comment)
+            except Exception as e: 
+                return {'status': e}
