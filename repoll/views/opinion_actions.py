@@ -30,8 +30,6 @@ from ..utils.scraper_util import url_exists, get_first_url, get_page_thumb_title
 import uuid
 
 
-
-
 @view_config(route_name='create_opinion', renderer='json')
 def create_opinion(request):
     options = []

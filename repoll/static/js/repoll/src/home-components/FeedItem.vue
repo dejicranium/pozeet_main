@@ -12,7 +12,7 @@
 				</div>
 
 
-				<div class="avatar-and-details">
+				<div class="avatar-and-details" @click.stop>
 					<div class="avatar" @click="openUserProfile">
 						<img v-if="activity.userPic == null" src="https://www.w3schools.com/howto/img_avatar.png">
 						<img v-if="activity.userPic != null" :src="activity.userPic">                    
@@ -46,7 +46,7 @@
 					<a @click.stop @click.exact="openPoll">{{activity.question}}</a>
 				</h6>
 				<!--poll info -->
-				<div class="poll-info">
+				<div class="poll-info" @click.stop> 
 					<div v-if="infoHasLink != undefined && infoHasLink == null" class="link-info" style="display:flex; padding: 5px;; flex-direction:row; border:0.5px solid lightgrey; border-radius:10px;">
 						<img :src="infoLinkThumb" width="150" height="100" style="margin-right:5px;">
 						<div style="display:flex; flex-direction:column">
