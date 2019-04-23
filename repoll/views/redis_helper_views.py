@@ -104,6 +104,7 @@ def add_to_trending(request):
     context_images = request.dbsession.query(SeenResults)
     context_images.delete()
     context_images = request.dbsession.query(OpinionVotes)
+
     context_images.delete()
     activities = request.dbsession.query(Notification)
     activities.delete()

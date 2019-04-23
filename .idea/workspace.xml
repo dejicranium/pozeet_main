@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb5c8eab-f68a-4759-822e-7cf8753d5410" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/repoll/services/opinion_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/services/opinion_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repoll/views/opinion_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/opinion_actions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alembic/versions/0d08b17e8483_changed_both_pollvotes_and_opinionvotes.py" beforeDir="false" afterPath="$PROJECT_DIR$/alembic/versions/0d08b17e8483_changed_both_pollvotes_and_opinionvotes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/models/main_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/models/main_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repoll/views/redis_helper_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/repoll/views/redis_helper_views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,10 +15,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/repoll/views/comment_actions.py">
+        <entry file="file://$PROJECT_DIR$/repoll/views/redis_helper_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="679">
-              <caret line="265" lean-forward="true" selection-start-line="265" selection-end-line="265" />
+            <state relative-caret-position="306">
+              <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -26,12 +27,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/repoll/scripts/initializedb.py">
+        <entry file="file://$PROJECT_DIR$/repoll/views/comment_actions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="92" selection-start-line="92" selection-end-line="92" />
+            <state relative-caret-position="1586">
+              <caret line="265" lean-forward="true" selection-start-line="265" selection-end-line="265" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/alembic/versions/0d08b17e8483_changed_both_pollvotes_and_opinionvotes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="92" lean-forward="true" selection-start-line="19" selection-start-column="92" selection-end-line="19" selection-end-column="92" />
+            <state relative-caret-position="375">
+              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
               <folding>
                 <element signature="e#137#159#0" expanded="true" />
               </folding>
@@ -100,23 +101,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/repoll/services/opinion_service.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/repoll/models/main_models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+            <state relative-caret-position="166">
+              <caret line="280" column="85" selection-start-line="280" selection-start-column="70" selection-end-line="280" selection-end-column="85" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/repoll/views/poll_actions.py">
+        <entry file="file://$PROJECT_DIR$/repoll/services/opinion_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2885">
-              <caret line="44" column="20" lean-forward="true" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="285">
+              <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -132,7 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>view)o</find>
       <find>pollcategory</find>
       <find>activity</find>
       <find>subscribed_to</find>
@@ -162,6 +162,7 @@
       <find>agree_with</find>
       <find>PollVotes</find>
       <find>map_user_poll</find>
+      <find>user_opinion_uc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -200,7 +201,6 @@
         <option value="$PROJECT_DIR$/greggo/storage/redis/user_followings_storage.py" />
         <option value="$PROJECT_DIR$/repoll/routes.py" />
         <option value="$PROJECT_DIR$/greggo/storage/redis/voters_age_storage.py" />
-        <option value="$PROJECT_DIR$/repoll/views/redis_helper_views.py" />
         <option value="$PROJECT_DIR$/repoll/models/main_models.py" />
         <option value="$PROJECT_DIR$/repoll/services/poll_service.py" />
         <option value="$PROJECT_DIR$/repoll/views/poll_actions.py" />
@@ -210,6 +210,7 @@
         <option value="$PROJECT_DIR$/alembic/versions/0d08b17e8483_changed_both_pollvotes_and_opinionvotes.py" />
         <option value="$PROJECT_DIR$/repoll/views/opinion_actions.py" />
         <option value="$PROJECT_DIR$/repoll/services/opinion_service.py" />
+        <option value="$PROJECT_DIR$/repoll/views/redis_helper_views.py" />
       </list>
     </option>
   </component>
@@ -252,13 +253,12 @@
               <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
               <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
               <item name="repoll" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pozeet_main" type="b2602c69:ProjectViewProjectNode" />
               <item name="pozeet_main" type="462c0819:PsiDirectoryNode" />
-              <item name="repoll" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="repoll.egg-info" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -561,16 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/views/redis_helper_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2415">
-          <caret line="178" column="36" selection-start-line="178" selection-start-column="36" selection-end-line="178" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/greggo/feed_managers/agreggator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -640,37 +630,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/models/main_models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="280" column="54" selection-start-line="280" selection-start-column="54" selection-end-line="280" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/services/poll_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="42" lean-forward="true" selection-start-column="42" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/repoll/views/poll_actions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2885">
           <caret line="44" column="20" lean-forward="true" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/views/comment_actions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="679">
-          <caret line="265" lean-forward="true" selection-start-line="265" selection-end-line="265" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
@@ -697,26 +660,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alembic/versions/85861a2f27b7_add_new_user_column_to_users_table.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alembic/versions/78e744918768_change_type_for_opinion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alembic/versions/0d08b17e8483_changed_both_pollvotes_and_opinionvotes.py">
+    <entry file="file://$PROJECT_DIR$/repoll/services/opinion_service.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="19" column="92" lean-forward="true" selection-start-line="19" selection-start-column="92" selection-end-line="19" selection-end-column="92" />
+          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/services/poll_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="42" lean-forward="true" selection-start-column="42" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/models/main_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="280" column="85" selection-start-line="280" selection-start-column="70" selection-end-line="280" selection-end-column="85" />
           <folding>
-            <element signature="e#137#159#0" expanded="true" />
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/repoll/views/redis_helper_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -731,10 +704,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/repoll/services/opinion_service.py">
+    <entry file="file://$PROJECT_DIR$/repoll/views/comment_actions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+        <state relative-caret-position="1586">
+          <caret line="265" lean-forward="true" selection-start-line="265" selection-end-line="265" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alembic/versions/78e744918768_change_type_for_opinion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alembic/versions/85861a2f27b7_add_new_user_column_to_users_table.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alembic/versions/0d08b17e8483_changed_both_pollvotes_and_opinionvotes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#137#159#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

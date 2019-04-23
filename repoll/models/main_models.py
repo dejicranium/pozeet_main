@@ -279,6 +279,7 @@ class OpinionVotes(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     option_id = Column(Integer, ForeignKey('options.id'))
+
     opinion_id = Column(Integer, ForeignKey('opinions.id'))
     __table_args__ = (UniqueConstraint('user_id', 'opinion_id', name='user_opinion_uc'),)
 

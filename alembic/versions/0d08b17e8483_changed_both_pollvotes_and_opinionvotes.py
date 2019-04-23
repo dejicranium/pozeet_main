@@ -17,8 +17,12 @@ depends_on = None
 
 
 def upgrade():
-    op.add_column('poll_votes', sa.Column('option_id', sa.Integer, sa.ForeignKey('options.id')))
-    op.add_column('opinion_votes', sa.Column('option_id', sa.Integer, sa.ForeignKey('options.id')))
+    op.add_column('poll_votes', sa.Column('option_id', sa.Integer()))
+    op.add_column('opinion_votes', sa.Column('option_id', sa.Integer(),))
+    op.create_foreign_key('option_poll_user_fk', 'poll_votes', 'options', ['id'], ['id'])
+    op.create_foreign_key('option_opinion_user_fk', 'opinion_votes', 'option', ['id'], ['id'])
+
 
 def downgrade():
-    pass
+    op.drop_column('poll_votes', sa.Column('option_id', sa.Integer, sa.ForeignKey('options.id')))
+    op.drop_column('opinion_votes', sa.Column('option_id', sa.Integer, sa.ForeignKey('options.id')))
